@@ -23,7 +23,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/section_bg_highlight"
             android:orientation="vertical"
             android:paddingEnd="15dp"
             android:paddingStart="15dp">
@@ -92,7 +91,6 @@
         android:id="@+id/view_more_information_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/label_cell_height"
-        android:background="@color/section_bg_highlight"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingEnd="15dp"

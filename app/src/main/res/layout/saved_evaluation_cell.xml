@@ -12,7 +12,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_bottom_bg"
         android:gravity="center_vertical"
         android:minHeight="@dimen/checkbox_cell_height"
         android:orientation="horizontal"

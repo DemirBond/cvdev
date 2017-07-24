@@ -12,11 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/section_bg_highlight"
         android:gravity="center_vertical"
         android:minHeight="@dimen/checkbox_cell_height"
         android:orientation="horizontal"
-
         android:paddingEnd="@dimen/cell_padding_right"
         android:paddingStart="@dimen/cell_padding_left">
 

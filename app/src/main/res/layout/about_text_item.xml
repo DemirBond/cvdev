@@ -12,7 +12,6 @@
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/section_bg_highlight"
         android:gravity="center_vertical"
         android:paddingBottom="@dimen/placeholder_cell_padding_bottom"
         android:paddingEnd="@dimen/cell_padding_right"

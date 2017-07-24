@@ -26,4 +26,5 @@
         android:layout_height="@dimen/icon_cell_height"
         android:elevation="5dp"
         app:text="@string/compute_evaluation" />
+
 </LinearLayout>
