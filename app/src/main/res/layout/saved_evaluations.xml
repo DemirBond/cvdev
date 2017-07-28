@@ -15,7 +15,6 @@
     <com.szg_tech.cvdevaluator.core.views.CustomTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/section_bg_highlight"
         android:id="@+id/no_data_message"
         style="@style/Bodylink"
         android:gravity="center"
