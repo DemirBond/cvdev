@@ -374,15 +374,7 @@ class Symptoms extends SectionEvaluationItem {
 
 
                  }));
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.SYMCYANOSIS, "Cyanosis", false, new ArrayList<EvaluationItem>() {
-                    {
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.CENTRAL, "Central cyanosis", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.PERIPHERAL, "Peripheral cyanosis", false));
 
-                    }
-
-
-                }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.SYMEDEMA, "Edema", false, new ArrayList<EvaluationItem>() {
 
                     {
@@ -543,7 +535,7 @@ class Symptoms extends SectionEvaluationItem {
                                           add(new BooleanEvaluationItem(context, ConfigurationParams.CELULITIS, "Celulitis", false));
                                           add(new BooleanEvaluationItem(context, ConfigurationParams.ECHYMOSIS, "Flank or periumbilical echymosis", false));
                                           add(new BooleanEvaluationItem(context, ConfigurationParams.CAPUT, "Caput medusa", false));
-                                          add(new BooleanEvaluationItem(context, ConfigurationParams.ICTERUS, "Icterus", false));
+                                          //add(new BooleanEvaluationItem(context, ConfigurationParams.ICTERUS, "Icterus", false));
                                           add(new BooleanEvaluationItem(context, ConfigurationParams.HENOCH, "Purpura ", false));
                                       }
                                  }));

@@ -25,6 +25,9 @@ class ReviewOfSystems extends SectionEvaluationItem {
             add(new BooleanEvaluationItem(context, ConfigurationParams.THYROTOXICOSIS, "Thyrotoxicosis", false));
             add(new BooleanEvaluationItem(context, ConfigurationParams.HYPOTHYRO, "Hypothyroidism", false));
             add(new BooleanEvaluationItem(context, ConfigurationParams.OSA , "Obstructive sleep apnea", false));
+            add(new BooleanEvaluationItem(context, ConfigurationParams.SINUS , "Sinusitis", false));
+            add(new BooleanEvaluationItem(context, ConfigurationParams.COUGH , "Cough", false));
+            add(new BooleanEvaluationItem(context, ConfigurationParams.SPUTUM , "Sputum", false));
             add(new BooleanEvaluationItem(context, ConfigurationParams.HEMOPTYSIS, "Hemoptysis" ,false));
             add(new BooleanEvaluationItem(context, ConfigurationParams.PREVIOUS_DVTE, "Previous pulmonary embolism" ,false));
             add(new BooleanEvaluationItem(context, ConfigurationParams.PND, "Paroxysmal nocturnal dyspnea", false));

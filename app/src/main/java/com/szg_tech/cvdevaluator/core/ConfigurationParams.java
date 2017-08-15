@@ -104,8 +104,10 @@ public class ConfigurationParams {
     public static final String DIAGNOSTICS = "secdiagnostics";
     public static final String PO_MEDS = "secpo_meds";
     public static final String REVIEW_OF_SYSTEMS = "secreview_of_systems";
+    public static final String SINUS = "Chksinus";
+    public static final String COUGH = "Chkcough";
+    public static final String SPUTUM = "Chksputum";
     public static final String WEIGHT_CHANGE = "chkweightchange";
-
     public static final String PREVIOUS_DVT_PE = "chkPVTE";
     public static final String PREVIOUS_DVTE = "chkDVTE";
     public static final String PND = "chkPND";
@@ -311,13 +313,17 @@ public class ConfigurationParams {
     public static final String MITRAL_OPENING_SNAP = "chkMitralOpeningSnap";
     public static final String NEW_RALES = "chkMR";
     public static final String PULMONARY_EDEMA = "chkPEd";
-    public static final String DIMINISHED_BREATH_SOUNDS = "chkbreath";
+    public static final String INCREASED_THORAX_DIAMETER = "chkthorax";
     public static final String ABDOMINAL_TENDERNESS = "chkabdominal";
+    public static final String DRY_RALES = "chkrhonchi";
+    public static final String PERCUSSION = "chkpercussion";
+    public static final String DIMINISHED_BREATH_SOUNDS = "chkbreath";
     public static final String HJR = "chkHJR";
     public static final String ASCITES = "chkascites";
     public static final String ANY_CNS_SYMPTOMS = "chkAMS";
     public static final String COLD_CLAMMY_EXTERMITIES = "chkshock";
     public static final String EDEMA = "chkedema";
+    public static final String CLUBBING = "Chkskinwarm";
     public static final String DIFFERENCE_IN_SBP = "txtDiffInSBP";
     public static final String CURRENT_THERAPIES = "seccurrent_therapies";
     public static final String EVALUATION = "secevaluation";

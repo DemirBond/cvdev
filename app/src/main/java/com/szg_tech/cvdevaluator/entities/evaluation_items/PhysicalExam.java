@@ -104,13 +104,29 @@ class PhysicalExam extends SectionEvaluationItem {
                     }
                 }));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.NEW_RALES, context.getString(R.string.new_rales), false));
-                add(new BooleanEvaluationItem(context, ConfigurationParams.PULMONARY_EDEMA, context.getString(R.string.pulmonary_edema), false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.PULMONARY_EDEMA, "Diffuse mixed ralles", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.DIMINISHED_BREATH_SOUNDS, context.getString(R.string.diminished_breath_sounds), false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.DRY_RALES, "Dry rales", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.PERCUSSION, "Abnormal resonance to percussion", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.INCREASED_THORAX_DIAMETER, "Increased thorax AP diameter", false));
+
                 add(new BooleanEvaluationItem(context, ConfigurationParams.ABDOMINAL_TENDERNESS, context.getString(R.string.abdominal_tenderness), false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.HJR, "Hepato jugular reflux", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.ASCITES, "Ascites", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.ANY_CNS_SYMPTOMS, context.getString(R.string.any_cns_symptoms), false));
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.SYMCYANOSIS, "Cyanosis", false, new ArrayList<EvaluationItem>() {
+                    {
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.CENTRAL, "Central cyanosis", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.PERIPHERAL, "Peripheral cyanosis", false));
+
+                    }
+
+
+                }));
+
                 add(new BooleanEvaluationItem(context, ConfigurationParams.COLD_CLAMMY_EXTERMITIES, context.getString(R.string.cold_clammy_extermities), false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.CLUBBING, "Clubbing", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.ICTERUS, "Jaundice", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.EDEMA, context.getString(R.string.edema), false));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.DIFFERENCE_IN_SBP, context.getString(R.string.difference_in_sbp), context.getString(R.string.value), 0, 50, false, true));
             }
