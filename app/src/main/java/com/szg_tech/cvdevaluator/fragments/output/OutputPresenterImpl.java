@@ -250,8 +250,8 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
                         }
                     }));
                 }
-
-                add(new BoldEvaluationItem(activity, ConfigurationParams.DIAGNOSTICS, activity.getString(R.string.diagnostics), false));
+                add(new BoldEvaluationItem(activity, ConfigurationParams.ASSESSMENT, "Assessment", false));
+                add(new BoldEvaluationItem(activity, ConfigurationParams.DIAGNOSTICS, "Diagnostics", false));
                 add(new TextEvaluationItem(activity, "temp", "This is a placeholder for a description of what the output/results may be. This can also be omitted altogether. The background color for the output will serve as a severity of the prognosis.", false));
                 add(new BoldEvaluationItem(activity, ConfigurationParams.THERAPEUTICS, activity.getString(R.string.therapeutics), false));
                 add(new TextEvaluationItem(activity, ConfigurationParams.NO_INFO_AVAILABLE, activity.getString(R.string.no_info_available), false));

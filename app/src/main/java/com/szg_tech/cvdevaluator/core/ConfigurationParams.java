@@ -605,6 +605,7 @@ public class ConfigurationParams {
     public static final String RCA = "chkRCA";
     public static final String LCX = "chkLCX";
     public static final String ICD_10 = "secicd_10";
+    public static final String ASSESSMENT = "secassessment";
     public static final String CHRONIC_TOTAL_OCCLUSION = "chkCTO";
     public static final String CORONARY_ANEURYSM = "chkcoraneurysm";
     public static final String CORONARY_DISSECTION = "chkcordissection";
