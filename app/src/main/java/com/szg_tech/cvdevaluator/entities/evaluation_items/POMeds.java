@@ -40,9 +40,10 @@ class POMeds extends SectionEvaluationItem {
                     {
                         add(new BooleanEvaluationItem(context, ConfigurationParams.LISINOPRIL_5QD, "Lisinopril 5 qd", false));
                         add(new BooleanEvaluationItem(context, ConfigurationParams.LISINOPRIL_10QD, "Lisinopril 10-20 qd", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.LISINOPRIL_20QD, "Lisinopril 3" +
-                                "0-40qd", false));
-
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.LISINOPRIL_20QD, "Lisinopril 30-40 qd" ,false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.LOSARTAN_25QD,  "Losartan 25 qd", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.LOSARTAN_50QD,  "Losartan 50 qd", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.LOSARTAN_100QD, "Losartan 100 qd" ,false));
                     }
                 }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.PO_DIURETIC, context.getString(R.string.po_diuretic), false, new ArrayList<EvaluationItem>() {
