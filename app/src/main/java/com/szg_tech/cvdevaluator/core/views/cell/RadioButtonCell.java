@@ -45,9 +45,9 @@ public class RadioButtonCell extends LinearLayout implements CellItem {
 
     public void initView() {
         rootView = findViewById(R.id.root_view);
-        radioButton = (RadioButton) findViewById(R.id.radio);
+        radioButton = findViewById(R.id.radio);
         textView = (CustomTextView) findViewById(R.id.name);
-        nextArrow = (ImageView) findViewById(R.id.chevron_fwd);
+        nextArrow = findViewById(R.id.chevron_fwd);
     }
 
     @Override

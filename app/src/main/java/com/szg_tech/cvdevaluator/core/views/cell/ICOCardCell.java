@@ -47,7 +47,7 @@ public class ICOCardCell extends LinearLayout implements CellItem {
         subTitle = (CustomTextView) findViewById(R.id.description);
         blueTextView = (CustomTextView) findViewById(R.id.blue_text_view);
         greenTextView = (CustomTextView) findViewById(R.id.green_text_view);
-        contextMenuButton = (ImageView) findViewById(R.id.context_menu_button);
+        contextMenuButton = findViewById(R.id.context_menu_button);
         viewMoreInformationButton = findViewById(R.id.view_more_information_button);
     }
 

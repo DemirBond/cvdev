@@ -27,12 +27,12 @@ public interface ApiService {
      *
      */
     @GET("/api/api/values")
-    public Call<EvaluationResponse> computeOrSaveEvaluation(@QueryMap(encoded = true) Map<String, Object> options);
+    Call<EvaluationResponse> computeOrSaveEvaluation(@QueryMap(encoded = true) Map<String, Object> options);
 
 
     @GET("/api/api/values")
-    public Call<SavedEvaluationSummaryResponse> retrieveSavedEvaluations();
+    Call<SavedEvaluationSummaryResponse> retrieveSavedEvaluations();
 
     @GET("/api/api/values")
-    public Call<SavedEvaluationResponse> retrieveEvaluationByID(@Query("ID") int id);
+    Call<SavedEvaluationResponse> retrieveEvaluationByID(@Query("ID") int id);
 }

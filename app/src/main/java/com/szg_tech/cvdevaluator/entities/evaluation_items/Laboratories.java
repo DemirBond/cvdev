@@ -9,6 +9,7 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BoldEvaluatio
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalDependantEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
+import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionCheckboxEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 
 import java.util.ArrayList;
@@ -59,6 +60,16 @@ class Laboratories extends SectionEvaluationItem {
                 add(new NumericalEvaluationItem(context, ConfigurationParams.NT_PROBNP_PG_ML, context.getString(R.string.nt_probnp_pg_ml), context.getString(R.string.value), 50, 100000, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.BNP_PG_ML, context.getString(R.string.bnp_pg_ml), context.getString(R.string.value), 10, 100000, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.ALBUMINURIA_MG_GM_OR_MG_24HR, context.getString(R.string.albuminuria_mg_gm_or_mg_24hr), context.getString(R.string.value), 1, 10000, false, true));
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.URINE, "Abnormal urine sediment", false, new ArrayList<EvaluationItem>() {
+                    {
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.RBC, "Isolated RBC", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.RBCCAST, "RBC cast", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.WBCCAST, "WBC cast", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.GRANULAR, "Granular cast", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.OVAL, "Oval cell bodies", false));
+
+                    }
+                }));
             }
         };
     }

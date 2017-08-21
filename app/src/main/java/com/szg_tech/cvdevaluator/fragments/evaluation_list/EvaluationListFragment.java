@@ -27,8 +27,8 @@ public class EvaluationListFragment extends ConfigurableFragment implements Eval
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        bottomButton = (ButtonWithChevron) view.findViewById(R.id.bottom_button);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        bottomButton = view.findViewById(R.id.bottom_button);
         bottomButton.setOnClickListener(v -> presenter.onBottomButtonClick());
         presenter.onCreate();
     }

@@ -120,8 +120,6 @@ class PhysicalExam extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(context, ConfigurationParams.PERIPHERAL, "Peripheral cyanosis", false));
 
                     }
-
-
                 }));
 
                 add(new BooleanEvaluationItem(context, ConfigurationParams.COLD_CLAMMY_EXTERMITIES, context.getString(R.string.cold_clammy_extermities), false));

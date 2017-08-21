@@ -29,8 +29,7 @@ public class NetworkConnectivityControl extends AsyncTask<Void, Void, Boolean>{
 
     @Override
     protected Boolean doInBackground(Void... params) {
-        if(isConnectingToInternet()) return true;
-        return false;
+        return isConnectingToInternet();
     }
 
     @Override

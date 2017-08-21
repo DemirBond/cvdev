@@ -61,7 +61,7 @@ public class SavedEvaluationResponse extends BaseResponse {
         map.put(ConfigurationParams.GENDER, gender);
         map.put(ConfigurationParams.SBP, SBP);
         map.put(ConfigurationParams.DBP, DBP);
-        map.put(ConfigurationParams.IS_PAH, ((isPAH == 1) ? true:false));
+        map.put(ConfigurationParams.IS_PAH, ((isPAH == 1)));
 
         if(rest == null || rest.isEmpty()) return map;
 

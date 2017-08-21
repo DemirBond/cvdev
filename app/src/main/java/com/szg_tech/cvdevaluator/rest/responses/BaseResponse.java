@@ -18,8 +18,7 @@ public class BaseResponse {
 
 
     public boolean isSuccessful(){
-        if(status.equalsIgnoreCase(CODE_SUCCEED)) return true;
-        return false;
+        return status.equalsIgnoreCase(CODE_SUCCEED);
     }
 
     public String getStatus() {

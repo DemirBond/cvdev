@@ -218,12 +218,12 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
             ViewHolder(View itemView) {
                 super(itemView);
                 view = itemView;
-                name = (TextView) itemView.findViewById(R.id.input_name);
-                email = (TextView) itemView.findViewById(R.id.input_email);
-                password = (TextView) itemView.findViewById(R.id.input_password);
-                confirmPassword = (TextView) itemView.findViewById(R.id.input_re_enter_password);
-                linkLogin = (TextView) itemView.findViewById(R.id.link_login);
-                registerButton = (TextView) itemView.findViewById(R.id.btn_register);
+                name = itemView.findViewById(R.id.input_name);
+                email = itemView.findViewById(R.id.input_email);
+                password = itemView.findViewById(R.id.input_password);
+                confirmPassword = itemView.findViewById(R.id.input_re_enter_password);
+                linkLogin = itemView.findViewById(R.id.link_login);
+                registerButton = itemView.findViewById(R.id.btn_register);
             }
         }
     }

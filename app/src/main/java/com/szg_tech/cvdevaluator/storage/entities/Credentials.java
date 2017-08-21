@@ -41,9 +41,7 @@ public class Credentials {
     }
 
     public boolean isExpired() {
-        if(System.currentTimeMillis() >= expireDate)
-            return true;
-        return false;
+        return System.currentTimeMillis() >= expireDate;
     }
 
     public String getEmail() {
@@ -65,8 +63,7 @@ public class Credentials {
     public boolean isEmpty(){
 
         if(email == null || email.isEmpty()) return true;
-        if(password == null || password.isEmpty()) return true;
+        return password == null || password.isEmpty();
 
-        return false;
     }
 }

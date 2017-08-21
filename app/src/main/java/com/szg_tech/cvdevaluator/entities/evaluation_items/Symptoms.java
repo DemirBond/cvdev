@@ -32,19 +32,24 @@ class Symptoms extends SectionEvaluationItem {
                     {
 
                         add(new BoldEvaluationItem(context, ConfigurationParams.PLEASE_SELECT_ONE, context.getString(R.string.please_select_one), true));
+                        add(new RadioButtonGroupEvaluationItem(context, ConfigurationParams.NEW_HF, "Unknown, suspected HF", ConfigurationParams.PLEASE_SELECT_ONE, false, false) {
+                            {
+                                setBackgroundHighlighted(true);
+                            }
+                        });
                         add(new RadioButtonGroupEvaluationItem(context, ConfigurationParams.CHRONIC_HF, context.getString(R.string.chronic_hf), ConfigurationParams.PLEASE_SELECT_ONE, false, false) {
                             {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new RadioButtonGroupEvaluationItem(context, ConfigurationParams.NEW_HF, context.getString(R.string.new_hf), ConfigurationParams.PLEASE_SELECT_ONE, false, false) {
+                        add(new RadioButtonGroupEvaluationItem(context, ConfigurationParams.LUNG, "Chronic lung disease", ConfigurationParams.PLEASE_SELECT_ONE, false, false) {
                             {
                                 setBackgroundHighlighted(true);
                             }
                         });
 
                         add(new EmptyCellEvaluationItem());
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.OUTPATIENT, "Ambulatory / Outpatient", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.OUTPATIENT, " Slowly progressive / Ambulatory ", false));
                         add(new BooleanEvaluationItem(context, ConfigurationParams.EMERGENCY_ROOM, "Worsening / Emergency room ", false));
 
                         add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.IN_HOSPITAL, "Decompensated/ Hospitalized", false, new ArrayList<EvaluationItem>() {
@@ -67,13 +72,11 @@ class Symptoms extends SectionEvaluationItem {
                             }
 
                         }));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_1, "NYHA class 1", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_2, "NYHA class 2", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_3, "NYHA class 3 ", false));
+
                         add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.DYSPNEA_AT_REST, "Dyspnea at rest", false, new ArrayList<EvaluationItem>() {
 
                         }));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_4, "NYHA class 4", false));
+
                         add(new BooleanEvaluationItem(context, ConfigurationParams.WEIGHT_GAIN, "WEIGHT GAIN", false));
 
 

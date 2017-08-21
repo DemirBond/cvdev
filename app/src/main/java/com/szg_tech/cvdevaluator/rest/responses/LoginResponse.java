@@ -58,10 +58,7 @@ public class LoginResponse {
     }
 
     public boolean isSucceed() {
-        if ((error == null || error.isEmpty()) && (accessToken != null || !accessToken.isEmpty())) {
-            return true;
-        }
-        return false;
+        return (error == null || error.isEmpty()) && (accessToken != null || !accessToken.isEmpty());
     }
 
     @Override
