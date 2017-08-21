@@ -121,14 +121,29 @@ class Diagnostics extends SectionEvaluationItem {
                         add(new NumericalEvaluationItem(context, ConfigurationParams.TRJ_VELOCITY, context.getString(R.string.trj_velocity), context.getString(R.string.value), 1, 6, false));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHEST_X_RAY, context.getString(R.string.chest_x_ray), false, new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHEST_X_RAY, "Chest x-ray", false, new ArrayList<EvaluationItem>() {
+                {
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.RIGHT_PLEURAL_EFFUSION, "Right pleural effusion", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.LEFT_PLEURAL_EFFUSION, "Left pleural effusion", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.PULMONARY_EDEMA_CHEST, "Pulmonary edema", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.ENLARGED_CARDIAC_SOLHOUETTE, "Enlarged cardiac silhoutte", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.WIDENED_MEDIASTENEUM, "Widened mediasteneum", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.PNEUMOTHORAX, "Pneumothorax", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.INFILTRATE, "Infiltrate(s)", false));
+                    add(new BooleanEvaluationItem(context, ConfigurationParams.CONSOLIDATION, "Consolidation", false));
+                }
+                }));
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.HRCT, "High resolution CT", false, new ArrayList<EvaluationItem>() {
                     {
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.RIGHT_PLEURAL_EFFUSION, context.getString(R.string.right_pleural_effusion), false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.LEFT_PLEURAL_EFFUSION, context.getString(R.string.left_pleural_effusion), false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.PULMONARY_EDEMA_CHEST, context.getString(R.string.pulmonary_edema), false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.ENLARGED_CARDIAC_SOLHOUETTE, context.getString(R.string.enlarged_cardiac_solhouette), false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.WIDENED_MEDIASTENEUM, context.getString(R.string.widened_mediasteneum), false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.PNEUMOTHORAX, context.getString(R.string.pneumothorax), false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.GROUND, "Ground glass infiltrates", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.SEPTAL, "Inter, intralobular septal thickening", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.RETICULAR, "Reticular infiltrates", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.NODULAR, "Nodules", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.CONSOLIDATE, "Consolidation", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.HONEY, "Honey combing", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.MEDIAS, "Mediastinal lymphadenopathy", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.BRONCH, "Bronchiectasis", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.PLEURAL, "Pleural thickening", false));
                     }
                 }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.RHC, context.getString(R.string.rhc), false, new ArrayList<EvaluationItem>() {

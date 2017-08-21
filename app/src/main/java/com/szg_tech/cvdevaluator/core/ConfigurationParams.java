@@ -28,7 +28,7 @@ public class ConfigurationParams {
     public static final String SYNCHEST_PAIN = "chkSynProCP";
     public static final String SYNCOPE_PRESYNCOPE = "chkTestSyncope";
     public static final String CHEST_PAIN = "sectionCP";
-    public static final String SYMCYANOSIS = "sectioncyanosis";
+    public static final String SYMCYANOSIS = "chkCyanosis";
     public static final String SYMEDEMA = "sectionedema";
     public static final String PITTING = "chkpitting";
     public static final String NONPITTING = "chknonpitting";
@@ -78,8 +78,8 @@ public class ConfigurationParams {
     public static final String ICTERUS = "chkicterus";
     public static final String HENOCH = "chkhenoch";
     public static final String COSTOVERTEBRAL = "chkcostovertebral";
-    public static final String CENTRAL = "chkcostovertebral";
-    public static final String PERIPHERAL = "chkcostovertebral";
+    public static final String CENTRAL = "chkcentral";
+    public static final String PERIPHERAL = "chkperipheral";
 
     public static final String BACKPAIN = "sectionbackpain";
 
@@ -140,6 +140,7 @@ public class ConfigurationParams {
     public static final String PLEASE_SELECT_ONE = "secplease_select_one";
     public static final String CHRONIC_HF = "chkHFPLVF";
     public static final String NEW_HF = "chknewHF";
+    public static final String LUNG = "chklung";
     public static final String DYSPNEA_ON_EXERTION = "chkDOE";
     public static final String STRENUOUS_EXERTION = "chkclass1";
     public static final String MORE_THAN_DAILY_ROUTINE = "chkclass2";
@@ -370,6 +371,7 @@ public class ConfigurationParams {
     public static final String TOBACCO_USE = "chkSmoke";
     public static final String FAMILY_HISTORY = "chkFamily";
     public static final String CKD = "chkckd";
+
     public static final String SYSTEMIC_ARTERIAL_HYPERTENSION = "chkSAH";
     public static final String AMB_SBP = "ASBP";
     public static final String AMB_DBP = "ADBP";
@@ -414,6 +416,12 @@ public class ConfigurationParams {
     public static final String NT_PROBNP_PG_ML = "txtproBNP";
     public static final String BNP_PG_ML = "txtBNP";
     public static final String ALBUMINURIA_MG_GM_OR_MG_24HR = "txtMICRO";
+    public static final String URINE = "chksediment";
+    public static final String RBC = "chkRBC";
+    public static final String RBCCAST = "chkRBCcast";
+    public static final String WBCCAST = "chkWBCcast";
+    public static final String GRANULAR = "chkgranular";
+    public static final String OVAL = "chkoval";
     public static final String FOUR_ANTIARRYTHMIC = "chkIVAA";
     public static final String CONTINOUS_IVAA = "chkAAcon";
     public static final String BOLUS_IVAA = "chkAAbolus";
@@ -541,10 +549,28 @@ public class ConfigurationParams {
     public static final String ARTIFACTURAL_UNINTERPRETABLE_IMAGES = "chkuninterpret";
     public static final String ECHOCARDIOGRAPHY = "chkEcho";
     public static final String PERICARDIAL_EFFUSION = "chkpericardial";
+    public static final String HYPERCAPNIA= "chkhypercapnia";
+    public static final String ASTHMA= "chkasthma";
+    public static final String ILD= "chkILD";
+    public static final String INTERFERENCE= "chkinterference";
+    public static final String NONE= "chknone";
+    public static final String MINOR= "chkminor";
+    public static final String SOME= "chksome";
+    public static final String SIGNIFICANT= "chksignificant";
+    public static final String COPDEX= "chkCOPDex";
+    public static final String COPDHOS= "chkCOPDhos";
     public static final String DLCO = "txtDLCO";
+    public static final String PO2 = "txtPO2";
+    public static final String FVC= "txtFVC";
     public static final String FEV1_LT = "txtFEV1";
+    public static final String SYMPTOMS_WEEK = "txtsymptoms";
+    public static final String NOCTURNAL = "txtnocturnal";
+    public static final String SABA_USE = "txtSABA";
     public static final String FEV1_PERCENT = "txtFEVP";
     public static final String IC_TLC = "txtICTLC";
+    public static final String CRINC = "txtcr";
+    public static final String CR48H = "txtcrinc";
+    public static final String URVOL = "txturine";
     public static final String RWMA = "chkRWMA";
     public static final String ENLARGED_LA_OR_LVH = "chkEnlargedLA";
     public static final String E_A_LESS_05_AND_DT_MORE_280MS = "chkLVeccenticity";
@@ -568,6 +594,18 @@ public class ConfigurationParams {
     public static final String ENLARGED_CARDIAC_SOLHOUETTE = "chkenlarcar";
     public static final String WIDENED_MEDIASTENEUM = "chkWidened";
     public static final String PNEUMOTHORAX = "chkpneumothorax";
+    public static final String CONSOLIDATION = "chkconsolidation";
+    public static final String INFILTRATE= "chkinfiltrate";
+    public static final String HRCT = "chkHRCT";
+    public static final String GROUND = "chkground";
+    public static final String SEPTAL = "chkseptal";
+    public static final String RETICULAR = "chkreticular";
+    public static final String NODULAR = "chknodular";
+    public static final String CONSOLIDATE = "chkconsolidate";
+    public static final String HONEY = "chkhoney";
+    public static final String BRONCH= "chkbronch";
+    public static final String MEDIAS = "chkmedias";
+    public static final String PLEURAL= "chkpleuralthick";
     public static final String IDIOPATHIC_DCM_NONISCHEMIC = "chkNonischemicCMP";
     public static final String POST_MI_MORE_45 = "chkMI";
     public static final String LV_ANEURYSM = "chkLVaneurysm";
@@ -723,6 +761,9 @@ public class ConfigurationParams {
     public static final String AA_DIAMETER_MORE_5 = "chkAADiameter";
     public static final String THORACIC = "chkthoracic";
     public static final String THORACIC_ABDOMINAL = "chkthoracoabdominal";
+    public static final String PULMONARY= "secPULMONARY";
+    public static final String RENAL= "secRENAL";
+    public static final String PFTS= "secPULMONARY";
     public static final String COMPUTE_EVALUATION = "seccompute_evaluation";
     public static final String PAH_COMPUTE_EVALUATION = "sec_pah_compute_evaluation";
     public static final String OVERVIEW = "secoverview";

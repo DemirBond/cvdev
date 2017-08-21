@@ -18,7 +18,7 @@ import java.util.ArrayList;
 class CurrentCVProfile extends SectionEvaluationItem {
     CurrentCVProfile(Context context) {
         super(context, ConfigurationParams.CURRENT_PAST_CV_PROFILE, null, false);
-        name = context.getString(R.string.cv_profile);
+        name = "Cardiovascular";
         this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionEvaluationItem.SectionElementState.LOCKED;
         this.dependsOn = ConfigurationParams.BIO;

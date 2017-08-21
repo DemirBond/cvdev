@@ -112,7 +112,7 @@ class MajorCVRisk extends SectionEvaluationItem {
                 }));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.TOBACCO_USE, context.getString(R.string.tobacco_use), false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.FAMILY_HISTORY, context.getString(R.string.family_history), false));
-                add(new BooleanEvaluationItem(context, ConfigurationParams.CKD, context.getString(R.string.ckd), false));
+
             }
         };
     }
