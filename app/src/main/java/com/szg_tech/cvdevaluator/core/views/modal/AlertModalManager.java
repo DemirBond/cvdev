@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.modal.text_size_dialog.TextSizeDialog;
 
+import org.w3c.dom.Text;
+
 public class AlertModalManager {
     private static void createAndShowModalAlertDialog(Context context, int titleTextId, int descriptionTextId,
                                                       int ctaButtonTextId, View.OnClickListener onClickListener, boolean isButtonRed) {
@@ -48,7 +50,7 @@ public class AlertModalManager {
         ((TextView) dialogView.findViewById(R.id.title)).setText(titleTextId);
         ((TextView) dialogView.findViewById(R.id.description)).setText(descriptionTextId);
 
-        TextView ctaButton = dialogView.findViewById(R.id.cta_button);
+        TextView ctaButton = (TextView) dialogView.findViewById(R.id.cta_button);
         if (!isButtonRed) {
             ctaButton.setBackgroundResource(R.drawable.blue_button_selector);
         }
@@ -60,7 +62,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(cancelButtonTextId);
         cancelButton.setOnClickListener(v -> {
             alertDialog.dismiss();
@@ -101,7 +103,7 @@ public class AlertModalManager {
         ((TextView) dialogView.findViewById(R.id.title)).setText(title);
         ((TextView) dialogView.findViewById(R.id.description)).setText(description);
 
-        TextView ctaButton = dialogView.findViewById(R.id.cta_button);
+        TextView ctaButton = (TextView) dialogView.findViewById(R.id.cta_button);
         ctaButton.setBackgroundResource(R.drawable.blue_button_selector);
         ctaButton.setText(ctaText);
         ctaButton.setOnClickListener(v -> {
@@ -111,7 +113,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(R.string.cancel);
         cancelButton.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
@@ -125,7 +127,7 @@ public class AlertModalManager {
                 .create();
         ((TextView) dialogView.findViewById(R.id.title)).setText(R.string.warning);
 
-        TextView topCtaButton = dialogView.findViewById(R.id.top_cta_button);
+        TextView topCtaButton = (TextView) dialogView.findViewById(R.id.top_cta_button);
         topCtaButton.setBackgroundResource(R.drawable.blue_button_selector);
         topCtaButton.setText(R.string.three_button_alert_top_button_text);
         topCtaButton.setOnClickListener(v -> {
@@ -135,7 +137,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView middleCtaButton = dialogView.findViewById(R.id.middle_cta_button);
+        TextView middleCtaButton = (TextView) dialogView.findViewById(R.id.middle_cta_button);
         middleCtaButton.setBackgroundResource(R.drawable.blue_button_selector);
         middleCtaButton.setText(R.string.three_button_alert_middle_button_text);
         middleCtaButton.setOnClickListener(v -> {
@@ -145,7 +147,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(R.string.none);
         cancelButton.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();

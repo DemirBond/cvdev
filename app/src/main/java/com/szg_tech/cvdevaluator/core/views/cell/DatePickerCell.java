@@ -41,7 +41,7 @@ public class DatePickerCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        datePicker = findViewById(R.id.date_picker);
+        datePicker = (DatePicker) findViewById(R.id.date_picker);
         textView = (CustomTextView) findViewById(R.id.name);
         setUpView();
     }

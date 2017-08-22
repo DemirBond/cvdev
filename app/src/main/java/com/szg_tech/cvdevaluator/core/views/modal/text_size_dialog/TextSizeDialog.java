@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -57,19 +58,19 @@ public class TextSizeDialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView fontSize12 = view.findViewById(R.id.font_size_12);
+        TextView fontSize12 = (TextView) view.findViewById(R.id.font_size_12);
         increaseTouchRegion(fontSize12);
-        TextView fontSize16 = view.findViewById(R.id.font_size_16);
+        TextView fontSize16 = (TextView) view.findViewById(R.id.font_size_16);
         increaseTouchRegion(fontSize16);
-        TextView fontSize20 = view.findViewById(R.id.font_size_20);
+        TextView fontSize20 = (TextView) view.findViewById(R.id.font_size_20);
         increaseTouchRegion(fontSize20);
-        TextView fontSize24 = view.findViewById(R.id.font_size_24);
+        TextView fontSize24 = (TextView) (TextView) view.findViewById(R.id.font_size_24);
         increaseTouchRegion(fontSize24);
 
-        underline12 = view.findViewById(R.id.underline_12);
-        underline16 = view.findViewById(R.id.underline_16);
-        underline20 = view.findViewById(R.id.underline_20);
-        underline24 = view.findViewById(R.id.underline_24);
+        underline12 = (ImageView) view.findViewById(R.id.underline_12);
+        underline16 = (ImageView) view.findViewById(R.id.underline_16);
+        underline20 = (ImageView) view.findViewById(R.id.underline_20);
+        underline24 = (ImageView) view.findViewById(R.id.underline_24);
         View spaceView = view.findViewById(R.id.space);
         Activity activity = getActivity();
         if (activity != null) {

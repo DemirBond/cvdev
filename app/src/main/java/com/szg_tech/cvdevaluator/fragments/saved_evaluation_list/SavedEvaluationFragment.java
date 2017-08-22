@@ -29,7 +29,7 @@ public class SavedEvaluationFragment extends ConfigurableFragment implements Sav
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         noDataTextView = view.findViewById(R.id.no_data_message);
         presenter.onCreate();
     }

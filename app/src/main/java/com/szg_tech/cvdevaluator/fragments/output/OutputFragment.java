@@ -33,7 +33,7 @@ public class OutputFragment extends ConfigurableFragment implements OutputView {
         returnToEvaluationButton = view.findViewById(R.id.return_to_evaluation);
         returnToEvaluationButton.setOnClickListener(v -> presenter.onReturnToEvaluationButtonClick());
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
         completeEvaluationButton = view.findViewById(R.id.complete_evaluation);
         completeEvaluationButton.setOnClickListener(v -> presenter.onCompleteEvaluationButtonClick());

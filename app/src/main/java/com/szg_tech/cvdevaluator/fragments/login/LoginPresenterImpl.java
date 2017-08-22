@@ -207,10 +207,10 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
             ViewHolder(View itemView) {
                 super(itemView);
                 view = itemView;
-                email = itemView.findViewById(R.id.input_email);
-                password = itemView.findViewById(R.id.input_password);
-                linkSignup = itemView.findViewById(R.id.link_signup);
-                loginButton = itemView.findViewById(R.id.btn_login);
+                email = (TextView) itemView.findViewById(R.id.input_email);
+                password = (TextView) itemView.findViewById(R.id.input_password);
+                linkSignup = (TextView) itemView.findViewById(R.id.link_signup);
+                loginButton = (TextView) itemView.findViewById(R.id.btn_login);
             }
         }
     }

@@ -23,7 +23,7 @@ public class AboutFragment extends ConfigurableFragment implements AboutView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         presenter.onCreate();
     }
 

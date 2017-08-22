@@ -32,9 +32,9 @@ public class TabFragment extends ConfigurableFragment implements TabFragmentView
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tabLayout = view.findViewById(R.id.tab_layout);
-        viewPager = view.findViewById(R.id.view_pager);
-        bottomButton = view.findViewById(R.id.bottom_button);
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        bottomButton = (ButtonWithChevron) view.findViewById(R.id.bottom_button);
         bottomButton.setOnClickListener(v -> presenter.onBottomButtonClick());
         presenter.onCreate();
     }

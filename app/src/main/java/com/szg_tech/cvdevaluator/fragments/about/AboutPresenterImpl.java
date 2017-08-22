@@ -138,7 +138,7 @@ class AboutPresenterImpl extends AbstractPresenter<AboutView> implements AboutPr
             ViewHolder(View itemView) {
                 super(itemView);
                 this.view = itemView;
-                this.text = itemView.findViewById(R.id.text);
+                this.text = (TextView) itemView.findViewById(R.id.text);
             }
         }
 
@@ -147,7 +147,7 @@ class AboutPresenterImpl extends AbstractPresenter<AboutView> implements AboutPr
 
             MapItemViewHolder(View itemView) {
                 super(itemView);
-                this.value = itemView.findViewById(R.id.value);
+                this.value = (TextView) itemView.findViewById(R.id.value);
             }
         }
     }

@@ -51,10 +51,10 @@ public class SectionCell extends LinearLayout implements CellItem {
     private void initView() {
         stateIconLayout = findViewById(R.id.state_icon_layout);
         textView = (CustomTextView) findViewById(R.id.section_name);
-        chevronImage = findViewById(R.id.chevron_fwd);
-        lockImage = findViewById(R.id.lock);
-        viewedImage = findViewById(R.id.viewed);
-        filledImage = findViewById(R.id.filled);
+        chevronImage = (ImageView) findViewById(R.id.chevron_fwd);
+        lockImage = (ImageView) findViewById(R.id.lock);
+        viewedImage = (ImageView) findViewById(R.id.viewed);
+        filledImage = (ImageView) findViewById(R.id.filled);
         setUpView();
     }
 
