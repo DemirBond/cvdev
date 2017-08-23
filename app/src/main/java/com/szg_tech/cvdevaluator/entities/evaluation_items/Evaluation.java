@@ -28,6 +28,8 @@ public class Evaluation extends SectionEvaluationItem {
                 add(new ReviewOfSystems(context));
                 add(new PhysicalExam(context));
                 add(new CurrentCVProfile(context));
+                add(new Pulmonary(context));
+                add(new Renal(context));
                 add(new MajorCVRisk(context));
                 add(new Laboratories(context));
                 add(new Diagnostics(context));
