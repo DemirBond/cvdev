@@ -45,7 +45,7 @@ class Laboratories extends SectionEvaluationItem {
                 add(new BooleanEvaluationItem(context, ConfigurationParams.ALREADY_ON_STATIN, context.getString(R.string.already_on_statin), false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.STATIN_INTOLERANCE, context.getString(R.string.statin_intolerance), false));
 
-                add(new NumericalEvaluationItem(context, ConfigurationParams.CHOLESTEROL, context.getString(R.string.cholesterol), context.getString(R.string.value), 40, 500, false, true));
+                add(new NumericalEvaluationItem(context, ConfigurationParams.CHOLESTEROL, "Cholesterol", context.getString(R.string.value), 40, 500, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.TRG, context.getString(R.string.trg), context.getString(R.string.value), 25, 25000, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.LDL_C, context.getString(R.string.ldl_c), context.getString(R.string.value), 0, 500, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.HDL_C, context.getString(R.string.hdl_c), context.getString(R.string.value), 1, 200, false, true));

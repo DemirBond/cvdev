@@ -8,6 +8,7 @@ import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.RadioButtonGroupEvaluationItem;
+import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionCheckboxEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionPlaceholderEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluationItem;
@@ -30,7 +31,27 @@ class Renal extends SectionEvaluationItem {
     private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {
             {
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.WORSENING_RENAL_FX, "Acute renal failure / worsening renal function", false, new ArrayList<EvaluationItem>() {
+                    {
 
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.CRINC, " Increase in SCrx baseline ", "Value", 1, 10, false, true));
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.CR48H, " Increase in SCr by mg/dl in 48hr ", "Value", 0.1, 112, false, true));
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.URINE, " Urine volume ml/kg/h", "Value", 0, 200, false, true));
+
+
+                    }
+                }));
+
+
+
+
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CKD, "Chronic kidney disease", false, new ArrayList<EvaluationItem>() {
+                    {
+                        //add(new BooleanEvaluationItem(context, ConfigurationParams.ACUTE_EXACERBATION, "Acute exacerbation", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDEX, " More than 1 COPD exacerbation/year ", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDHOS, " One or more hospital admission/year ", false));
+                    }
+                }));
             }
         };
     }

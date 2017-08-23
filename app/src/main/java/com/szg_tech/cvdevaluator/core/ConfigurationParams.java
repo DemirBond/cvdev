@@ -822,11 +822,12 @@ public class ConfigurationParams {
     public static final String SIGNIFICANT= "chksignificant";
     public static final String COPDEX= "chkCOPDex";
     public static final String COPDHOS= "chkCOPDhos";
+    public static final String ACUTE_EXACERBATION= "chkexacerbation";
     public static final String DLCO = "txtDLCO";
     public static final String PO2 = "txtPO2";
     public static final String FVC= "txtFVC";
     public static final String FEV1_LT = "txtFEV1";
-    public static final String SYMPTOMS_WEEK = "txtsymptoms";
+    public static final String SYMPTOMS_WEEK = "txtasymptoms";
     public static final String NOCTURNAL = "txtnocturnal";
     public static final String SABA_USE = "txtSABA";
     public static final String FEV1_PERCENT = "txtFEVP";
