@@ -631,16 +631,42 @@ public class ConfigurationParams {
 
 
     //
-    // Evaluation -> Pulmonary
+    // Evaluation -> Pulmonary:
     //
     public static final String PULMONARY= "secPULMONARY";
     public static final String PFTS= "secPULMONARY";
+    public static final String FVC= "txtFVC";
+    public static final String PO2 = "txtPO2";
+    public static final String NONE= "chknone";
+
+    // Evaluation -> Pulmonary -> Asthma / Reactive airway disease:
+    public static final String ASTHMA= "chkasthma";
+    public static final String SYMPTOMS_WEEK = "txtasymptoms";
+    public static final String NOCTURNAL = "txtnocturnal";
+    public static final String SABA_USE = "txtSABA";
+
+    // Evaluation -> Pulmonary -> Asthma / Reactive airway disease -> Interference with activity:
+    public static final String INTERFERENCE= "chkinterference";
+    public static final String MINOR= "chkminor";
+    public static final String SOME= "chksome";
+    public static final String SIGNIFICANT= "chksignificant";
+
+    // Evaluation -> Pulmonary -> Acute exacerbation:
+    public static final String CKD = "chkckd";
+    public static final String ACUTE_EXACERBATION= "chkexacerbation";
+    public static final String COPDEX= "chkCOPDex";
+    public static final String COPDHOS= "chkCOPDhos";
+
+    public static final String ILD= "chkILD";
 
 
     //
-    // Evaluation -> Renal
+    // Evaluation -> Renal:
     //
     public static final String RENAL= "secRENAL";
+    public static final String CRINC = "txtcr";
+    public static final String CR48H = "txtcrinc";
+    public static final String URVOL = "txturine";
 
 
     //
@@ -813,28 +839,6 @@ public class ConfigurationParams {
     public static final String ECHOCARDIOGRAPHY = "chkEcho";
     public static final String PERICARDIAL_EFFUSION = "chkpericardial";
     public static final String HYPERCAPNIA= "chkhypercapnia";
-    public static final String ASTHMA= "chkasthma";
-    public static final String ILD= "chkILD";
-    public static final String INTERFERENCE= "chkinterference";
-    public static final String NONE= "chknone";
-    public static final String MINOR= "chkminor";
-    public static final String SOME= "chksome";
-    public static final String SIGNIFICANT= "chksignificant";
-    public static final String COPDEX= "chkCOPDex";
-    public static final String COPDHOS= "chkCOPDhos";
-    public static final String ACUTE_EXACERBATION= "chkexacerbation";
-    public static final String DLCO = "txtDLCO";
-    public static final String PO2 = "txtPO2";
-    public static final String FVC= "txtFVC";
-    public static final String FEV1_LT = "txtFEV1";
-    public static final String SYMPTOMS_WEEK = "txtasymptoms";
-    public static final String NOCTURNAL = "txtnocturnal";
-    public static final String SABA_USE = "txtSABA";
-    public static final String FEV1_PERCENT = "txtFEVP";
-    public static final String IC_TLC = "txtICTLC";
-    public static final String CRINC = "txtcr";
-    public static final String CR48H = "txtcrinc";
-    public static final String URVOL = "txturine";
     public static final String RWMA = "chkRWMA";
     public static final String ENLARGED_LA_OR_LVH = "chkEnlargedLA";
     public static final String E_A_LESS_05_AND_DT_MORE_280MS = "chkLVeccenticity";
@@ -1030,6 +1034,10 @@ public class ConfigurationParams {
     public static final String FAMILIAL = "chkFamilial";
     public static final String CTEP = "chkCTEP";
     public static final String DRUGS_TOXINS = "chkDrugs";
+    public static final String FEV1_PERCENT = "txtFEVP";
+    public static final String DLCO = "txtDLCO";
+    public static final String FEV1_LT = "txtFEV1";
+    public static final String IC_TLC = "txtICTLC";
     public static final String TR_JET_VELOCITY = "txtTRJ";
     public static final String EXERCISE_RSVP = "txtERVSP";
     public static final String ADVANCED_ECHOCARDIOGRAPHY = "chkAD";
@@ -1206,7 +1214,6 @@ public class ConfigurationParams {
     public static final String VERSION = "secversion";
 
     public static final String DURATION = "secduration";
-    public static final String CKD = "chkckd";
 
     public static final String ASSESSMENT = "secassessment";
 
