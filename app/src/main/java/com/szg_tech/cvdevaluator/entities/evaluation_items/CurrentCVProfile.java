@@ -64,10 +64,10 @@ class CurrentCVProfile extends SectionEvaluationItem {
                         }));
                         add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.STABLE_ANG, context.getString(R.string.stable_ang), false, new ArrayList<EvaluationItem>() {
                             {
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_1, "NYHACCVS Class 1", false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_2, "NYHACCVS Class 2", false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_3, context.getString(R.string.nyha_ccvs_class_3), false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_4, context.getString(R.string.nyha_ccvs_class_4), false));
+                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_12, "NYHACCVS Class 1", false));
+                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_22, "NYHACCVS Class 2", false));
+                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_32, context.getString(R.string.nyha_ccvs_class_3), false));
+                                add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_42, context.getString(R.string.nyha_ccvs_class_4), false));
                             }
                         }));
                         add(new BooleanEvaluationItem(context, ConfigurationParams.LM, context.getString(R.string.lm), false));
@@ -100,7 +100,13 @@ class CurrentCVProfile extends SectionEvaluationItem {
 
 
 
-                        add(new SectionEvaluationItem(context, ConfigurationParams.NYHA_CLASS, "Heart Failure Stage", false, new ArrayList<EvaluationItem>() {{
+                        add(new SectionEvaluationItem(context, ConfigurationParams.NYHA_CLASS, "Heart Failure Class / Stage", false, new ArrayList<EvaluationItem>() {{
+
+
+                            add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_1, "NYHACCVS Class 1", false));
+                            add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_2, "NYHACCVS Class 2", false));
+                            add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_3, "NYHACCVS Class 3", false));
+                            add(new BooleanEvaluationItem(context, ConfigurationParams.NYHA_CCVS_CLASS_4, "NYHACCVS Class 4", false));
 
                             add(new BooleanEvaluationItem(context, ConfigurationParams.AT_HIGH_RISK, context.getString(R.string.at_high_risk), false));
                             add(new BooleanEvaluationItem(context, ConfigurationParams.NO_SIGNS_OF_HF, context.getString(R.string.no_signs_of_hf), false));
