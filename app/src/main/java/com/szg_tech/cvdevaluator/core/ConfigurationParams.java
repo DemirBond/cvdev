@@ -403,10 +403,10 @@ public class ConfigurationParams {
 
     // Evaluation -> Cardiovascular -> Coronary Heart Disease -> STABLE ANG:
     public static final String STABLE_ANG = "chkSTENUSIS";
-    public static final String NYHA_CCVS_CLASS_1 = "chkNYHA1";
-    public static final String NYHA_CCVS_CLASS_2 = "chkNYHA2";
-    public static final String NYHA_CCVS_CLASS_3 = "chkNYHA3";
-    public static final String NYHA_CCVS_CLASS_4 = "chkNYHA4";
+    public static final String NYHA_CCVS_CLASS_12 = "ChkNYHA1_2";
+    public static final String NYHA_CCVS_CLASS_22 = "ChkNYHA2_2";
+    public static final String NYHA_CCVS_CLASS_32 = "ChkNYHA3_2";
+    public static final String NYHA_CCVS_CLASS_42 = "ChkNYHA4_2";
 
     public static final String LM = "chkLM";
     public static final String LAD = "chkLAD";
@@ -435,9 +435,14 @@ public class ConfigurationParams {
 
     // Evaluation -> Cardiovascular -> Heart Failure -> Heart Failure Stage:
     public static final String NYHA_CLASS = "secnyha_class";
+
     public static final String AT_HIGH_RISK = "chkA";
     public static final String NO_SIGNS_OF_HF = "chkB";
     public static final String SYMPTOMS_OF_HF = "chkC";
+    public static final String NYHA_CCVS_CLASS_1 = "chkNYHA1";
+    public static final String NYHA_CCVS_CLASS_2 = "chkNYHA2";
+    public static final String NYHA_CCVS_CLASS_3 = "chkNYHA3";
+    public static final String NYHA_CCVS_CLASS_4 = "chkNYHA4";
 
     // Evaluation -> Cardiovascular -> Heart Failure -> Heart Failure Stage -> Refractory HF Requiring Specialized Interventions:
     public static final String REFRACTORY_HF = "chkD";
