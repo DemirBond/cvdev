@@ -407,6 +407,10 @@ public class ConfigurationParams {
     public static final String NYHA_CCVS_CLASS_2 = "chkNYHA2";
     public static final String NYHA_CCVS_CLASS_3 = "chkNYHA3";
     public static final String NYHA_CCVS_CLASS_4 = "chkNYHA4";
+    public static final String NYHA_CCVS_CLASS_12 = "chkNYHA12";
+    public static final String NYHA_CCVS_CLASS_22 = "chkNYHA22";
+    public static final String NYHA_CCVS_CLASS_32 = "chkNYHA32";
+    public static final String NYHA_CCVS_CLASS_42 = "chkNYHA42";
 
     public static final String LM = "chkLM";
     public static final String LAD = "chkLAD";
