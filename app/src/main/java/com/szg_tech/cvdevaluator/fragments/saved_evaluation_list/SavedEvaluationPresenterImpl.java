@@ -2,8 +2,11 @@ package com.szg_tech.cvdevaluator.fragments.saved_evaluation_list;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -26,6 +29,7 @@ import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationResponse;
 import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationSummaryResponse;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
+import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,41 +63,49 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
 
     private void pullAndShowSavedEvaluations() {
 
-        ProgressDialog progressDialog = ProgressModalManager.createAndShowRetrieveSavedEvaluationProgressDialog(getActivity());
+        ConnectivityManager conMgr =  (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        if (netInfo == null){   // fetch evaluations from local storage
+            System.out.println("Not connected");
 
-        RestClientProvider.get().getApi().retrieveSavedEvaluations().enqueue(new Callback<SavedEvaluationSummaryResponse>() {
-            @Override
-            public void onResponse(Call<SavedEvaluationSummaryResponse> call, Response<SavedEvaluationSummaryResponse> response) {
+        }else{  // retrive saved evaluations
+            System.out.println("Connected");
 
-                progressDialog.dismiss();
-                if(response.isSuccessful()) {
-                    SavedEvaluationSummaryResponse savedEvaluationSummaryResponse = response.body();
-                    if(savedEvaluationSummaryResponse.isSuccessful()) {
-                        if(savedEvaluationSummaryResponse.getEvals().isEmpty()) {
-                            getView().getNoDataView().setVisibility(View.VISIBLE);
-                            getView().getRecyclerView().setVisibility(View.GONE);
+            ProgressDialog progressDialog = ProgressModalManager.createAndShowRetrieveSavedEvaluationProgressDialog(getActivity());
+
+            RestClientProvider.get().getApi().retrieveSavedEvaluations().enqueue(new Callback<SavedEvaluationSummaryResponse>() {
+                @Override
+                public void onResponse(Call<SavedEvaluationSummaryResponse> call, Response<SavedEvaluationSummaryResponse> response) {
+
+                    progressDialog.dismiss();
+                    if(response.isSuccessful()) {
+                        SavedEvaluationSummaryResponse savedEvaluationSummaryResponse = response.body();
+                        if(savedEvaluationSummaryResponse.isSuccessful()) {
+                            if(savedEvaluationSummaryResponse.getEvals().isEmpty()) {
+                                getView().getNoDataView().setVisibility(View.VISIBLE);
+                                getView().getRecyclerView().setVisibility(View.GONE);
+                            } else {
+                                getView().getNoDataView().setVisibility(View.GONE);
+                                getView().getRecyclerView().setVisibility(View.VISIBLE);
+                            }
+                            getView().getRecyclerView().setAdapter(new SavedEvaluationListRecyclerViewAdapter(getActivity(), savedEvaluationSummaryResponse.getEvals()));
                         } else {
-                            getView().getNoDataView().setVisibility(View.GONE);
-                            getView().getRecyclerView().setVisibility(View.VISIBLE);
+                            showSnackbarBottomButtonError(getActivity(), savedEvaluationSummaryResponse.getMessage());
                         }
-                        getView().getRecyclerView().setAdapter(new SavedEvaluationListRecyclerViewAdapter(getActivity(), savedEvaluationSummaryResponse.getEvals()));
                     } else {
-                        showSnackbarBottomButtonError(getActivity(), savedEvaluationSummaryResponse.getMessage());
+                        System.out.println(response.errorBody());
+                        showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
                     }
-                } else {
-                    System.out.println(response.errorBody());
+                }
+
+                @Override
+                public void onFailure(Call<SavedEvaluationSummaryResponse> call, Throwable t) {
+                    t.printStackTrace();
+                    progressDialog.dismiss();
                     showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
                 }
-            }
-
-            @Override
-            public void onFailure(Call<SavedEvaluationSummaryResponse> call, Throwable t) {
-                t.printStackTrace();
-                progressDialog.dismiss();
-                showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
-            }
-        });
-
+            });
+        }
     }
 
     private void showSnackbarBottomButtonError(Activity activity, String message) {
