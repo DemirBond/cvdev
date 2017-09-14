@@ -171,6 +171,8 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
             case android.R.id.home:
                 popBackStack();
                 break;
+            case R.id.save_evaluation:
+                onSaveEvaluationButtonClick();
         }
         return true;
     }
@@ -178,7 +180,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.home).setVisible(false);
-        menu.findItem(R.id.save_evaluation).setVisible(false);
+//        menu.findItem(R.id.save_evaluation).setVisible(false);
         menu.findItem(R.id.reset_field).setVisible(false);
     }
 

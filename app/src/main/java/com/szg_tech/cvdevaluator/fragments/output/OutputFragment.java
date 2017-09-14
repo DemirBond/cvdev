@@ -37,6 +37,7 @@ public class OutputFragment extends ConfigurableFragment implements OutputView {
 
         saveEvaluationButton = view.findViewById(R.id.complete_evaluation);
         saveEvaluationButton.setOnClickListener(v -> presenter.onSaveEvaluationButtonClick());
+        saveEvaluationButton.setVisibility(View.GONE);
         setHasOptionsMenu(true);
         presenter.onCreate();
     }
