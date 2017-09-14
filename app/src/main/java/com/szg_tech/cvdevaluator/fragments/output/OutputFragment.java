@@ -15,7 +15,7 @@ import com.szg_tech.cvdevaluator.core.ConfigurableFragment;
 public class OutputFragment extends ConfigurableFragment implements OutputView {
     OutputPresenter presenter = createPresenter();
     View returnToEvaluationButton;
-    View completeEvaluationButton;
+    View saveEvaluationButton;
     RecyclerView recyclerView;
 
     public OutputPresenterImpl createPresenter() {
@@ -35,8 +35,8 @@ public class OutputFragment extends ConfigurableFragment implements OutputView {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 
-        completeEvaluationButton = view.findViewById(R.id.complete_evaluation);
-        completeEvaluationButton.setOnClickListener(v -> presenter.onCompleteEvaluationButtonClick());
+        saveEvaluationButton = view.findViewById(R.id.complete_evaluation);
+        saveEvaluationButton.setOnClickListener(v -> presenter.onSaveEvaluationButtonClick());
         setHasOptionsMenu(true);
         presenter.onCreate();
     }

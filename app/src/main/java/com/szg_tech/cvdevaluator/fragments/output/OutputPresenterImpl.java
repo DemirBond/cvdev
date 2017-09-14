@@ -126,7 +126,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
     }
 
     @Override
-    public void onCompleteEvaluationButtonClick() {
+    public void onSaveEvaluationButtonClick() {
         Activity activity = getActivity();
         if (activity != null) {
 

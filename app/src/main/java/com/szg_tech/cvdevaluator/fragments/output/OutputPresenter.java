@@ -11,7 +11,7 @@ interface OutputPresenter extends Presenter {
 
     void onReturnToEvaluationButtonClick();
 
-    void onCompleteEvaluationButtonClick();
+    void onSaveEvaluationButtonClick();
 
     void onResume();
 

@@ -65,7 +65,6 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
-
         evaluationItem = (EvaluationItem) arguments.getSerializable(ConfigurationParams.NEXT_SECTION);
         evaluationItems = evaluationItem.getEvaluationItemList();
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, createValuesDump());
