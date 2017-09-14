@@ -7,6 +7,8 @@ import com.szg_tech.cvdevaluator.core.Presenter;
 interface EvaluationListPresenter extends Presenter {
     void onCreate();
 
+    boolean isEvaluationScreen();
+
     void onBottomButtonClick();
 
     void onResume();

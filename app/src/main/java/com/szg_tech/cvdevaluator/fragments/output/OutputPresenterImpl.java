@@ -178,6 +178,8 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.home).setVisible(false);
+        menu.findItem(R.id.save_evaluation).setVisible(false);
+        menu.findItem(R.id.reset_field).setVisible(false);
     }
 
     private void setActionBarColorDependingOnOutputStatus(AppCompatActivity activity) {

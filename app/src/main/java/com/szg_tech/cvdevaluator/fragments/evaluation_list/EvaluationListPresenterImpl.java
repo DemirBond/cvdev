@@ -140,6 +140,16 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
     @Override
+    public boolean isEvaluationScreen() {
+        if (evaluationItem.getId() == "secevaluation") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
     public void onResume() {
         Activity activity = getActivity();
         if (activity instanceof AppCompatActivity) {
