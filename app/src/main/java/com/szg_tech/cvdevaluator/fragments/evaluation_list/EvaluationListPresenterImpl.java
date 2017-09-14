@@ -140,6 +140,16 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
     @Override
+    public boolean isAboutScreen() {
+        if (evaluationItem.getId() == "secabout") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
     public boolean isEvaluationScreen() {
         if (evaluationItem.getId() == "secevaluation") {
             return true;

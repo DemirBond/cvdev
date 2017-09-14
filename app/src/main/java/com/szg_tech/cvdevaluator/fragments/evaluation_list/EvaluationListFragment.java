@@ -57,13 +57,18 @@ public class EvaluationListFragment extends ConfigurableFragment implements Eval
         // Do something that differs the Activity's menu here
         super.onCreateOptionsMenu(menu, inflater);
 
-        if (presenter.isEvaluationScreen()) {
-            menu.findItem(R.id.home).setVisible(false);
-            menu.findItem(R.id.reset_field).setVisible(false);
+        if (presenter.isAboutScreen()) {
+            menu.clear();
         }
         else {
-            menu.findItem(R.id.save_evaluation).setVisible(false);
-            menu.findItem(R.id.exit_evaluation).setVisible(false);
+            if (presenter.isEvaluationScreen()) {
+                menu.findItem(R.id.home).setVisible(false);
+                menu.findItem(R.id.reset_field).setVisible(false);
+            }
+            else {
+                menu.findItem(R.id.save_evaluation).setVisible(false);
+                menu.findItem(R.id.exit_evaluation).setVisible(false);
+            }
         }
     }
 
