@@ -378,21 +378,7 @@ class Symptoms extends SectionEvaluationItem {
 
                  }));
 
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.SYMEDEMA, "Edema", false, new ArrayList<EvaluationItem>() {
 
-                    {
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.PITTING, " Pitting", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.NONPITTING, " Nonpitting", false));
-
-                    }
-                    {add(new EmptyCellEvaluationItem());}
-                    {
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.LOCALIZED, " Localized", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.DIFFUSE, " Diffuse", false));
-
-                    }
-
-                }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.WEAKNESS, "Weakness", false, new ArrayList<EvaluationItem>() {
 
                     {add(new BooleanEvaluationItem(context, ConfigurationParams.MALAISE, "Malaise / Fatigue", false));}

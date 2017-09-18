@@ -33,7 +33,7 @@ class Renal extends SectionEvaluationItem {
 
                         add(new NumericalEvaluationItem(context, ConfigurationParams.CRINC, " Increase in SCrx baseline ", "Value", 1, 10, false, true));
                         add(new NumericalEvaluationItem(context, ConfigurationParams.CR48H, " Increase in SCr by mg/dl in 48hr ", "Value", 0.1, 112, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.URINE, " Urine volume ml/kg/h", "Value", 0, 200, false, true));
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.URVOL, " Urine volume ml/kg/h", "Value", 0, 200, false, true));
 
 
                     }
@@ -45,8 +45,8 @@ class Renal extends SectionEvaluationItem {
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CKD, "Chronic kidney disease", false, new ArrayList<EvaluationItem>() {
                     {
                         //add(new BooleanEvaluationItem(context, ConfigurationParams.ACUTE_EXACERBATION, "Acute exacerbation", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDEX, " More than 1 COPD exacerbation/year ", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDHOS, " One or more hospital admission/year ", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.RENALIMAGE, " Abnormal renal imaging  ", false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.HISTOLOGY, " Abnormal laboratory ", false));
                     }
                 }));
             }

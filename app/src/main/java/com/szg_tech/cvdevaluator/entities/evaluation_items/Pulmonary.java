@@ -36,7 +36,7 @@ class Pulmonary extends SectionEvaluationItem {
                 add(new NumericalEvaluationItem(context, ConfigurationParams.FVC, "% FVC", "Value", 0, 120, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.DLCO, "% DLCO", "Value", 10, 100, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.PO2, "PO2 mmhg", "Value", 10, 100, false, true));
-                add(new BooleanEvaluationItem(context, ConfigurationParams.NONE, "NSevere chronic hypercapnia", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.NONE, "Severe chronic hypercapnia", false));
 
 
 
@@ -63,7 +63,7 @@ class Pulmonary extends SectionEvaluationItem {
 
 
 
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CKD, "Acute exacerbation", false, new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.LUNG_COPD, "COPD", false, new ArrayList<EvaluationItem>() {
                     {
                         add(new BooleanEvaluationItem(context, ConfigurationParams.ACUTE_EXACERBATION, "Acute exacerbation", false));
                         add(new BooleanEvaluationItem(context, ConfigurationParams.COPDEX, " More than 1 COPD exacerbation/year ", false));

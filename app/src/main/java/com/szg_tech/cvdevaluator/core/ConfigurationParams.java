@@ -157,11 +157,11 @@ public class ConfigurationParams {
     public static final String TRAUMATIC_INJURY = "chkTraumaticInj";
 
     // Evaluation -> Symptoms -> Edema:
-    public static final String SYMEDEMA = "sectionedema";
-    public static final String PITTING = "chkpitting";
-    public static final String NONPITTING = "chknonpitting";
-    public static final String LOCALIZED = "chklocaledema";
-    public static final String DIFFUSE = "chkdiffusedema";
+    //public static final String SYMEDEMA = "sectionedema";
+    //public static final String PITTING = "chkpitting";
+    //public static final String NONPITTING = "chknonpitting";
+    //public static final String LOCALIZED = "chklocaledema";
+    //public static final String DIFFUSE = "chkdiffusedema";
 
     // Evaluation -> Symptoms -> Weakness:
     public static final String WEAKNESS = "sectionweakness";
@@ -657,7 +657,11 @@ public class ConfigurationParams {
     public static final String SIGNIFICANT= "chksignificant";
 
     // Evaluation -> Pulmonary -> Acute exacerbation:
+    public static final String LUNG_COPD = "chkCOPD";
     public static final String CKD = "chkckd";
+
+    public static final String RENALIMAGE = "chkrenalimage";
+    public static final String HISTOLOGY = "chkhistology";
     public static final String ACUTE_EXACERBATION= "chkexacerbation";
     public static final String COPDEX= "chkCOPDex";
     public static final String COPDHOS= "chkCOPDhos";
