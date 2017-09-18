@@ -13,6 +13,10 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/save_evaluation"
+        android:title="@string/save_evaluation" />
+
+    <item
         android:id="@+id/exit_evaluation"
         android:title="@string/exit_evaluation" />
 

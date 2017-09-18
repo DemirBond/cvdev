@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/icon_cell_height"
         android:gravity="center"
-        android:text="@string/complete_evaluation"
+        android:text="@string/save_evaluation"
         app:type="body_link" />
 
 </LinearLayout>

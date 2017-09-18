@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,26 @@ public class EvaluationListFragment extends ConfigurableFragment implements Eval
     @Override
     public EvaluationListPresenter createPresenter() {
         return new EvaluationListPresenterImpl(this);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater) {
+        // Do something that differs the Activity's menu here
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if (presenter.isAboutScreen()) {
+            menu.clear();
+        }
+        else {
+            if (presenter.isEvaluationScreen()) {
+                menu.findItem(R.id.home).setVisible(false);
+                menu.findItem(R.id.reset_field).setVisible(false);
+            }
+            else {
+                menu.findItem(R.id.save_evaluation).setVisible(false);
+                menu.findItem(R.id.exit_evaluation).setVisible(false);
+            }
+        }
     }
 
     @Override

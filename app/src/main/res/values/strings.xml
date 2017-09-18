@@ -529,6 +529,7 @@
     <string name="lphb">LPHB</string>
     <string name="snackbar_range_message">Value for \"%1$s\" exceeds the limits. Please, use range from %2$s to %3$s.</string>
     <string name="snackbar_empty_message">%1$s is mandatory to fill.</string>
+    <string name="save_evaluation">Save Evaluation</string>
     <string name="exit_evaluation">Exit Evaluation</string>
     <string name="reset_field">Reset Field</string>
     <string name="snackbar_bottom_button_error">Please, fill page with valid values before proceeding.</string>

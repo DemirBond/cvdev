@@ -65,7 +65,6 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
-
         evaluationItem = (EvaluationItem) arguments.getSerializable(ConfigurationParams.NEXT_SECTION);
         evaluationItems = evaluationItem.getEvaluationItemList();
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, createValuesDump());
@@ -138,6 +137,26 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             valuesDump.add(evaluationItems.get(i).getValue());
         }
         return valuesDump;
+    }
+
+    @Override
+    public boolean isAboutScreen() {
+        if (evaluationItem.getId() == "secabout") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isEvaluationScreen() {
+        if (evaluationItem.getId() == "secevaluation") {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
