@@ -639,8 +639,9 @@ public class ConfigurationParams {
     // Evaluation -> Pulmonary:
     //
     public static final String PULMONARY= "secPULMONARY";
+
     public static final String PFTS= "secPULMONARY";
-    public static final String FVC= "txtFVC";
+    public static final String FVC= "txtFVCP";
     public static final String PO2 = "txtPO2";
     public static final String NONE= "chknone";
 
