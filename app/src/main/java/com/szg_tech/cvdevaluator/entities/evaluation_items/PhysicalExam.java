@@ -126,6 +126,9 @@ class PhysicalExam extends SectionEvaluationItem {
                 add(new BooleanEvaluationItem(context, ConfigurationParams.CLUBBING, "Clubbing", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.ICTERUS, "Jaundice", false));
                 add(new BooleanEvaluationItem(context, ConfigurationParams.EDEMA, context.getString(R.string.edema), false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.ABSENTR, "Abnormal right LE pulse", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.ABSENTL, "Abnormal left LE pulse", false));
+                add(new BooleanEvaluationItem(context, ConfigurationParams.ABBRUIT, "Abdominal bruit", false));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.DIFFERENCE_IN_SBP, context.getString(R.string.difference_in_sbp), context.getString(R.string.value), 0, 50, false, true));
             }
         };

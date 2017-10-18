@@ -367,6 +367,9 @@ public class ConfigurationParams {
     public static final String COLD_CLAMMY_EXTERMITIES = "chkshock";
     public static final String CLUBBING = "Chkskinwarm";
     public static final String EDEMA = "chkedema";
+    public static final String ABSENTR = "chkabsentright";
+    public static final String ABSENTL = "chkabsentleft";
+    public static final String ABBRUIT = "chkabbruit";
     public static final String DIFFERENCE_IN_SBP = "txtDiffInSBP";
 
 
@@ -745,6 +748,7 @@ public class ConfigurationParams {
     public static final String K_MEQ_L = "txtHomo";
     public static final String CREATININE_MG_DL = "txtcreatinine";
     public static final String BUN_MG_DL = "txtBUN";
+    public static final String HEMOGLOBIN = "txthemoglobin";
     public static final String FASTING_PLASMA_GLUCOSE = "txtGlucose";
     public static final String GFR_ML_MIN = "txtGFR";
     public static final String WORSENING_RENAL_FX = "chkWG";
