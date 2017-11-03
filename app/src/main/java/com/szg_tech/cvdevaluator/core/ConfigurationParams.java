@@ -662,7 +662,7 @@ public class ConfigurationParams {
 
     // Evaluation -> Pulmonary -> Acute exacerbation:
     public static final String LUNG_COPD = "chkCOPD";
-    public static final String CKD = "chkckd";
+    public static final String CKD = "chkCKD";
 
     public static final String RENALIMAGE = "chkrenalimage";
     public static final String HISTOLOGY = "chkhistology";
@@ -751,7 +751,7 @@ public class ConfigurationParams {
     public static final String HEMOGLOBIN = "txthemoglobin";
     public static final String FASTING_PLASMA_GLUCOSE = "txtGlucose";
     public static final String GFR_ML_MIN = "txtGFR";
-    public static final String WORSENING_RENAL_FX = "chkWG";
+    public static final String WORSENING_RENAL_FX = "ChkWG";
     public static final String LIPID_PROFILE = "seclipid_profile";
     public static final String ALREADY_ON_STATIN = "chkalready";
     public static final String STATIN_INTOLERANCE = "chkstatint";
