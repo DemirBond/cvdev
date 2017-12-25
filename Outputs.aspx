@@ -158,7 +158,7 @@ function References() {
                         <td>
                             TargetLdl--C : <asp:Label runat="server" ID="lblTargetLdl"></asp:Label>
                         </td>
-                        <td>FRS: <asp:Label runat="server" ID="lblFRS"></asp:Label></td>
+
                     </tr>--%>
                     <tr>
                         <td>

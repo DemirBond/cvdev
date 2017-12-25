@@ -22,7 +22,7 @@ public class ConfigurationParams {
     public static final String SBP = "txtsbp";
     public static final String DBP = "txtdbp";
     public static final String IS_PAH = "isPAH";
-    public static final String ORTHOSTATIC_SBP = "OrthostaticSBP";
+    public static final String ORTHOSTATIC_SBP = "txtOrthostaticSBP";
     public static final String ORTHOSTATIC_SYMPTOMPS = "chkSymptomatic";
     public static final String WAIST_CIRC = "txtwaist";
     public static final String AA = "chkAsianCode";
