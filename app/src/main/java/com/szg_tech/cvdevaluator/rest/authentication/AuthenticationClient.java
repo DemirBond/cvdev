@@ -16,7 +16,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AuthenticationClient {
 
-    private static final String BASE_URL = "http://www.cvdevaluator.com/api/";
+    private static final String BASE_URL = "http://198.71.134.8/api/";
     private AuthenticationService authenticationService;
 
     public AuthenticationClient() {

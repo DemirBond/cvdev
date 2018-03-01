@@ -5,6 +5,7 @@ import android.content.Context;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
+import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BoldEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.RadioButtonGroupEvaluationItem;
@@ -71,14 +72,14 @@ class Diagnostics extends SectionEvaluationItem {
                 }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.STRESS_TESTING, context.getString(R.string.stress_testing), false, new ArrayList<EvaluationItem>() {
                     {
-                        //TODO duke treadmill fix - count automatically after clarification
+                        add(new BoldEvaluationItem(context, ConfigurationParams.ETT, "Exercise Treadmill Test", false) {
+                            {
+                                setBackgroundHighlighted(true);
+                            }
+                        });
                         add(new NumericalEvaluationItem(context, ConfigurationParams.DUKE_TREADMILL_SCORE, "DTS "," Value" ,-25, 25, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.SERUM_STRESS_SUMMED_SCORE, "SSS", " Value", 0, 99, false, true));
 
 
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.STRESS_DIFFERENCE_SCORE, "SDS", context.getString(R.string.value), 0, 99, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.ISCHEMIC_MYOCARDIUM_ON_MPS, "% Ischemic myocardium", context.getString(R.string.value), 0, 100, false, true));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.TID_OR_SIGNIFICANT_STRESS_INDUCED_LV_DISFUNCTION, "TID or stress induced LV dysfunction", false));
                         add(new NumericalEvaluationItem(context, ConfigurationParams.EX_TIME_MIN, context.getString(R.string.ex_time_min), context.getString(R.string.value), 1, 21, false, true));
                         add(new NumericalEvaluationItem(context, ConfigurationParams.MAX_ST_MM, context.getString(R.string.max_st_mm), context.getString(R.string.value), 0, 8, false, true));
                         add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.ANGINA_INDEX, context.getString(R.string.angina_index), false, new ArrayList<EvaluationItem>() {
@@ -93,14 +94,41 @@ class Diagnostics extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(context, ConfigurationParams.VENTRICULAR_TACHYCARDIA, context.getString(R.string.ventricular_tachycardia), false));
                         add(new BooleanEvaluationItem(context, ConfigurationParams.PROLONG_ST_DEPRESSION, context.getString(R.string.prolong_st_depression), false));
 
-                        add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.FIXED_PERFUSION_DEFECTS_OR_AKINETIC_DYSKINETIC, context.getString(R.string.fixed_perfusion_defects_or_akinetic_dyskinetic), false, new ArrayList<EvaluationItem>() {
+                        add(new BoldEvaluationItem(context, ConfigurationParams.NUCLEAR, "Nuclear Imaging", false) {
+                            {
+                                setBackgroundHighlighted(true);
+                            }
+
+                        });
+
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.SERUM_STRESS_SUMMED_SCORE, "SSS", " Value", 0, 99, false, true));
+
+
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.STRESS_DIFFERENCE_SCORE, "SDS", context.getString(R.string.value), 0, 99, false, true));
+                        add(new NumericalEvaluationItem(context, ConfigurationParams.ISCHEMIC_MYOCARDIUM_ON_MPS, "% Ischemic myocardium", context.getString(R.string.value), 0, 100, false, true));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.TID_OR_SIGNIFICANT_STRESS_INDUCED_LV_DISFUNCTION, "Transient Ischemic Dilatation", false));
+                        add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.FIXED, "Fixed Perfusion Defects", false, new ArrayList<EvaluationItem>() {
+                            {
+                                add(new BooleanEvaluationItem(context, ConfigurationParams.VIABLE, "Viability present", false));
+
+                            }
+                        }));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.ARTIFACTURAL_UNINTERPRETABLE_IMAGES, "Uninterpretable images", false));
+                        add(new BoldEvaluationItem(context, ConfigurationParams.DSE, "Dobutamine Stress Echocardiography", false) {
+                            {
+                                setBackgroundHighlighted(true);
+                            }
+
+                        });
+
+                        add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.FIXED_PERFUSION_DEFECTS_OR_AKINETIC_DYSKINETIC, "Akinetic, dyskinetic segments ", false, new ArrayList<EvaluationItem>() {
                             {
                                 add(new BooleanEvaluationItem(context, ConfigurationParams.VIABILITY_PRESENT, context.getString(R.string.viability_present), false));
                             }
                         }));
                         add(new NumericalEvaluationItem(context, ConfigurationParams.DSE_ISCHEMIC_THRESHOLD, "DSE,ischemic threshold", "Value", 0, 200, false, true));
                         add(new NumericalEvaluationItem(context, ConfigurationParams.DSE_OR_STRESS_MRI, "DSE or stress MRI, # of RWMA segments", "Value", 0, 24, false, true));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.ARTIFACTURAL_UNINTERPRETABLE_IMAGES, context.getString(R.string.artifactural_uninterpretable_images), false));
+                        add(new BooleanEvaluationItem(context, ConfigurationParams.STRESS_INDUCED_IMAGES, "Stress induced LV dilatation", false));
                     }
                 }));
                 add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.ECHOCARDIOGRAPHY, context.getString(R.string.echocardiography), false, new ArrayList<EvaluationItem>() {

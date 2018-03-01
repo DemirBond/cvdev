@@ -107,18 +107,42 @@ public class HeartSpecialistManagement extends SectionEvaluationItem {
                                     add(new NumericalEvaluationItem(context, ConfigurationParams.TR_JET_VELOCITY, "TRJ m/s","Value", 1, 6, false));
                                     add(new NumericalEvaluationItem(context, ConfigurationParams.EXERCISE_RSVP, "Exercise RVSPmmHg","Value", 16, 144, false, true));
 
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.CHECK_IF_LV_TD_DONE, "Check if LV TD done", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.CHECK_IF_RVOT_PW_DONE, "Check if RVOT flow interrogated", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.CHECK_IF_TAPSE_DONE, "Check if TAPSE done", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_LESS_8, "E/E <8 ", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.SHORT_PAAT, "Short PAAT", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.TAPSE_LESS_2, "TAPSE < 2 ", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_8_16, "E/E' 8 to 16", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.MIDSYS_NOTCH, "Midsystolic notch", false));
+
+
+
+
+
+
                                     add(new BooleanEvaluationItem(context, ConfigurationParams.ENLARGED_RA, "Enlarged RA", false));
-                                    add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_MORE_16, "E/E' > 16", false));
+
                                     add(new BooleanEvaluationItem(context, ConfigurationParams.ENLARGED_RV, "Enlarged RV", false));
                                     add(new BooleanEvaluationItem(context, ConfigurationParams.PERICARDIAL_EFFUSION, "Pericardial effusion", false));
+                                            add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHECK_IF_LV_TD_DONE, "Advanced Echocardiography", false, new ArrayList<EvaluationItem>() {
+                                                {
+
+                                                    add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHECK_IF_LV_TD_DONE, "LV tissue doppler", false, new ArrayList<EvaluationItem>() {
+                                                        {
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_LESS_8, "E/E <8 ", false));
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_8_16, "E/E' 8 to 16", false));
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.E_E_MORE_16, "E/E' > 16", false));
+                                                        }
+                                                    }));
+
+                                                    add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHECK_IF_RVOT_PW_DONE, "RVOT DOPPLER ", false, new ArrayList<EvaluationItem>() {
+                                                        {
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.SHORT_PAAT, "Short PAAT", false));
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.MIDSYSTOLIC_NOTCH, "Midsystolic notch", false));
+                                                        }
+                                                    }));
+
+                                                    add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CHECK_IF_TAPSE_DONE, "TAPSE", false, new ArrayList<EvaluationItem>() {
+                                                        {
+                                                            add(new BooleanEvaluationItem(context, ConfigurationParams.TAPSE_LESS_2, "TAPSE < 2 ", false));
+                                                        }
+                                                    }));
+
+                                                }
+                                            }));
                                         }
                                     }
 
@@ -225,7 +249,7 @@ public class HeartSpecialistManagement extends SectionEvaluationItem {
                     }
                 }, SectionElementState.OPENED));
 
-                add(new SectionEvaluationItem(context, ConfigurationParams.ADVANCED_LHF, context.getString(R.string.advanced_lhf), false, new ArrayList<EvaluationItem>() {
+                //add(new SectionEvaluationItem(context, ConfigurationParams.ADVANCED_LHF, context.getString(R.string.advanced_lhf), false, new ArrayList<EvaluationItem>() {
                     {
                         add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.HEART_FAILURE, context.getString(R.string.heart_failure), false, new ArrayList<EvaluationItem>() {
                             {
@@ -237,12 +261,12 @@ public class HeartSpecialistManagement extends SectionEvaluationItem {
                                         add(new BooleanEvaluationItem(context, ConfigurationParams.DAY1, context.getString(R.string.day1), false));
                                         add(new BooleanEvaluationItem(context, ConfigurationParams.DAY2, context.getString(R.string.day2), false));
                                         add(new BooleanEvaluationItem(context, ConfigurationParams.DAY3, context.getString(R.string.day3), false));
-                                        add(new BooleanEvaluationItem(context, ConfigurationParams.DAY4, context.getString(R.string.day4), false));
-                                        add(new BooleanEvaluationItem(context, ConfigurationParams.DAY5, context.getString(R.string.day5), false));
-                                        add(new BooleanEvaluationItem(context, ConfigurationParams.DAY6, context.getString(R.string.day6), false));
+                                        //add(new BooleanEvaluationItem(context, ConfigurationParams.DAY4, context.getString(R.string.day4), false));
+                                        //add(new BooleanEvaluationItem(context, ConfigurationParams.DAY5, context.getString(R.string.day5), false));
+                                        //add(new BooleanEvaluationItem(context, ConfigurationParams.DAY6, context.getString(R.string.day6), false));
 
-                                        add(new BooleanEvaluationItem(context, ConfigurationParams.HFPLVF, context.getString(R.string.hfplvf), false));
-                                        add(new BooleanEvaluationItem(context, ConfigurationParams.FAILED_OUTPUT_RX, context.getString(R.string.failed_output_rx), false));
+                                        //add(new BooleanEvaluationItem(context, ConfigurationParams.HFPLVF, context.getString(R.string.hfplvf), false));
+                                        //add(new BooleanEvaluationItem(context, ConfigurationParams.FAILED_OUTPUT_RX, context.getString(R.string.failed_output_rx), false));
                                         add(new BooleanEvaluationItem(context, ConfigurationParams.CRT_ICD, context.getString(R.string.crt_icd), false));
                                     }
                                 }, SectionElementState.OPENED));
@@ -437,7 +461,7 @@ public class HeartSpecialistManagement extends SectionEvaluationItem {
                         }));
 
                     }
-                }, SectionElementState.OPENED));
+                //}, SectionElementState.OPENED));
 
 
 

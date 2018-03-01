@@ -18,7 +18,7 @@ public class ConfigurationParams {
 
     public static final String BMI = "txtBMI";
     public static final String WEIGHT = "weight";
-    public static final String HEART_RATE = "HR";
+    public static final String HEART_RATE = "txtHR";
     public static final String SBP = "txtsbp";
     public static final String DBP = "txtdbp";
     public static final String IS_PAH = "isPAH";
@@ -406,10 +406,10 @@ public class ConfigurationParams {
 
     // Evaluation -> Cardiovascular -> Coronary Heart Disease -> STABLE ANG:
     public static final String STABLE_ANG = "chkSTENUSIS";
-    public static final String NYHA_CCVS_CLASS_12 = "ChkNYHA1_2";
-    public static final String NYHA_CCVS_CLASS_22 = "ChkNYHA2_2";
-    public static final String NYHA_CCVS_CLASS_32 = "ChkNYHA3_2";
-    public static final String NYHA_CCVS_CLASS_42 = "ChkNYHA4_2";
+    public static final String NYHA_CCVS_CLASS_12 = "chkNYHA1_2";
+    public static final String NYHA_CCVS_CLASS_22 = "chkNYHA2_2";
+    public static final String NYHA_CCVS_CLASS_32 = "chkNYHA3_2";
+    public static final String NYHA_CCVS_CLASS_42 = "chkNYHA4_2";
 
     public static final String LM = "chkLM";
     public static final String LAD = "chkLAD";
@@ -823,11 +823,16 @@ public class ConfigurationParams {
 
     // Evaluation -> Diagnostics -> Stress Testing:
     public static final String STRESS_TESTING = "chkDTS";
+    public static final String ETT = "seccircumstance";
+    public static final String NUCLEAR = "seccircumstance";
+    public static final String DSE = "seccircumstance";
     public static final String DUKE_TREADMILL_SCORE = "TxtTTS";
     public static final String SERUM_STRESS_SUMMED_SCORE = "txtStressSummedScore";
     public static final String STRESS_DIFFERENCE_SCORE = "txtreversible";
     public static final String ISCHEMIC_MYOCARDIUM_ON_MPS = "txtMPS";
     public static final String TID_OR_SIGNIFICANT_STRESS_INDUCED_LV_DISFUNCTION = "chkTID";
+    public static final String FIXED = "chkfixed";
+    public static final String VIABLE = "chkviable";
     public static final String EX_TIME_MIN = "txtExTimeMin";
     public static final String MAX_ST_MM = "txtMaxST";
 
@@ -843,8 +848,9 @@ public class ConfigurationParams {
     public static final String VENTRICULAR_TACHYCARDIA = "chkExVT";
     public static final String VENTRICULAR_TACHYCARDIA_PAH = "chkED";
     public static final String PROLONG_ST_DEPRESSION = "chkprolongedST";
-    public static final String FIXED_PERFUSION_DEFECTS_OR_AKINETIC_DYSKINETIC = "chkfixed";
-    public static final String VIABILITY_PRESENT = "chkviable";
+    public static final String FIXED_PERFUSION_DEFECTS_OR_AKINETIC_DYSKINETIC = "chkfixedSE";
+    public static final String STRESS_INDUCED_IMAGES = "chkviableSE";
+    public static final String VIABILITY_PRESENT = "chkTIDSE";
     public static final String DSE_ISCHEMIC_THRESHOLD = "txtDSE";
     public static final String DSE_OR_STRESS_MRI = "txtWMA";
     public static final String ARTIFACTURAL_UNINTERPRETABLE_IMAGES = "chkuninterpret";

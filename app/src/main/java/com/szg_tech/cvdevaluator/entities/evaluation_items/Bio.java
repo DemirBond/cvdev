@@ -36,7 +36,7 @@ class Bio extends SectionEvaluationItem {
                             }
                         }));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.BMI, "BMI", "Enter BMI value", 10, 50, false, true));
-                add(new NumericalEvaluationItem(context, ConfigurationParams.WEIGHT, context.getString(R.string.weight), context.getString(R.string.weight_hint), 40, 400, false, true));
+                add(new NumericalEvaluationItem(context, ConfigurationParams.WEIGHT, "Weight kg", "", 40, 400, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.HEART_RATE, context.getString(R.string.heart_rate), context.getString(R.string.heart_rate_hint), 30, 300, false, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.SBP, context.getString(R.string.sbp), context.getString(R.string.sbp_hint), 60, 300, true, true));
                 add(new NumericalEvaluationItem(context, ConfigurationParams.DBP, context.getString(R.string.dbp), context.getString(R.string.dbp_hint), 30, 160, true, true));
