@@ -1259,4 +1259,5 @@ public class ConfigurationParams {
 
     public static final String ON_SET_HEART_FAILURE_MONTH = "txtHearthFailureMonth";
     public static final String ON_SET_HEART_FAILURE_YEAR = "txtHearthFailureYear";
+    public static final String EVALUATION_ID = "evaluationID";
 }

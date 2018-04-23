@@ -27,7 +27,7 @@ public interface ApiService {
      *
      */
     @GET("/api/api/evaluation/Evaluate")
-    Call<EvaluationResponse> computeOrSaveEvaluation(@QueryMap(encoded = true) Map<String, Object> options);
+    Call<EvaluationResponse> computeEvaluation(@QueryMap(encoded = true) Map<String, Object> options);
 
     @GET("/api/api/evaluation/SaveEvaluation")
     Call<EvaluationResponse> saveEvaluation(@QueryMap(encoded = true) Map<String, Object> options);

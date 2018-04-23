@@ -23,6 +23,7 @@ public class EvaluationRequest {
     private boolean isPAH;
     private String inputs;
     private boolean isSave;
+    private int evaluationID=-1;
 
 
     public EvaluationRequest(String name, int age, int gender, int SBP, int DBP, boolean isPAH, String inputs) {
@@ -67,7 +68,8 @@ public class EvaluationRequest {
         } else {
             gender = 1;
         }
-
+        //if (evaluationValueMap.containsKey(ConfigurationParams.EVALUATION_ID))
+        //    evaluationID = (Integer) evaluationValueMap.get(ConfigurationParams.EVALUATION_ID);
         name = (String)evaluationValueMap.get(ConfigurationParams.NAME);
         gender = (Integer)evaluationValueMap.get(ConfigurationParams.GENDER);
         SBP = getIntVal(evaluationValueMap.get(ConfigurationParams.SBP));
@@ -134,6 +136,7 @@ public class EvaluationRequest {
         Map<String, Object> map = new HashMap<>();
         if(isSave) {
             map.put("name", name);
+            map.put( "evaluationID", evaluationID);
         }
         map.put("age", age);
         map.put("gender", gender);

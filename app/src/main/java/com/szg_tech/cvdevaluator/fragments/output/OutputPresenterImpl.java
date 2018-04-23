@@ -85,7 +85,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
         EvaluationRequest request = new EvaluationRequest(evaluationValueMap, false);
         System.out.println(request.toMap());
 
-        RestClientProvider.get().getApi().computeOrSaveEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
+        RestClientProvider.get().getApi().computeEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
             @Override
             public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) {
 
@@ -132,8 +132,9 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
 
             AlertModalManager.createAndShowSaveEvaluationAlertDialog(getActivity(), v -> {
                 HashMap<String, Object> evaluationValueMap = EvaluationDAO.getInstance().loadValues();
+                evaluationValueMap.put(ConfigurationParams.EVALUATION_ID, -1);
                 EvaluationRequest request = new EvaluationRequest(evaluationValueMap, true);
-                RestClientProvider.get().getApi().computeOrSaveEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
+                RestClientProvider.get().getApi().saveEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
                     @Override
                     public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) {
 
