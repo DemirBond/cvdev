@@ -728,7 +728,7 @@ public class ConfigurationParams {
     public static final String ACUTELY_SYMPTOMATIC = "secacutely_symptomatic";
     public static final String HEADACHED_BLURRED_VISION_OR_AMS = "chkhead";
     public static final String EPISTAXIS = "chkepis";
-    public static final String CHEST_BACK_PAIN_DYSPNEA = "chkCP";
+    public static final String CHEST_BACK_PAIN_DYSPNEA = "chkHTNCP";
 
     // Evaluation -> Major CV Risk Factors:
     public static final String TOBACCO_USE = "chkSmoke";
