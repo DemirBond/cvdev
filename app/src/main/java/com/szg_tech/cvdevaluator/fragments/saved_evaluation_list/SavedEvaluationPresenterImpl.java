@@ -213,8 +213,8 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
             public ViewHolder(View v) {
                 super(v);
                 view = v;
-                name = (TextView) v.findViewById(R.id.name);
-                date = (TextView) v.findViewById(R.id.date);
+                name = v.findViewById(R.id.name);
+                date = v.findViewById(R.id.date);
             }
         }
 

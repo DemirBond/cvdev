@@ -43,8 +43,8 @@ public class StringEditTextCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        textView = (CustomTextView) findViewById(R.id.name);
-        editText = (CustomEditText) findViewById(R.id.edit_text);
+        textView = findViewById(R.id.name);
+        editText = findViewById(R.id.edit_text);
         setUpView();
     }
 

@@ -38,8 +38,8 @@ public class SectionPlaceholderCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        textView = (CustomTextView) findViewById(R.id.name);
-        placeHolderView = (CustomTextView) findViewById(R.id.placeholder);
+        textView = findViewById(R.id.name);
+        placeHolderView = findViewById(R.id.placeholder);
         setUpView();
     }
 

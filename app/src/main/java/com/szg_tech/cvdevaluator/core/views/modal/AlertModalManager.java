@@ -50,7 +50,7 @@ public class AlertModalManager {
         ((TextView) dialogView.findViewById(R.id.title)).setText(titleTextId);
         ((TextView) dialogView.findViewById(R.id.description)).setText(descriptionTextId);
 
-        TextView ctaButton = (TextView) dialogView.findViewById(R.id.cta_button);
+        TextView ctaButton = dialogView.findViewById(R.id.cta_button);
         if (!isButtonRed) {
             ctaButton.setBackgroundResource(R.drawable.blue_button_selector);
         }
@@ -62,7 +62,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(cancelButtonTextId);
         cancelButton.setOnClickListener(v -> {
             alertDialog.dismiss();
@@ -103,7 +103,7 @@ public class AlertModalManager {
         ((TextView) dialogView.findViewById(R.id.title)).setText(title);
         ((TextView) dialogView.findViewById(R.id.description)).setText(description);
 
-        TextView ctaButton = (TextView) dialogView.findViewById(R.id.cta_button);
+        TextView ctaButton = dialogView.findViewById(R.id.cta_button);
         ctaButton.setBackgroundResource(R.drawable.blue_button_selector);
         ctaButton.setText(ctaText);
         ctaButton.setOnClickListener(v -> {
@@ -113,7 +113,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(R.string.cancel);
         cancelButton.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();
@@ -127,7 +127,7 @@ public class AlertModalManager {
                 .create();
         ((TextView) dialogView.findViewById(R.id.title)).setText(R.string.warning);
 
-        TextView topCtaButton = (TextView) dialogView.findViewById(R.id.top_cta_button);
+        TextView topCtaButton = dialogView.findViewById(R.id.top_cta_button);
         topCtaButton.setBackgroundResource(R.drawable.blue_button_selector);
         topCtaButton.setText(R.string.three_button_alert_top_button_text);
         topCtaButton.setOnClickListener(v -> {
@@ -137,7 +137,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView middleCtaButton = (TextView) dialogView.findViewById(R.id.middle_cta_button);
+        TextView middleCtaButton = dialogView.findViewById(R.id.middle_cta_button);
         middleCtaButton.setBackgroundResource(R.drawable.blue_button_selector);
         middleCtaButton.setText(R.string.three_button_alert_middle_button_text);
         middleCtaButton.setOnClickListener(v -> {
@@ -147,7 +147,7 @@ public class AlertModalManager {
             }
         });
 
-        TextView cancelButton = (TextView) dialogView.findViewById(R.id.cancel_button);
+        TextView cancelButton = dialogView.findViewById(R.id.cancel_button);
         cancelButton.setText(R.string.none);
         cancelButton.setOnClickListener(v -> alertDialog.dismiss());
         alertDialog.show();

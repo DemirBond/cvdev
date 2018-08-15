@@ -43,8 +43,8 @@ public class CheckBoxCell extends LinearLayout implements CellItem {
 
     public void initView() {
         rootView = findViewById(R.id.root_view);
-        checkBox = (CheckBox) findViewById(R.id.checkbox);
-        textView = (CustomTextView) findViewById(R.id.name);
+        checkBox = findViewById(R.id.checkbox);
+        textView = findViewById(R.id.name);
     }
 
     @Override

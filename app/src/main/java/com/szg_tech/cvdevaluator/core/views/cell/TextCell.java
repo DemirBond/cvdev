@@ -39,7 +39,7 @@ public class TextCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        textView = (CustomTextView) findViewById(R.id.text);
+        textView = findViewById(R.id.text);
         setUpView();
     }
 

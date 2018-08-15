@@ -141,22 +141,12 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
 
     @Override
     public boolean isAboutScreen() {
-        if (evaluationItem.getId() == "secabout") {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return evaluationItem.getId() == "secabout";
     }
 
     @Override
     public boolean isEvaluationScreen() {
-        if (evaluationItem.getId() == "secevaluation") {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return evaluationItem.getId() == "secevaluation";
     }
 
     @Override
@@ -377,7 +367,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         ((SnackbarContentLayout) snackbarView.getChildAt(0)).setGravity(Gravity.CENTER);
         ((FrameLayout.LayoutParams) snackbarView.getChildAt(0).getLayoutParams()).gravity = Gravity.CENTER;
         snackbarView.getLayoutParams().height = getView().getBottomButton().getHeight();
-        TextView snackBarTextView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView snackBarTextView = snackbarView.findViewById(android.support.design.R.id.snackbar_text);
         snackBarTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         snackBarTextView.setGravity(Gravity.CENTER);
         ((LinearLayout.LayoutParams) snackBarTextView.getLayoutParams()).gravity = Gravity.CENTER;

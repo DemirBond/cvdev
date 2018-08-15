@@ -43,11 +43,11 @@ public class ICOCardCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        title = (CustomTextView) findViewById(R.id.ico_name);
-        subTitle = (CustomTextView) findViewById(R.id.description);
-        blueTextView = (CustomTextView) findViewById(R.id.blue_text_view);
-        greenTextView = (CustomTextView) findViewById(R.id.green_text_view);
-        contextMenuButton = (ImageView) findViewById(R.id.context_menu_button);
+        title = findViewById(R.id.ico_name);
+        subTitle = findViewById(R.id.description);
+        blueTextView = findViewById(R.id.blue_text_view);
+        greenTextView = findViewById(R.id.green_text_view);
+        contextMenuButton = findViewById(R.id.context_menu_button);
         viewMoreInformationButton = findViewById(R.id.view_more_information_button);
     }
 

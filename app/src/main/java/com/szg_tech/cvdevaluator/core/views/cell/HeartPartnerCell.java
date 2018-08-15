@@ -42,10 +42,10 @@ public class HeartPartnerCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        departmentName = (CustomTextView) findViewById(R.id.department_name);
-        description = (CustomTextView) findViewById(R.id.description);
-        hours = (CustomTextView) findViewById(R.id.hours);
-        contextMenuButton = (ImageView) findViewById(R.id.context_menu_button);
+        departmentName = findViewById(R.id.department_name);
+        description = findViewById(R.id.description);
+        hours = findViewById(R.id.hours);
+        contextMenuButton = findViewById(R.id.context_menu_button);
         viewMoreSpecialistsButton = findViewById(R.id.view_more_specialists_button);
         setUpView();
     }

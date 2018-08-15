@@ -39,8 +39,8 @@ public class SectionCheckboxCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        textView = (CustomTextView) findViewById(R.id.name);
-        checkBox = (CheckBox) findViewById(R.id.checkbox);
+        textView = findViewById(R.id.name);
+        checkBox = findViewById(R.id.checkbox);
         setUpView();
     }
 

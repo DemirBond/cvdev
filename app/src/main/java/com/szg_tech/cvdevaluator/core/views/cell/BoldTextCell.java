@@ -42,7 +42,7 @@ public class BoldTextCell extends LinearLayout implements CellItem {
 
     private void initView() {
         rootView = findViewById(R.id.root_view);
-        textView = (CustomTextView) findViewById(R.id.text);
+        textView = findViewById(R.id.text);
         setUpView();
     }
 

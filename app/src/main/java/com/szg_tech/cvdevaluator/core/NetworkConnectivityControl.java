@@ -66,9 +66,7 @@ public class NetworkConnectivityControl extends AsyncTask<Void, Void, Boolean>{
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             if(cm != null) {
                 NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    return true;
-                }
+                return networkInfo != null && networkInfo.isConnected();
             }
         }
         return false;

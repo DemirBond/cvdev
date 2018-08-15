@@ -41,10 +41,10 @@ public class MinutesSecondsCell extends LinearLayout implements CellItem {
     }
 
     private void initView() {
-        minutesEditText = (CustomEditText) findViewById(R.id.minutes_edit_text);
+        minutesEditText = findViewById(R.id.minutes_edit_text);
         minutesEditText.addTextChangedListener(new InnerTextWatcher(minutesEditText));
 
-        secondsEditText = (CustomEditText) findViewById(R.id.seconds_edit_text);
+        secondsEditText = findViewById(R.id.seconds_edit_text);
         secondsEditText.addTextChangedListener(new InnerTextWatcher(secondsEditText));
         setUpView();
     }

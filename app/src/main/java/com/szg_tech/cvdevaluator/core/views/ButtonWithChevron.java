@@ -50,8 +50,8 @@ public class ButtonWithChevron extends LinearLayout {
     }
 
     private void setUpView(String text, int textColor, Drawable chevronDrawable) {
-        textView = (CustomTextView) findViewById(R.id.section_name);
-        chevronImageView = (ImageView) findViewById(R.id.chevron_fwd);
+        textView = findViewById(R.id.section_name);
+        chevronImageView = findViewById(R.id.chevron_fwd);
         if (text != null) {
             textView.setText(text);
         }

@@ -114,9 +114,9 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
             ViewHolder(View itemView) {
                 super(itemView);
                 view = itemView;
-                image = (ImageView) itemView.findViewById(R.id.image);
-                title = (TextView) itemView.findViewById(R.id.title);
-                description = (TextView) itemView.findViewById(R.id.description);
+                image = itemView.findViewById(R.id.image);
+                title = itemView.findViewById(R.id.title);
+                description = itemView.findViewById(R.id.description);
             }
         }
     }

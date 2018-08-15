@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity{
     private void startAnimation(){
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        ImageView ivLogo = (ImageView) findViewById(R.id.iv_logo);
+        ImageView ivLogo = findViewById(R.id.iv_logo);
         ivLogo.clearAnimation();
         ivLogo.startAnimation(anim);
     }
