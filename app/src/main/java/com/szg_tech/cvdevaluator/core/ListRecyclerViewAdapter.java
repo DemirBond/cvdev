@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomEditText;
@@ -63,12 +64,24 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
     private ArrayList<SectionEvaluationItem> nextSectionEvaluationItems;
     private SectionDependsOnManager sectionDependsOnManager = new SectionDependsOnManager();
     private String parentTitle;
-    private ArrayList<Object> oldValues = new ArrayList<>();
+    private ArrayList<EvaluationItem> expandedItems = new ArrayList<>();
+    HashMap<String, Integer> depthMap;
+    private HashMap<String, Object> oldValues;
 
-    public ListRecyclerViewAdapter(Activity activity, List<EvaluationItem> evaluationItemsList, ArrayList<Object> oldValues) {
+    public ListRecyclerViewAdapter(Activity activity, List<EvaluationItem> evaluationItemsList, HashMap valuesDump) {
         this.activity = activity;
-        this.evaluationItemsList = evaluationItemsList;
-        this.oldValues = oldValues;
+        this.evaluationItemsList = new ArrayList<>(evaluationItemsList);
+        depthMap = new HashMap<String, Integer>();
+        calculateDepth(evaluationItemsList,0);
+        oldValues = valuesDump;
+    }
+
+    private ArrayList<Object> createValuesDump(List<EvaluationItem> evaluationItems) {
+        ArrayList<Object> valuesDump = new ArrayList<>();
+        for (int i = 0; i < evaluationItems.size(); i++) {
+            valuesDump.add(evaluationItems.get(i).getValue());
+        }
+        return valuesDump;
     }
 
     @Override
@@ -170,6 +183,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         if (holder != null) {
             EvaluationItem evaluationItem = evaluationItemsList.get(position);
             String name = evaluationItem.getName();
+
+            if (holder.view instanceof LinearLayout)
+            {
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ((LinearLayout) holder.view).getLayoutParams();
+                params.setMarginStart(depthMap.get(evaluationItem.getId()) * 20);
+                ((LinearLayout) holder.view).setLayoutParams(params);
+            }
+
             if (evaluationItem.isMandatory()) {
                 name += "*";
             }
@@ -333,16 +354,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                         saveAllValues();
                         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
                         if (fragmentManager != null) {
-                            EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluationItem);
-                            bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
-                            evaluationListFragment.setArguments(bundle);
-                            fragmentManager.beginTransaction()
-                                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                                    .replace(R.id.container, evaluationListFragment)
-                                    .addToBackStack(fragmentManager.getClass().getSimpleName() + evaluationItem.getName())
-                                    .commit();
+                            expandList(evaluationItem, position);
                         }
                     }
                 });
@@ -359,20 +371,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                     ((RadioButtonCell) holder.view).showNextArrow();
                     ((RadioButtonCell) holder.view).setOnClickListener(v -> {
                         if (((RadioButtonGroupEvaluationItem) evaluationItem).isChecked()) {
-                            saveAllValues();
-                            FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                            if (fragmentManager != null) {
-                                EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluationItem);
-                                bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
-                                evaluationListFragment.setArguments(bundle);
-                                fragmentManager.beginTransaction()
-                                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                                        .replace(R.id.container, evaluationListFragment)
-                                        .addToBackStack(fragmentManager.getClass().getSimpleName() + evaluationItem.getName())
-                                        .commit();
-                            }
+                            expandList(evaluationItem, position);
                         }
                     });
                 }
@@ -652,24 +651,16 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             } else if (evaluationItem instanceof SectionCheckboxEvaluationItem) {
                 ((SectionCheckboxCell) holder.view).getCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> ((SectionCheckboxEvaluationItem) evaluationItem).setChecked(isChecked));
                 ((SectionCheckboxCell) holder.view).setChecked(((SectionCheckboxEvaluationItem) evaluationItem).isChecked());
+                float rotationAngle = 0.0f;
+                if(expandedItems.contains(evaluationItem)){
+                    rotationAngle = 90.0f;
+                }
+                ((SectionCheckboxCell) holder.view).getChevron().setRotation(rotationAngle);
                 ((SectionCheckboxCell) holder.view).setOnClickListener(v -> {
                     if (isScreenValid()) {
                         if (activity instanceof AppCompatActivity && ((SectionCheckboxCell) holder.view).isChecked()) {
-                            saveAllValues();
-                            FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                            if (fragmentManager != null) {
-                                EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluationItem);
-                                bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
-                                bundle.putBoolean(ConfigurationParams.SHOULD_SHOW_ALERT, ((SectionCheckboxEvaluationItem) evaluationItem).isShouldShowAlert());
-                                evaluationListFragment.setArguments(bundle);
-                                fragmentManager.beginTransaction()
-                                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                                        .replace(R.id.container, evaluationListFragment)
-                                        .addToBackStack(fragmentManager.getClass().getSimpleName() + evaluationItem.getName())
-                                        .commit();
-                            }
+
+                           expandList(evaluationItem, position);
                         }
                     } else {
                         showSnackbarBottomButtonError(((SectionCheckboxCell) holder.view).getRootView());
@@ -694,6 +685,40 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         }
     }
 
+    private void expandList(EvaluationItem evaluationItem, int position) {
+        if(expandedItems.contains(evaluationItem)){
+            collapseList(evaluationItem);
+        } else {
+            expandedItems.add(evaluationItem);
+            ArrayList<EvaluationItem> children = evaluationItem.getEvaluationItemList();
+            evaluationItemsList.addAll(position+1,children);
+            for(EvaluationItem child : children){
+                oldValues.put(child.getId(),child.getValue());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    private void collapseList(EvaluationItem parentItem){
+        expandedItems.remove(parentItem);
+        List<EvaluationItem> children = parentItem.getEvaluationItemList();
+        if(children!=null) {
+            evaluationItemsList.removeAll(children);
+            for (EvaluationItem child : children) {
+                oldValues.remove(child.getId());
+                collapseList(child);
+            }
+        }
+    }
+
+    private void calculateDepth(List<EvaluationItem> items, int depth){
+        if(items!=null) {
+            for (EvaluationItem item : items) {
+               depthMap.put(item.getId(),depth);
+               calculateDepth(item.getEvaluationItemList(),depth+1);
+            }
+        }
+    }
     public void saveAllValues() {
         for (EvaluationItem evaluationItem : evaluationItemsList) {
             EvaluationDAO.getInstance().addToHashMap(evaluationItem.getId(), evaluationItem.getValue());
@@ -717,7 +742,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             if (!isEmptyAllowed && evaluationItem.isMandatory() && (evaluationItem instanceof NumericalEvaluationItem || evaluationItem instanceof StringEvaluationItem) && evaluationItem.getValue() == null) {
                 isFilled = false;
             }
-            if (!Objects.equals(evaluationItem.getValue(), oldValues.get(i))) {
+            Object oldValue = oldValues.get(evaluationItem.getId());
+            if (oldValue!=null && !Objects.equals(evaluationItem.getValue(), oldValue)) {
                 isAllTheSame = false;
             }
             if (!isValid && !isAllTheSame) {
@@ -729,6 +755,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
 
     private void goToNextScreen(int position, SectionEvaluationItem evaluationItem) {
         saveAllValues();
+
         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
@@ -848,6 +875,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.snackbar_red));
             snackbar.show();
         }
+    }
+
+    public void resetFileds() {
+        for(EvaluationItem item : evaluationItemsList){
+            Object oldValue = oldValues.get(item.getId());
+            item.setValue(oldValue);
+        }
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

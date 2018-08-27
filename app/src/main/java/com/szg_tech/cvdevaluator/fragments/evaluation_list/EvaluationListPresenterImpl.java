@@ -37,6 +37,7 @@ import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> implements EvaluationListPresenter {
@@ -44,7 +45,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     private String actionBarSubtitle;
     private ListRecyclerViewAdapter listRecyclerViewAdapter;
     private ArrayList<EvaluationItem> evaluationItems;
-    private ArrayList<Object> valuesDump = new ArrayList<>();
+    private HashMap<String, Object> valuesDump;
     private EvaluationItem evaluationItem;
 
     EvaluationListPresenterImpl(EvaluationListView view) {
@@ -64,10 +65,19 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         }
     }
 
+    private HashMap<String, Object> createValuesDump() {
+        HashMap<String, Object> valuesDump = new HashMap<String, Object>();
+        for (EvaluationItem item : evaluationItems) {
+            valuesDump.put(item.getId(), item.getValue());
+        }
+        return valuesDump;
+    }
+
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
         evaluationItem = (EvaluationItem) arguments.getSerializable(ConfigurationParams.NEXT_SECTION);
         evaluationItems = evaluationItem.getEvaluationItemList();
-        listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, createValuesDump());
+        valuesDump = createValuesDump();
+        listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, valuesDump);
         recyclerView.setAdapter(listRecyclerViewAdapter);
         String actionBarTitle = evaluationItem.getName();
         if (!activity.getResources().getString(R.string.evaluation).equals(actionBarTitle)) {
@@ -132,12 +142,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         }
     }
 
-    private ArrayList<Object> createValuesDump() {
-        for (int i = 0; i < evaluationItems.size(); i++) {
-            valuesDump.add(evaluationItems.get(i).getValue());
-        }
-        return valuesDump;
-    }
+
 
     @Override
     public boolean isAboutScreen() {
@@ -251,30 +256,18 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
 
 
     private void resetValuesForEvaluationItem() {
-        if(evaluationItems != null) {
-            for (int i = 0; i < evaluationItems.size(); i++) {
-                evaluationItems.get(i).setValue(valuesDump.get(i));
-            }
-            setListRecyclerViewAdapter();
+        if (listRecyclerViewAdapter != null) {
+            listRecyclerViewAdapter.resetFileds();
         }
     }
-
-    private void setListRecyclerViewAdapter() {
-        Activity activity = getActivity();
-        if (activity != null) {
-            RecyclerView recyclerView = getView().getRecyclerView();
-            if(recyclerView != null) {
-                listRecyclerViewAdapter = new ListRecyclerViewAdapter(getActivity(), evaluationItems, valuesDump);
-                getView().getRecyclerView().setAdapter(listRecyclerViewAdapter);
-            }
-        }
-    }
-
 
     private void showAlertToClearInputs(Activity activity) {
         AlertModalManager.createAndShowCancelScreenInputDialog(activity, v -> {
-            for (int i = 0; i < evaluationItems.size(); i++) {
-                evaluationItems.get(i).setValue(valuesDump.get(i));
+            for (EvaluationItem item : evaluationItems) {
+                Object value = valuesDump.get(item.getId());
+                if(value!=null){
+                    item.setValue(value);
+                }
             }
             popBackStack();
         });

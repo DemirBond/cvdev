@@ -3,6 +3,7 @@ package com.szg_tech.cvdevaluator.core.views.cell;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.szg_tech.cvdevaluator.R;
@@ -11,6 +12,12 @@ import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 public class SectionCheckboxCell extends LinearLayout implements CellItem {
     private CustomTextView textView;
     private CheckBox checkBox;
+
+    public ImageView getChevron() {
+        return chevron;
+    }
+
+    private ImageView chevron;
 
     public SectionCheckboxCell(Context context) {
         super(context);
@@ -41,6 +48,7 @@ public class SectionCheckboxCell extends LinearLayout implements CellItem {
     private void initView() {
         textView = findViewById(R.id.name);
         checkBox = findViewById(R.id.checkbox);
+        chevron = findViewById(R.id.chevron_fwd);
         setUpView();
     }
 
