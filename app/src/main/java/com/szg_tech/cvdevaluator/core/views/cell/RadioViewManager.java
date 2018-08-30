@@ -31,6 +31,9 @@ public class RadioViewManager {
     }
 
     public void addToMap(RadioButtonCell radioButtonCell, RadioButtonGroupEvaluationItem radioButtonGroupEvaluationItem) {
+        if(radioButtonMap.containsKey(radioButtonCell)){
+            radioButtonMap.remove(radioButtonCell);
+        }
         radioButtonMap.put(radioButtonCell, radioButtonGroupEvaluationItem);
         radioButtonCell.getRadioButton().setOnCheckedChangeListener(RadioViewManager.this::onCheckedChanged);
     }
