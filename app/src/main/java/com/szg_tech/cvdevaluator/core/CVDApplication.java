@@ -15,7 +15,7 @@ import io.realm.Realm;
 
 public class CVDApplication extends Application implements LifecycleObserver {
 
-    static final long RESTART_TIMEOUT = 15*60*1000;
+    static final long RESTART_TIMEOUT = 5*60*1000;
 
     @Override
     public void onCreate() {
