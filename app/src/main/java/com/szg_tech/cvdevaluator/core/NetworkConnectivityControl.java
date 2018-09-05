@@ -26,18 +26,9 @@ public class NetworkConnectivityControl extends AsyncTask<Void, Void, Boolean>{
         this.listener = listener;
     }
 
-
     @Override
     protected Boolean doInBackground(Void... params) {
         return isConnectingToInternet();
-    }
-
-    @Override
-    protected void onPostExecute(Boolean isConnected) {
-        super.onPostExecute(isConnected);
-//        if(!isConnected && listener != null) {
-//            listener.onNetworkConnectionFailed();
-//        }
     }
 
     private boolean isConnectingToInternet() {
@@ -50,7 +41,6 @@ public class NetworkConnectivityControl extends AsyncTask<Void, Void, Boolean>{
                 urlc.setConnectTimeout(3000);
                 urlc.setReadTimeout(4000);
                 urlc.connect();
-                // networkcode2 = urlc.getResponseCode();
                 return (urlc.getResponseCode() == 200);
             } catch (IOException e) {
                 return (false);

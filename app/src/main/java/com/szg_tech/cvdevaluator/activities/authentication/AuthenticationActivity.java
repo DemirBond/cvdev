@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.szg_tech.cvdevaluator.R;
-import com.szg_tech.cvdevaluator.activities.evaluation.EvaluationActivity;
 import com.szg_tech.cvdevaluator.activities.main.MainActivity;
 import com.szg_tech.cvdevaluator.fragments.login.LoginFragment;
 

@@ -66,16 +66,10 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
                 actionBar.setBackgroundDrawable(new ColorDrawable(actionBarColor));
             }
         }
-
     }
 
     private void checkCredentials() {
         Credentials credentials = PreferenceHelper.getCredentials(getActivity());
-//        if(!credentials.isExpired()) {
-//            RestClientProvider.init(credentials.getToken());
-//            ((AuthenticationActivity)getActivity()).onLoginSucceed();
-//        }
-
         if(!credentials.isEmpty()) {
             tryLogin(credentials.getEmail(), credentials.getPassword());
         }
@@ -94,13 +88,12 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
                         if(response.isSuccessful()) {
                             if(response.body().isSucceed()) {
                                 RestClientProvider.init(response.body().getAccessToken());
-
-                                Credentials newCredentials = new Credentials(email, password, response.body().getAccessTokenWithType(),
-                                        System.currentTimeMillis() + (response.body().getExpiresIn()*1000));
-
+                                long expireDate = System.currentTimeMillis() + (response.body().getExpiresIn() * 1000);
+                                String tokenType = response.body().getAccessTokenWithType();
+                                Credentials newCredentials =
+                                        new Credentials(email, password, tokenType, expireDate);
                                 PreferenceHelper.putCredentials(activity, newCredentials);
                                 ((AuthenticationActivity)activity).onLoginSucceed();
-
                             }
                         } else {
                             showSnackbarBottomButtonLoginError(activity);
