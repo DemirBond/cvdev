@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.szg_tech.cvdevaluator.core.CVDApplication;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.storage.entities.Credentials;
 
@@ -38,11 +39,20 @@ public class PreferenceHelper {
     }
 
     public static void removeCredentials(Context context) {
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit().remove(Credentials.TOKEN)
                 .remove(Credentials.EMAIL)
                 .remove(Credentials.PASSWORD)
                 .remove(Credentials.EXPIRE_DATE).apply();
+    }
+
+    public static void saveLastTimeUsed(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences.edit().putLong(Credentials.LAST_TIME_USED,System.currentTimeMillis()).apply();
+    }
+
+    public static long getLastTimeUsed(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getLong(Credentials.LAST_TIME_USED, 0);
     }
 }

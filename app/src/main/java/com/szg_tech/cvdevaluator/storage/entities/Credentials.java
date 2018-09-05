@@ -10,6 +10,7 @@ public class Credentials {
     public static final String EXPIRE_DATE = "expireDate";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    public static final String LAST_TIME_USED = "last_time_used";
 
     private String token;
     private long expireDate;
