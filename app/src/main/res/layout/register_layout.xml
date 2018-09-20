@@ -97,5 +97,13 @@
             android:gravity="center"
             android:textSize="16dip"/>
 
+        <TextView android:id="@+id/link_terms_of_service"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/terms_of_service"
+            android:gravity="center"
+            android:textSize="16dip"/>
+
     </LinearLayout>
 </ScrollView>

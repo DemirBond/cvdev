@@ -894,4 +894,6 @@
     <string name="exit_app">We could not connect to the internet. Would you like to quit the app?</string>
 
     <string name="no_saved_evaluations">There is not saved evaluations.</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="accept">Accept</string>
 </resources>

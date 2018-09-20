@@ -134,9 +134,9 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
         public void onBindViewHolder(RegisterPresenterImpl.RecyclerViewAdapter.ViewHolder holder, int position) {
             holder.registerButton.setOnClickListener(new OnRegisterClickListener(holder));
 
-            holder.linkLogin.setOnClickListener(v -> {
-                getSupportFragmentManager().popBackStack();
-            });
+            holder.linkLogin.setOnClickListener(v -> getSupportFragmentManager().popBackStack());
+
+            holder.termsOfService.setOnClickListener(v -> new ToSDialog().show(getSupportFragmentManager(),"tos_dialog"));
         }
 
         class OnRegisterClickListener implements View.OnClickListener {
@@ -214,6 +214,7 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
             TextView confirmPassword;
             TextView registerButton;
             TextView linkLogin;
+            TextView termsOfService;
 
             ViewHolder(View itemView) {
                 super(itemView);
@@ -223,6 +224,7 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
                 password = itemView.findViewById(R.id.input_password);
                 confirmPassword = itemView.findViewById(R.id.input_re_enter_password);
                 linkLogin = itemView.findViewById(R.id.link_login);
+                termsOfService = itemView.findViewById(R.id.link_terms_of_service);
                 registerButton = itemView.findViewById(R.id.btn_register);
             }
         }

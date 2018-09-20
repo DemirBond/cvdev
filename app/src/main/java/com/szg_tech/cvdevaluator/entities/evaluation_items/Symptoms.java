@@ -8,7 +8,6 @@ import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BoldEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.EmptyCellEvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.MinutesSecondsEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.RadioButtonGroupEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionCheckboxEvaluationItem;
