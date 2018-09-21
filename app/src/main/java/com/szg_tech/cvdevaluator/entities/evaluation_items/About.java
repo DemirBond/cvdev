@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.szg_tech.cvdevaluator.BuildConfig;
 import com.szg_tech.cvdevaluator.R;
-import com.szg_tech.cvdevaluator.core.ConfigurationParams;
+
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.*;
+
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BoldEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
@@ -15,16 +17,16 @@ import java.util.ArrayList;
 
 public class About extends SectionEvaluationItem {
     public About(Context context) {
-        super(context, ConfigurationParams.ABOUT, null, false);
+        super(ABOUT, null);
         name = context.getString(R.string.about);
-        this.evaluationItemList = createEvaluationItemElementsList();
+        this.evaluationItemList = createEvaluationItemElementsList(context);
         sectionElementState = SectionEvaluationItem.SectionElementState.OPENED;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
         return new ArrayList<EvaluationItem>() {
             {
-                add(new SectionEvaluationItem(context, ConfigurationParams.PRIVACY_POLICY, context.getString(R.string.privacy_policy), false, new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(PRIVACY_POLICY, context.getString(R.string.privacy_policy), new ArrayList<EvaluationItem>() {
                     {
 
                     }
@@ -34,9 +36,9 @@ public class About extends SectionEvaluationItem {
                         setBottomButtonReferenceSkipped(true);
                     }
                 });
-                add(new SectionEvaluationItem(context, ConfigurationParams.TERMS_OF_USE, context.getString(R.string.terms_of_use), false, new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(TERMS_OF_USE, context.getString(R.string.terms_of_use), new ArrayList<EvaluationItem>() {
                     {
-                        add(new TextEvaluationItem(context, ConfigurationParams.TERMS_OF_USE_TEXT, context.getString(R.string.terms_of_use_text), false));
+                        add(new TextEvaluationItem(TERMS_OF_USE_TEXT, context.getString(R.string.terms_of_use_text)));
                     }
                 }, SectionElementState.OPENED) {
                     {
@@ -44,7 +46,7 @@ public class About extends SectionEvaluationItem {
                         setBottomButtonReferenceSkipped(true);
                     }
                 });
-                add(new SectionEvaluationItem(context, ConfigurationParams.HELP_SUPPORT, context.getString(R.string.help_support), false, new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(HELP_SUPPORT, context.getString(R.string.help_support), new ArrayList<EvaluationItem>() {
                     {
 
                     }
@@ -54,27 +56,27 @@ public class About extends SectionEvaluationItem {
                         setHasStateIcon(false);
                     }
                 });
-                add(new BoldEvaluationItem(context, ConfigurationParams.DEVELOPMENT, context.getString(R.string.development), false));
-                add(new StringEvaluationItem(context, ConfigurationParams.LOGIC, context.getString(R.string.logic), null, false, null) {
+                add(new BoldEvaluationItem(DEVELOPMENT, context.getString(R.string.development)));
+                add(new StringEvaluationItem(LOGIC, context.getString(R.string.logic), null, null) {
                     {
                         setText(context.getString(R.string.logic_dev_name));
                         setEditable(false);
                     }
                 });
-                add(new StringEvaluationItem(context, ConfigurationParams.ENGINEERING, context.getString(R.string.engineering), null, false, null) {
+                add(new StringEvaluationItem(ENGINEERING, context.getString(R.string.engineering), null, null) {
                     {
                         setText(context.getString(R.string.engineering_dev_name));
                         setEditable(false);
                     }
                 });
-                add(new StringEvaluationItem(context, ConfigurationParams.DESIGN, context.getString(R.string.design), null, false, null) {
+                add(new StringEvaluationItem(DESIGN, context.getString(R.string.design), null, null) {
                     {
                         setText(context.getString(R.string.designer_name));
                         setEditable(false);
                     }
                 });
-                add(new BoldEvaluationItem(context, ConfigurationParams.VERSION_CAPS, context.getString(R.string.version_caps), false));
-                add(new TextEvaluationItem(context, ConfigurationParams.VERSION, String.format(context.getString(R.string.version), BuildConfig.VERSION_NAME), false));
+                add(new BoldEvaluationItem(VERSION_CAPS, context.getString(R.string.version_caps)));
+                add(new TextEvaluationItem(VERSION, String.format(context.getString(R.string.version), BuildConfig.VERSION_NAME)));
             }
         };
     }

@@ -2,7 +2,7 @@ package com.szg_tech.cvdevaluator.entities.evaluation_items;
 
 import android.content.Context;
 
-import com.szg_tech.cvdevaluator.core.ConfigurationParams;
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.*;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
@@ -18,22 +18,22 @@ import java.util.ArrayList;
 class Renal extends SectionEvaluationItem {
 
     Renal(Context context) {
-        super(context, ConfigurationParams.RENAL, null, false);
+        super(RENAL, null);
         name = "Renal";
         this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionElementState.LOCKED;
-        this.dependsOn = ConfigurationParams.BIO;
+        this.dependsOn = BIO;
     }
 
     private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {
             {
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.WORSENING_RENAL_FX, "Acute renal failure / worsening renal function", false, new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(WORSENING_RENAL_FX, "Acute renal failure / worsening renal function", new ArrayList<EvaluationItem>() {
                     {
 
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.CRINC, " Increase in SCrx baseline ", "Value", 1, 10, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.CR48H, " Increase in SCr by mg/dl in 48hr ", "Value", 0.1, 112, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.URVOL, " Urine volume ml/kg/h", "Value", 0, 200, false, true));
+                        add(new NumericalEvaluationItem(CRINC, " Increase in SCrx baseline ", "Value", 1, 10, true));
+                        add(new NumericalEvaluationItem(CR48H, " Increase in SCr by mg/dl in 48hr ", "Value", 0.1, 112, true));
+                        add(new NumericalEvaluationItem(URVOL, " Urine volume ml/kg/h", "Value", 0, 200, true));
 
 
                     }
@@ -42,11 +42,11 @@ class Renal extends SectionEvaluationItem {
 
 
 
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.CKD, "Chronic kidney disease", false, new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(CKD, "Chronic kidney disease", new ArrayList<EvaluationItem>() {
                     {
-                        //add(new BooleanEvaluationItem(context, ConfigurationParams.ACUTE_EXACERBATION, "Acute exacerbation", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.RENALIMAGE, " Abnormal renal imaging  ", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.HISTOLOGY, " Abnormal laboratory ", false));
+                        //add(new BooleanEvaluationItem(context, ACUTE_EXACERBATION, "Acute exacerbation", false));
+                        add(new BooleanEvaluationItem(RENALIMAGE, " Abnormal renal imaging  "));
+                        add(new BooleanEvaluationItem(HISTOLOGY, " Abnormal laboratory "));
                     }
                 }));
             }

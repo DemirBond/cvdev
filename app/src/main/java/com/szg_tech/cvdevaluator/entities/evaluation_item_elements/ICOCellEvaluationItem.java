@@ -1,16 +1,14 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class ICOCellEvaluationItem extends EvaluationItem {
     private String blueButtonText;
     private String greenButtonText;
 
-    public ICOCellEvaluationItem(Context context, String id, String name, String hint,
+    public ICOCellEvaluationItem(String id, String name, String hint,
                                  String blueButtonText, String greenButtonText) {
-        super(context, id, name, hint, false);
+        super(id, name, hint);
         this.blueButtonText = blueButtonText;
         this.greenButtonText = greenButtonText;
     }

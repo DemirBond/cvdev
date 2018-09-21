@@ -1,12 +1,8 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
 
 public class SectionEvaluationItem extends EvaluationItem {
     protected SectionElementState sectionElementState;
@@ -18,24 +14,22 @@ public class SectionEvaluationItem extends EvaluationItem {
     private boolean isBottomButtonReferenceSkipped = false;
 
 
-//    private Map<Class<EvaluationItem>, Set<String>> evaluationItemByKeys
-
-    public SectionEvaluationItem(Context context, String id, String name, boolean isMandatory) {
-        this(context, id, name, isMandatory, null, SectionElementState.LOCKED);
+    public SectionEvaluationItem(String id, String name) {
+        this(id, name, null, SectionElementState.LOCKED);
     }
 
-    public SectionEvaluationItem(Context context, String id, String name, boolean isMandatory, ArrayList<EvaluationItem> evaluationItemList) {
-        this(context, id, name, isMandatory, evaluationItemList, SectionElementState.LOCKED);
+    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList) {
+        this(id, name, evaluationItemList, SectionElementState.LOCKED);
     }
 
-    public SectionEvaluationItem(Context context, String id, String name, boolean isMandatory, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState) {
-        super(context, id, name, null, isMandatory);
+    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState) {
+        super(id, name, null);
         this.evaluationItemList = evaluationItemList;
         this.sectionElementState = sectionElementState;
     }
 
-    public SectionEvaluationItem(Context context, String id, String name, boolean isMandatory, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState, String dependsOn) {
-        super(context, id, name, null, isMandatory);
+    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState, String dependsOn) {
+        super(id, name, null);
         this.evaluationItemList = evaluationItemList;
         this.sectionElementState = sectionElementState;
         this.dependsOn = dependsOn;

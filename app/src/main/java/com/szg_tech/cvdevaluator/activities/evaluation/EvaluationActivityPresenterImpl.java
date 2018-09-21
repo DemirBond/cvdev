@@ -1,15 +1,14 @@
 package com.szg_tech.cvdevaluator.activities.evaluation;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.szg_tech.cvdevaluator.R;
-import com.szg_tech.cvdevaluator.activities.authentication.AuthenticationActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;
@@ -18,7 +17,6 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvalua
 import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
-import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +50,10 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
             if (evaluation == null) {
                 evaluation = new Evaluation(activity);
             }
+
+            Gson gson = new Gson();
+            String jsonEvaluation = gson.toJson(evaluation);
+
             valueHashMap = EvaluationDAO.getInstance().loadValues();
             System.out.println(valueHashMap);
             if (!valueHashMap.isEmpty()) {
@@ -60,7 +62,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
 
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluation);
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
-                add(new SectionEvaluationItem(activity, ConfigurationParams.COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), false, new ArrayList<>()));
+                add(new SectionEvaluationItem(ConfigurationParams.COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
             }});
             evaluationListFragment.setArguments(bundle);
             if (isAdd) {

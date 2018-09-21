@@ -1,7 +1,5 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 import java.util.ArrayList;
@@ -14,20 +12,15 @@ public class NumericalEvaluationItem extends EvaluationItem {
     private Double number = null;
     private transient List<OnValueChangeListener> onValueChangeListenerList = new ArrayList<>();
 
-    public NumericalEvaluationItem(Context context, String id, String name, String hint, double from, double to, boolean isMandatory) {
-        this(context, id, name, hint, from, to, isMandatory, false);
+    public NumericalEvaluationItem(String id, String name, String hint, double from, double to) {
+        this(id, name, hint, from, to, false);
     }
 
-    public NumericalEvaluationItem(Context context, String id, String name, String hint, double from, double to, boolean isMandatory, boolean isWhole) {
-        super(context, id, name, hint, isMandatory);
+    public NumericalEvaluationItem(String id, String name, String hint, double from, double to, boolean isWhole) {
+        super(id, name, hint);
         this.from = from;
         this.to = to;
         this.isWhole = isWhole;
-        if (!isMandatory) {
-            setValid(true);
-        } else {
-            setValid(false);
-        }
     }
 
     public double getFrom() {
@@ -51,11 +44,7 @@ public class NumericalEvaluationItem extends EvaluationItem {
         if (number != null) {
             setValid(true);
         } else {
-            if (!isMandatory()) {
-                setValid(true);
-            } else {
-                setValid(false);
-            }
+            setValid(!isMandatory());
         }
         for (OnValueChangeListener onValueChangeListener : onValueChangeListenerList) {
             onValueChangeListener.onValueChange(number);

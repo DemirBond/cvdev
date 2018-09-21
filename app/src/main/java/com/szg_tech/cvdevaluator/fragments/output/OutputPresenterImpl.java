@@ -84,7 +84,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
             public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) {
                 if(response.isSuccessful()) {
                     if(response.body().isSuccessful()) {
-                        List<EvaluationItem> evaluationItems = createEvaluationList(activity, response.body());
+                        List<EvaluationItem> evaluationItems = createEvaluationList(response.body());
                         recyclerView.setAdapter(new OutputRecyclerViewAdapter(activity, evaluationItems));
                     } else {
                         showSnackbarBottomButtonGenericError(activity);
@@ -173,18 +173,17 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
 
     /**
      * TODO use special item displays e.g. HeartPartnerEvaluationItem
-     * @param activity
      * @param response
      * @return List of Evaluation Items to be displayed in ListView
      */
-    public List<EvaluationItem> createEvaluationList(Activity activity, EvaluationResponse response) {
+    public List<EvaluationItem> createEvaluationList(EvaluationResponse response) {
         List<EvaluationItem> evaluationItems = new ArrayList<>();
         for (EvaluationGroup group : response.getOutputs()) {
 
-            evaluationItems.add(new BoldEvaluationItem(activity, ConfigurationParams.OVERVIEW, group.getGroupname(), false));
+            evaluationItems.add(new BoldEvaluationItem(ConfigurationParams.OVERVIEW, group.getGroupname()));
             if (group.getFields() != null) {
                 for (Field f : group.getFields()) {
-                    evaluationItems.add(new TextEvaluationItem(activity, f.getPar(), f.getVal(), false));
+                    evaluationItems.add(new TextEvaluationItem(f.getPar(), f.getVal()));
                 }
             }
         }

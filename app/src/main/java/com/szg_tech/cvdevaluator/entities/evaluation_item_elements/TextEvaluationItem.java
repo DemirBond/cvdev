@@ -5,8 +5,8 @@ import android.content.Context;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class TextEvaluationItem extends EvaluationItem {
-    public TextEvaluationItem(Context context, String id, String name, boolean isMandatory) {
-        super(context, id, name, null, isMandatory);
+    public TextEvaluationItem(String id, String name) {
+        super(id, name, null);
     }
 
     @Override

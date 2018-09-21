@@ -1,14 +1,12 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class DatePickerEvaluationItem extends EvaluationItem {
     private Long date;
 
-    public DatePickerEvaluationItem(Context context, String id, String name, boolean isMandatory) {
-        super(context, id, name, null, isMandatory);
+    public DatePickerEvaluationItem(String id, String name) {
+        super(id, name, null);
     }
 
     @Override

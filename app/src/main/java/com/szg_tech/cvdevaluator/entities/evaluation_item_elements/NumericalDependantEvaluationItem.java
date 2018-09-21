@@ -1,7 +1,5 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class NumericalDependantEvaluationItem extends EvaluationItem {
@@ -13,21 +11,16 @@ public class NumericalDependantEvaluationItem extends EvaluationItem {
     private int enableTo;
     private Double number = null;
 
-    public NumericalDependantEvaluationItem(Context context, String id, String name, String hint, double from,
-                                            double to, boolean isMandatory, boolean isWhole, String dependsOn,
+    public NumericalDependantEvaluationItem(String id, String name, String hint, double from,
+                                            double to, boolean isWhole, String dependsOn,
                                             int enableFrom, int enableTo) {
-        super(context, id, name, hint, isMandatory);
+        super(id, name, hint);
         this.from = from;
         this.to = to;
         this.isWhole = isWhole;
         this.dependsOn = dependsOn;
         this.enableFrom = enableFrom;
         this.enableTo = enableTo;
-        if (!isMandatory) {
-            setValid(true);
-        } else {
-            setValid(false);
-        }
     }
 
     public double getFrom() {
@@ -63,11 +56,7 @@ public class NumericalDependantEvaluationItem extends EvaluationItem {
         if (number != null) {
             setValid(true);
         } else {
-            if (!isMandatory()) {
-                setValid(true);
-            } else {
-                setValid(false);
-            }
+            setValid(!isMandatory());
         }
     }
 

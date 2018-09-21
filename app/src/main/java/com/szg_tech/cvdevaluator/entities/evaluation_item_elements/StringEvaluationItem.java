@@ -1,7 +1,4 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
-
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class StringEvaluationItem extends EvaluationItem {
@@ -9,14 +6,9 @@ public class StringEvaluationItem extends EvaluationItem {
     private String validationRegexp;
     private boolean isEditable = true;
 
-    public StringEvaluationItem(Context context, String id, String name, String hint, boolean isMandatory, String validationRegexp) {
-        super(context, id, name, hint, isMandatory);
+    public StringEvaluationItem(String id, String name, String hint, String validationRegexp) {
+        super(id, name, hint);
         this.validationRegexp = validationRegexp;
-        if (!isMandatory) {
-            setValid(true);
-        } else {
-            setValid(false);
-        }
     }
 
     public String getText() {
@@ -36,11 +28,7 @@ public class StringEvaluationItem extends EvaluationItem {
         if (text != null) {
             setValid(true);
         } else {
-            if (!isMandatory()) {
-                setValid(true);
-            } else {
-                setValid(false);
-            }
+            setValid(!isMandatory());
         }
     }
 

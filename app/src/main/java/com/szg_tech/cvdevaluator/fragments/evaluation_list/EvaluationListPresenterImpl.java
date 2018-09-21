@@ -96,7 +96,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
 
                     bundle.putSerializable(ConfigurationParams.NEXT_SECTION, heartSpecialistManagement);
                     bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
-                        add(new SectionEvaluationItem(activity, ConfigurationParams.PAH_COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), false, new ArrayList<>()));
+                        add(new SectionEvaluationItem(ConfigurationParams.PAH_COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
                     }});
                     EvaluationDAO.getInstance().addToHashMap(ConfigurationParams.IS_PAH, true);
 

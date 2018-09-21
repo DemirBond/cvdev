@@ -1,7 +1,5 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 import java.util.ArrayList;
@@ -12,9 +10,9 @@ public class HeartPartnerEvaluationItem extends EvaluationItem {
     private String hours;
     private ArrayList<EvaluationItem> evaluationItems;
 
-    public HeartPartnerEvaluationItem(Context context, String id, String departmentName, String description, String hours,
+    public HeartPartnerEvaluationItem(String id, String departmentName, String description, String hours,
                                       ArrayList<EvaluationItem> evaluationItems) {
-        super(context, id, null, null, false);
+        super(id, null, null);
         this.departmentName = departmentName;
         this.description = description;
         this.hours = hours;

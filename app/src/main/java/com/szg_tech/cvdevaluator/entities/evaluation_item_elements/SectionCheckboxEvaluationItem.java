@@ -11,8 +11,8 @@ public class SectionCheckboxEvaluationItem extends EvaluationItem {
     private boolean isChecked = false;
     private boolean shouldShowAlert;
 
-    public SectionCheckboxEvaluationItem(Context context, String id, String name, boolean isMandatory, ArrayList<EvaluationItem> evaluationItemList) {
-        super(context, id, name, null, isMandatory);
+    public SectionCheckboxEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList) {
+        super(id, name, null);
         this.evaluationItemList = evaluationItemList;
     }
 

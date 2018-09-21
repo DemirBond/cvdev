@@ -2,7 +2,8 @@ package com.szg_tech.cvdevaluator.entities.evaluation_items;
 
 import android.content.Context;
 
-import com.szg_tech.cvdevaluator.core.ConfigurationParams;
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.*;
+
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BooleanEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.NumericalEvaluationItem;
@@ -19,60 +20,47 @@ import java.util.ArrayList;
 class Pulmonary extends SectionEvaluationItem {
 
     Pulmonary(Context context) {
-        super(context, ConfigurationParams.PULMONARY, null, false);
+        super(PULMONARY, null);
         name = "Pulmonary";
-        this.evaluationItemList = createEvaluationItemElementsList();
+        this.evaluationItemList = createEvaluationItemElementsList(context);
         sectionElementState = SectionElementState.LOCKED;
-        this.dependsOn = ConfigurationParams.BIO;
+        this.dependsOn = BIO;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
         return new ArrayList<EvaluationItem>() {
             {
-
-
-                add(new NumericalEvaluationItem(context, ConfigurationParams.FEV1_LT, "FEV1 lt/min", "Value", 0.5, 8, false, true));
-                add(new NumericalEvaluationItem(context, ConfigurationParams.FEV1_PERCENT, " % FEV1", "Value", 25, 120, false, true));
-                add(new NumericalEvaluationItem(context, ConfigurationParams.FVC, "% FVC", "Value", 0, 120, false, true));
-                add(new NumericalEvaluationItem(context, ConfigurationParams.DLCO, "% DLCO", "Value", 10, 100, false, true));
-                add(new NumericalEvaluationItem(context, ConfigurationParams.PO2, "PO2 mmhg", "Value", 10, 100, false, true));
-                add(new BooleanEvaluationItem(context, ConfigurationParams.NONE, "Severe chronic hypercapnia", false));
-
-
-
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.ASTHMA, "Asthma / Reactive airway disease", false, new ArrayList<EvaluationItem>() {
+                add(new NumericalEvaluationItem(FEV1_LT, "FEV1 lt/min", "Value", 0.5, 8, true));
+                add(new NumericalEvaluationItem(FEV1_PERCENT, " % FEV1", "Value", 25, 120, true));
+                add(new NumericalEvaluationItem(FVC, "% FVC", "Value", 0, 120, true));
+                add(new NumericalEvaluationItem(DLCO, "% DLCO", "Value", 10, 100, true));
+                add(new NumericalEvaluationItem(PO2, "PO2 mmhg", "Value", 10, 100, true));
+                add(new BooleanEvaluationItem(NONE, "Severe chronic hypercapnia"));
+                add(new SectionCheckboxEvaluationItem(ASTHMA, "Asthma / Reactive airway disease", new ArrayList<EvaluationItem>() {
                     {
 
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.SYMPTOMS_WEEK, " Symptoms / week ", "Value", 0, 112, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.NOCTURNAL, " Nocturnal awakening / week ", "Value", 0, 112, false, true));
-                        add(new NumericalEvaluationItem(context, ConfigurationParams.SABA_USE, " SABA use / week ", "Value", 0, 112, false, true));
-                        add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.INTERFERENCE, "Interference with activity", false, new ArrayList<EvaluationItem>() {
+                        add(new NumericalEvaluationItem(SYMPTOMS_WEEK, " Symptoms / week ", "Value", 0, 112, true));
+                        add(new NumericalEvaluationItem(NOCTURNAL, " Nocturnal awakening / week ", "Value", 0, 112, true));
+                        add(new NumericalEvaluationItem(SABA_USE, " SABA use / week ", "Value", 0, 112, true));
+                        add(new SectionCheckboxEvaluationItem(INTERFERENCE, "Interference with activity", new ArrayList<EvaluationItem>() {
                             {
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.NONE, "None", false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.MINOR, "Minor", false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.SOME, "Some", false));
-                                add(new BooleanEvaluationItem(context, ConfigurationParams.SIGNIFICANT, "Significant", false));
-                                //add(new BooleanEvaluationItem(context, ConfigurationParams.OVAL, "Oval cell bodies", false));
-
+                                add(new BooleanEvaluationItem(NONE, "None"));
+                                add(new BooleanEvaluationItem(MINOR, "Minor"));
+                                add(new BooleanEvaluationItem(SOME, "Some"));
+                                add(new BooleanEvaluationItem(SIGNIFICANT, "Significant"));
                             }
                         }));
 
                     }
                 }));
-
-
-
-
-                add(new SectionCheckboxEvaluationItem(context, ConfigurationParams.LUNG_COPD, "COPD", false, new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(LUNG_COPD, "COPD", new ArrayList<EvaluationItem>() {
                     {
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.ACUTE_EXACERBATION, "Acute exacerbation", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDEX, " More than 1 COPD exacerbation/year ", false));
-                        add(new BooleanEvaluationItem(context, ConfigurationParams.COPDHOS, " One or more hospital admission/year ", false));
+                        add(new BooleanEvaluationItem(ACUTE_EXACERBATION, "Acute exacerbation"));
+                        add(new BooleanEvaluationItem(COPDEX, " More than 1 COPD exacerbation/year "));
+                        add(new BooleanEvaluationItem(COPDHOS, " One or more hospital admission/year "));
                     }
                 }));
-
-                add(new BooleanEvaluationItem(context, ConfigurationParams.ILD, "Interstitial lung disease", false));
-
+                add(new BooleanEvaluationItem(ILD, "Interstitial lung disease"));
             }
         };
     }
