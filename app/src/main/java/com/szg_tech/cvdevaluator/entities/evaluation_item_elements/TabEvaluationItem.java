@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class TabEvaluationItem extends EvaluationItem {
     private ArrayList<SectionEvaluationItem> tabSectionList;
 
-    public TabEvaluationItem(Context context, String id, String name, ArrayList<SectionEvaluationItem> tabSectionList) {
-        super(context, id, name, null, false);
+    public TabEvaluationItem(String id, String name, ArrayList<SectionEvaluationItem> tabSectionList) {
+        super(id, name, null);
         this.tabSectionList = tabSectionList;
     }
 

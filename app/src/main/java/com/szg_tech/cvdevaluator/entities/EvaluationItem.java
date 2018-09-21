@@ -1,28 +1,36 @@
 package com.szg_tech.cvdevaluator.entities;
 
-import android.content.Context;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class EvaluationItem implements Serializable {
-    protected transient Context context;
     protected String name;
     protected String id;
     private String hint;
-    private boolean isMandatory;
+    protected boolean isMandatory;
     private boolean isValid = true;
 
-    protected EvaluationItem(Context context, String id, String name, String hint, boolean isMandatory) {
-        this.context = context;
+    private String type;
+
+    protected EvaluationItem(String id, String name, String hint) {
         this.name = name;
         this.id = id;
         this.hint = hint;
-        this.isMandatory = isMandatory;
+        type = getClass().getSimpleName();
+        isMandatory = false;
+    }
+
+    public String getType(){
+        return type;
     }
 
     public boolean isMandatory() {
         return isMandatory;
+    }
+
+    public void setMandatory(boolean mandatory) {
+        isMandatory = mandatory;
+        setValid(!mandatory);
     }
 
     public String getName() {

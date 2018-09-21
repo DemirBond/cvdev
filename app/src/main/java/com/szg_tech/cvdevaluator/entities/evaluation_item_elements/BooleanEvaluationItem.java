@@ -1,15 +1,13 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class BooleanEvaluationItem extends EvaluationItem {
     private boolean isChecked = false;
     private boolean isBackgroundHighlighted;
 
-    public BooleanEvaluationItem(Context context, String id, String name, boolean isMandatory) {
-        super(context, id, name, null, isMandatory);
+    public BooleanEvaluationItem(String id, String name) {
+        super(id, name, null);
     }
 
     public boolean isChecked() {

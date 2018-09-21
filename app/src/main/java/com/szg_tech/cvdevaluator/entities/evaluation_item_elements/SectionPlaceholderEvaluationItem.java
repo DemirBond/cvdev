@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class SectionPlaceholderEvaluationItem extends EvaluationItem {
     private ArrayList<EvaluationItem> evaluationItemList;
 
-    public SectionPlaceholderEvaluationItem(Context context, String id, String name, String hint, boolean isMandatory, ArrayList<EvaluationItem> evaluationItemList) {
-        super(context, id, name, hint, isMandatory);
+    public SectionPlaceholderEvaluationItem(String id, String name, String hint, ArrayList<EvaluationItem> evaluationItemList) {
+        super(id, name, hint);
         this.evaluationItemList = evaluationItemList;
     }
 

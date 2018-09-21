@@ -1,7 +1,5 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 import java.util.ArrayList;
@@ -12,12 +10,12 @@ public class RadioButtonGroupEvaluationItem extends EvaluationItem {
     private boolean isBackgroundHighlighted;
     private ArrayList<EvaluationItem> evaluationItemList;
 
-    public RadioButtonGroupEvaluationItem(Context context, String id, String name, String groupName, boolean isMandatory, boolean isChecked) {
-        this(context, id, name, groupName, isMandatory, isChecked, null);
+    public RadioButtonGroupEvaluationItem(String id, String name, String groupName, boolean isChecked) {
+        this(id, name, groupName, isChecked, null);
     }
 
-    protected RadioButtonGroupEvaluationItem(Context context, String id, String name, String groupName, boolean isMandatory, boolean isChecked, ArrayList<EvaluationItem> evaluationItemList) {
-        super(context, id, name, null, isMandatory);
+    protected RadioButtonGroupEvaluationItem(String id, String name, String groupName, boolean isChecked, ArrayList<EvaluationItem> evaluationItemList) {
+        super(id, name, null);
         this.groupName = groupName;
         this.isChecked = isChecked;
         this.evaluationItemList = evaluationItemList;

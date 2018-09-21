@@ -4,7 +4,7 @@ import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class EmptyCellEvaluationItem extends EvaluationItem {
     public EmptyCellEvaluationItem() {
-        super(null, null, null, null, false);
+        super(null, null, null);
     }
 
     @Override

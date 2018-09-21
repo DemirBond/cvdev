@@ -1,15 +1,13 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
-import android.content.Context;
-
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 public class MinutesSecondsEvaluationItem extends EvaluationItem {
     private Integer minutes;
     private Integer seconds;
 
-    public MinutesSecondsEvaluationItem(Context context, String id) {
-        super(context, id, null, null, false);
+    public MinutesSecondsEvaluationItem(String id) {
+        super(id, null, null);
     }
 
     public Integer getMinutes() {
