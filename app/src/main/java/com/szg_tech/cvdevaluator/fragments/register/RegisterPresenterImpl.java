@@ -39,7 +39,6 @@ import retrofit2.Response;
 
 public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> implements RegisterPresenter {
 
-
     RegisterPresenterImpl(RegisterView view) {
         super(view);
     }
@@ -101,6 +100,14 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
                 });
     }
 
+    private void showSnackbarBottomButtonTosNotAccepted(Activity activity) {
+        if (activity != null) {
+            Snackbar snackbar = Snackbar.make(getView().getRecyclerView(), R.string.snackbar_bottom_button_register_error_tos, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.snackbar_red));
+            snackbar.show();
+        }
+    }
+
     private void showSnackbarBottomButtonRegisterError(Activity activity) {
         if (activity != null) {
             Snackbar snackbar = Snackbar.make(getView().getRecyclerView(), R.string.snackbar_bottom_button_register_error, Snackbar.LENGTH_LONG);
@@ -136,7 +143,10 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
 
             holder.linkLogin.setOnClickListener(v -> getSupportFragmentManager().popBackStack());
 
-            holder.termsOfService.setOnClickListener(v -> new ToSDialog().show(getSupportFragmentManager(),"tos_dialog"));
+            holder.termsOfService.setOnClickListener(v -> {
+                ToSDialog tosDialog = new ToSDialog();
+                tosDialog.show(getSupportFragmentManager(), "tos_dialog");
+            });
         }
 
         class OnRegisterClickListener implements View.OnClickListener {
@@ -162,6 +172,11 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
 
             public boolean validate() {
                 boolean valid = true;
+
+                if(!PreferenceHelper.iStosAccepted(getActivity())){
+                    showSnackbarBottomButtonTosNotAccepted(getActivity());
+                    return false;
+                }
 
                 String name = holder.name.getText().toString();
                 String email = holder.email.getText().toString();
@@ -199,7 +214,6 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
                 return valid;
             }
         }
-
 
         @Override
         public int getItemCount() {

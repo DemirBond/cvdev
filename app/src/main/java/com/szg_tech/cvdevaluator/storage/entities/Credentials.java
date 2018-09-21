@@ -11,6 +11,7 @@ public class Credentials {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String LAST_TIME_USED = "last_time_used";
+    public static final String TOS_ACCEPTED = "tos_accepted";
 
     private String token;
     private long expireDate;

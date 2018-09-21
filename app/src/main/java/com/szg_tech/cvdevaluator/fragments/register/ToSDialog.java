@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.Html;
 
 import com.szg_tech.cvdevaluator.R;
+import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 
 public class ToSDialog extends DialogFragment {
     @Override
@@ -14,9 +15,10 @@ public class ToSDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(Html.fromHtml(getResources().getString(R.string.terms_of_use_text)))
                 .setPositiveButton(R.string.accept, (dialog, id) -> {
-                    // TODO - Store that user accepted ToS
+                    PreferenceHelper.saveTosAccepted(getContext(),true);
                 })
                 .setNegativeButton(R.string.cancel, (dialog, id) -> {
+                    PreferenceHelper.saveTosAccepted(getContext(),false);
                     // User cancelled the dialog
                 });
         // Create the AlertDialog object and return it
