@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 class CurrentCVProfile extends SectionEvaluationItem {
 
-
     CurrentCVProfile(Context context) {
         super(CURRENT_PAST_CV_PROFILE, null);
         name = "Cardiovascular";
@@ -26,11 +25,16 @@ class CurrentCVProfile extends SectionEvaluationItem {
         this.dependsOn = BIO;
     }
 
-
-
-    private SectionEvaluationItem createCoronaryHeartDisease(Context context){
-        ArrayList<EvaluationItem> coronaryHeartDisease = new ArrayList<>();
-        coronaryHeartDisease.add(new SectionCheckboxEvaluationItem(ACUTE_CORONARY_SYNDROME, context.getString(R.string.acute_coronary_syndrome), new ArrayList<EvaluationItem>() {
+    public class  CoronaryHeartDisease extends SectionEvaluationItem{
+        public CoronaryHeartDisease(Context context) {
+            super(CORONARY_HEART_DISEASE, null);
+            name = context.getString(R.string.coronary_heart_disease);
+            this.evaluationItemList = createEvaluationItemElementsList(context);
+            sectionElementState = SectionEvaluationItem.SectionElementState.OPENED;
+        }
+        private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context){
+            ArrayList<EvaluationItem> list = new ArrayList<>();
+            list.add(new SectionCheckboxEvaluationItem(ACUTE_CORONARY_SYNDROME, context.getString(R.string.acute_coronary_syndrome), new ArrayList<EvaluationItem>() {
                 {
                     add(new BooleanEvaluationItem(MORE_2_ANGINA_24HR, context.getString(R.string.more_2_angina_24hr)));
                     add(new BooleanEvaluationItem(ANGINA_MORE_20MIN, context.getString(R.string.angina_more_20min)));
@@ -49,7 +53,7 @@ class CurrentCVProfile extends SectionEvaluationItem {
                     add(new BooleanEvaluationItem(CHANGING_TROP_I, context.getString(R.string.changing_trop_i)));
                 }
             }));
-        coronaryHeartDisease.add(new SectionCheckboxEvaluationItem(PCI_CABG, context.getString(R.string.pci_cabg), new ArrayList<EvaluationItem>() {
+            list.add(new SectionCheckboxEvaluationItem(PCI_CABG, context.getString(R.string.pci_cabg), new ArrayList<EvaluationItem>() {
                 {
                     add(new NumericalEvaluationItem(LAST_PROCEDURE, context.getString(R.string.last_procedure), context.getString(R.string.value), 0, 50, true));
                     add(new BooleanEvaluationItem(BMS, context.getString(R.string.bms)));
@@ -63,7 +67,7 @@ class CurrentCVProfile extends SectionEvaluationItem {
                     }));
                 }
             }));
-        coronaryHeartDisease.add(new SectionCheckboxEvaluationItem(STABLE_ANG, context.getString(R.string.stable_ang), new ArrayList<EvaluationItem>() {
+            list.add(new SectionCheckboxEvaluationItem(STABLE_ANG, context.getString(R.string.stable_ang), new ArrayList<EvaluationItem>() {
                 {
                     add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_1, "NYHACCVS Class 1"));
                     add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_2, "NYHACCVS Class 2"));
@@ -71,11 +75,11 @@ class CurrentCVProfile extends SectionEvaluationItem {
                     add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_4, "NYHACCVS Class 4"));
                 }
             }));
-        coronaryHeartDisease.add(new BooleanEvaluationItem(LM, context.getString(R.string.lm)));
-        coronaryHeartDisease.add(new BooleanEvaluationItem(LAD, context.getString(R.string.lad)));
-        coronaryHeartDisease.add(new BooleanEvaluationItem(RCA, context.getString(R.string.rca)));
-        coronaryHeartDisease.add(new BooleanEvaluationItem(LCX, context.getString(R.string.lcx)));
-        coronaryHeartDisease.add(new SectionCheckboxEvaluationItem(ICD_10, context.getString(R.string.icd_10), new ArrayList<EvaluationItem>() {
+            list.add(new BooleanEvaluationItem(LM, context.getString(R.string.lm)));
+            list.add(new BooleanEvaluationItem(LAD, context.getString(R.string.lad)));
+            list.add(new BooleanEvaluationItem(RCA, context.getString(R.string.rca)));
+            list.add(new BooleanEvaluationItem(LCX, context.getString(R.string.lcx)));
+            list.add(new SectionCheckboxEvaluationItem(ICD_10, context.getString(R.string.icd_10), new ArrayList<EvaluationItem>() {
                 {
                     add(new BooleanEvaluationItem(CHRONIC_TOTAL_OCCLUSION, context.getString(R.string.chronic_total_occlusion)));
                     add(new BooleanEvaluationItem(CORONARY_ANEURYSM, context.getString(R.string.coronary_aneurysm)));
@@ -85,58 +89,45 @@ class CurrentCVProfile extends SectionEvaluationItem {
                     add(new BooleanEvaluationItem(DOCUMENTED_VASOSPASM, context.getString(R.string.documented_vasospasm)));
                 }
             }));
-        coronaryHeartDisease.add(new NumericalEvaluationItem(VESSEL_MORE_50, context.getString(R.string.vessel_more_50), context.getString(R.string.value), 1, 3, true));
-        coronaryHeartDisease.add(new NumericalEvaluationItem(LVEF_CHD, context.getString(R.string.lvef), context.getString(R.string.value), 10, 80, true));
-
-       return new SectionEvaluationItem(
-                    CORONARY_HEART_DISEASE,
-                    context.getString(R.string.coronary_heart_disease),
-               coronaryHeartDisease,
-                    SectionEvaluationItem.SectionElementState.OPENED
-            );
+            list.add(new NumericalEvaluationItem(VESSEL_MORE_50, context.getString(R.string.vessel_more_50), context.getString(R.string.value), 1, 3, true));
+            list.add(new NumericalEvaluationItem(LVEF_CHD, context.getString(R.string.lvef), context.getString(R.string.value), 10, 80, true));
+            return list;
+        }
     }
 
     private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
         return new ArrayList<EvaluationItem>() {
             {
-                add(createCoronaryHeartDisease(context));
-                add(new SectionEvaluationItem( HEART_FAILURE, context.getString(R.string.heart_failure), new ArrayList<EvaluationItem>() {
+                add( new CoronaryHeartDisease(context));
+                add(new SectionEvaluationItem(HEART_FAILURE, context.getString(R.string.heart_failure), new ArrayList<EvaluationItem>() {
                     {
-
                         add(new NumericalEvaluationItem(HF_DIAGNOSIS_DURATION_WEEK, "Duration / week", context.getString(R.string.value), 0, 999, true));
                         add(new BooleanEvaluationItem(PREVIOUS_HF_HOSPITALIZATION, context.getString(R.string.previous_hf_hospitalization)));
                         add(new BooleanEvaluationItem(S_P_ICD, "Status post AICD"));
                         add(new BooleanEvaluationItem(CRT_ICD, "Status post CRT"));
                         add(new NumericalEvaluationItem(LVEF, context.getString(R.string.lvef), context.getString(R.string.value), 10, 80, true));
-
-
-
-
                         add(new SectionEvaluationItem(NYHA_CLASS, "Heart Failure Class / Stage", new ArrayList<EvaluationItem>() {
                             {
+                                add(new BooleanEvaluationItem(AT_HIGH_RISK, context.getString(R.string.at_high_risk)));
+                                add(new BooleanEvaluationItem(NO_SIGNS_OF_HF, context.getString(R.string.no_signs_of_hf)));
+                                add(new BooleanEvaluationItem(SYMPTOMS_OF_HF, context.getString(R.string.symptoms_of_hf)));
+                                add(new SectionCheckboxEvaluationItem(REFRACTORY_HF, context.getString(R.string.refractory_hf), new ArrayList<EvaluationItem>() {
+                                    {
+                                        add(new BoldEvaluationItem(CALCULATE_HFSS, context.getString(R.string.calculate_hfss)));
+                                        add(new SectionCheckboxEvaluationItem(NO_SIGNIFICANT_COMORBIDITIES, context.getString(R.string.no_significant_comorbidities), new ArrayList<EvaluationItem>() {
+                                            {
+                                            }
+                                        }) {
+                                            {
+                                                setShouldShowAlert(true);
+                                            }
+                                        });
+                                        add(new NumericalEvaluationItem(VO_MAX_KG, context.getString(R.string.vo_max_kg), context.getString(R.string.value), 6, 40, true));
+                                    }
+                                }));
 
-
-
-
-                            add(new BooleanEvaluationItem(AT_HIGH_RISK, context.getString(R.string.at_high_risk)));
-                            add(new BooleanEvaluationItem(NO_SIGNS_OF_HF, context.getString(R.string.no_signs_of_hf)));
-                            add(new BooleanEvaluationItem(SYMPTOMS_OF_HF, context.getString(R.string.symptoms_of_hf)));
-                            add(new SectionCheckboxEvaluationItem(REFRACTORY_HF, context.getString(R.string.refractory_hf), new ArrayList<EvaluationItem>() {
-                                {
-                                    add(new BoldEvaluationItem(CALCULATE_HFSS, context.getString(R.string.calculate_hfss)));
-                                    add(new SectionCheckboxEvaluationItem(NO_SIGNIFICANT_COMORBIDITIES, context.getString(R.string.no_significant_comorbidities), new ArrayList<EvaluationItem>() {
-                                        {
-                                        }
-                                    }) {
-                                        {
-                                            setShouldShowAlert(true);
-                                        }
-                                    });
-                                    add(new NumericalEvaluationItem(VO_MAX_KG, context.getString(R.string.vo_max_kg), context.getString(R.string.value), 6, 40, true));
-                                }
-                            }));
-
-                        }}, SectionElementState.OPENED) {
+                            }
+                        }, SectionElementState.OPENED) {
                             {
                                 setHasStateIcon(false);
                             }
@@ -151,20 +142,20 @@ class CurrentCVProfile extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(ISCHEMIC_POST_MI_LESS_45, context.getString(R.string.ischemic_post_mi_less_45)));
                         add(new BooleanEvaluationItem(CARDIOTOXINS, context.getString(R.string.cardiotoxins)));
                         add(new BooleanEvaluationItem(FAMILIAL_CMP, context.getString(R.string.familial_cmp)));
-                        add(new BooleanEvaluationItem(MYOCARDITIS,"Myocarditis"));
+                        add(new BooleanEvaluationItem(MYOCARDITIS, "Myocarditis"));
                         add(new BooleanEvaluationItem(RV_DYSPLASIA, context.getString(R.string.rv_dysplasia)));
                         add(new SectionCheckboxEvaluationItem(HOCM, context.getString(R.string.hocm), new ArrayList<EvaluationItem>() {
-                                {
-                                    add(new BooleanEvaluationItem(LVH_MORE_30, context.getString(R.string.lvh_more_30)));
-                                    add(new BooleanEvaluationItem(ABNORMAL_BP_RESPONSE_TO_EXERCISE, context.getString(R.string.abnormal_bp_response_to_exercise)));
-                                    add(new BooleanEvaluationItem(HISTORY_OF_SUDDEN_DEATH, context.getString(R.string.history_of_sudden_death)));
-                                    add(new BooleanEvaluationItem(REST_DYNAMIC_PEAK, context.getString(R.string.rest_dynamic_peak)));
-                                }
-                            }));
+                            {
+                                add(new BooleanEvaluationItem(LVH_MORE_30, context.getString(R.string.lvh_more_30)));
+                                add(new BooleanEvaluationItem(ABNORMAL_BP_RESPONSE_TO_EXERCISE, context.getString(R.string.abnormal_bp_response_to_exercise)));
+                                add(new BooleanEvaluationItem(HISTORY_OF_SUDDEN_DEATH, context.getString(R.string.history_of_sudden_death)));
+                                add(new BooleanEvaluationItem(REST_DYNAMIC_PEAK, context.getString(R.string.rest_dynamic_peak)));
+                            }
+                        }));
                         add(new BooleanEvaluationItem(PERIPARTUM_CMP, context.getString(R.string.peripartum_cmp)));
 
                     }
-                }, SectionEvaluationItem.SectionElementState.OPENED));
+                }, SectionElementState.OPENED))
                 add(new SectionEvaluationItem(ATRIAL_FIBRILATION, context.getString(R.string.atrial_fibrilation), new ArrayList<EvaluationItem>() {
                     {
 
