@@ -3,9 +3,6 @@ package com.szg_tech.cvdevaluator.storage;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.szg_tech.cvdevaluator.core.CVDApplication;
-import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.storage.entities.Credentials;
 
 public class PreferenceHelper {
@@ -43,6 +40,7 @@ public class PreferenceHelper {
         sharedPreferences.edit().remove(Credentials.TOKEN)
                 .remove(Credentials.EMAIL)
                 .remove(Credentials.PASSWORD)
+                .remove(Credentials.TOS_ACCEPTED)
                 .remove(Credentials.EXPIRE_DATE).apply();
     }
 
@@ -54,5 +52,15 @@ public class PreferenceHelper {
     public static long getLastTimeUsed(Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getLong(Credentials.LAST_TIME_USED, 0);
+    }
+
+    public static void saveTosAccepted(Context context, boolean value){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences.edit().putBoolean(Credentials.TOS_ACCEPTED,value).apply();
+    }
+
+    public static boolean iStosAccepted(Context context){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getBoolean(Credentials.TOS_ACCEPTED, false);
     }
 }
