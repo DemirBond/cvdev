@@ -155,7 +155,7 @@ class CurrentCVProfile extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(PERIPARTUM_CMP, context.getString(R.string.peripartum_cmp)));
 
                     }
-                }, SectionElementState.OPENED))
+                }, SectionElementState.OPENED));
                 add(new SectionEvaluationItem(ATRIAL_FIBRILATION, context.getString(R.string.atrial_fibrilation), new ArrayList<EvaluationItem>() {
                     {
 

@@ -196,15 +196,17 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         if (holder != null) {
             EvaluationItem evaluationItem = evaluationItemsList.get(position);
             String name = evaluationItem.getName();
-
-            if (holder.view instanceof LinearLayout)
-            {
+            if (holder.view instanceof LinearLayout){
+                String id = evaluationItem.getId();
+                if(id == null && position>0){
+                    id = evaluationItemsList.get(position-1).getId();
+                }
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ((LinearLayout) holder.view).getLayoutParams();
-                params.setMarginStart(depthMap.get(evaluationItem.getId()) * 20);
+                params.setMarginStart(depthMap.get(id) * 20);
                 ((LinearLayout) holder.view).setLayoutParams(params);
             }
 
-            if (evaluationItem.isMandatory()) {
+            if (evaluationItem.isMandatory()){
                 name += "*";
             }
             holder.view.setLabelText(name);
@@ -729,11 +731,13 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
     private void calculateDepth(List<EvaluationItem> items, int depth){
         if(items!=null) {
             for (EvaluationItem item : items) {
-               depthMap.put(item.getId(),depth);
+               String id = item.getId();
+               depthMap.put(id,depth);
                calculateDepth(item.getEvaluationItemList(),depth+1);
             }
         }
     }
+
     public void saveAllValues() {
         for (EvaluationItem evaluationItem : evaluationItemsList) {
             EvaluationDAO.getInstance().addToHashMap(evaluationItem.getId(), evaluationItem.getValue());

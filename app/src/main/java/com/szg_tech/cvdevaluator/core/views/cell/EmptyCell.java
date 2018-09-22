@@ -6,8 +6,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-public class EmptyCell extends CardView implements CellItem {
+public class EmptyCell extends LinearLayout implements CellItem {
     private float density = getContext().getResources().getDisplayMetrics().density;
 
     public EmptyCell(Context context, AttributeSet attrs, int defStyle) {
@@ -26,10 +27,9 @@ public class EmptyCell extends CardView implements CellItem {
     }
 
     public void init(int color) {
-        ViewGroup.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (10 * density));
+        ViewGroup.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (2 * density));
         setLayoutParams(layoutParams);
         setBackgroundColor(color);
-        setCardElevation(0.5f * density);
     }
 
     @Override

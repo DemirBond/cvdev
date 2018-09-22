@@ -45,7 +45,7 @@ class Symptoms extends SectionEvaluationItem {
                         add(new EmptyCellEvaluationItem());
                         add(new BooleanEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory "));
                         add(new BooleanEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room "));
-                        add(new SectionCheckboxEvaluationItem(IN_HOSPITAL, "Decompensated/ Hospitalized", new ArrayList<EvaluationItem>() {{
+                        add(new SectionCheckboxEvaluationItem(IN_HOSPITAL, "Decompensated / Hospitalized", new ArrayList<EvaluationItem>() {{
                                 add(new BooleanEvaluationItem(DAY1, " Day 1"));
                                 add(new BooleanEvaluationItem(DAY2, " Day 2"));
                                 add(new BooleanEvaluationItem(DAY3, " Day 3"));
