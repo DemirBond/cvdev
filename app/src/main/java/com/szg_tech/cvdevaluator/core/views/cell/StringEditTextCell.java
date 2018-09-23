@@ -12,7 +12,7 @@ import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomEditText;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class StringEditTextCell extends LinearLayout implements CellItem {
+public class StringEditTextCell extends CellWithIndent implements CellItem {
     private CustomTextView textView;
     private CustomEditText editText;
     private boolean isCorrect;
@@ -42,7 +42,8 @@ public class StringEditTextCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         textView = findViewById(R.id.name);
         editText = findViewById(R.id.edit_text);
         setUpView();

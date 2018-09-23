@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomEditText;
 
-public class MinutesSecondsCell extends LinearLayout implements CellItem {
+public class MinutesSecondsCell extends CellWithIndent implements CellItem {
     private CustomEditText minutesEditText;
     private CustomEditText secondsEditText;
 
@@ -40,7 +40,8 @@ public class MinutesSecondsCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         minutesEditText = findViewById(R.id.minutes_edit_text);
         minutesEditText.addTextChangedListener(new InnerTextWatcher(minutesEditText));
 

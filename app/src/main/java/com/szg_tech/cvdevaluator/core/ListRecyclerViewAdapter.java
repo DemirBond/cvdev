@@ -1,5 +1,6 @@
 package com.szg_tech.cvdevaluator.core;
 
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +13,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
@@ -20,6 +26,7 @@ import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomEditText;
 import com.szg_tech.cvdevaluator.core.views.cell.BoldTextCell;
 import com.szg_tech.cvdevaluator.core.views.cell.CellItem;
+import com.szg_tech.cvdevaluator.core.views.cell.CellWithIndent;
 import com.szg_tech.cvdevaluator.core.views.cell.CheckBoxCell;
 import com.szg_tech.cvdevaluator.core.views.cell.ChevronCell;
 import com.szg_tech.cvdevaluator.core.views.cell.DatePickerCell;
@@ -69,6 +76,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
     private String parentTitle;
     private ArrayList<EvaluationItem> expandedItems = new ArrayList<>();
     private HashMap<String, Integer> depthMap;
+    private List<String> depthMapLeaf;
     private HashMap<String,Object> oldValues;
 
     private boolean onBind;
@@ -78,6 +86,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         this.activity = activity;
         this.evaluationItemsList = new ArrayList<>(evaluationItemsList);
         depthMap = new HashMap<>();
+        depthMapLeaf = new ArrayList<>();
         calculateDepth(evaluationItemsList,0);
         oldValues = valuesDump;
     }
@@ -228,6 +237,18 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         notifyDataSetChanged();
     }
 
+    private void setScaleInAnimation(View view) {
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.0f);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.2f,1.0f);
+        alphaAnimation.setDuration(475);
+        scaleAnimation.setDuration(375);
+        view.startAnimation(scaleAnimation);
+        AnimationSet set = new AnimationSet(false);
+        set.addAnimation(scaleAnimation);
+        set.addAnimation(alphaAnimation);
+        view.startAnimation(set);
+    }
+
     @Override
     public void onBindViewHolder(ListRecyclerViewAdapter.ViewHolder holder, int position) {
         if (holder != null) {
@@ -238,9 +259,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 if(id == null && position>0){
                     id = evaluationItemsList.get(position-1).getId();
                 }
-                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ((LinearLayout) holder.view).getLayoutParams();
-                params.setMarginStart(depthMap.get(id) * 20);
-                ((LinearLayout) holder.view).setLayoutParams(params);
+                if(holder.view instanceof CellWithIndent){
+                    ((CellWithIndent) holder.view).setLevelMark(depthMap.get(id),depthMapLeaf.contains(id));
+                }
+            }
+
+            if(itemsToAnimateIn!=null && itemsToAnimateIn.contains(evaluationItem)){
+                setScaleInAnimation(holder.itemView);
+                itemsToAnimateIn.remove(evaluationItem);
             }
 
             if (evaluationItem.isMandatory()){
@@ -756,13 +782,18 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         ((ChevronCell)cellItem).getChevron().setRotation(rotationAngle);
     }
 
+    List<EvaluationItem> itemsToAnimateIn;
+    List<EvaluationItem> itemsToAnimateOut;
+
     private void expandList(EvaluationItem evaluationItem, int position) {
         if(expandedItems.contains(evaluationItem)){
             collapseList(evaluationItem);
         } else {
+            itemsToAnimateIn = new ArrayList<>();
             expandedItems.add(evaluationItem);
             ArrayList<EvaluationItem> children = evaluationItem.getEvaluationItemList();
             evaluationItemsList.addAll(position+1,children);
+            itemsToAnimateIn.addAll(children);
             for(EvaluationItem child : children){
                 oldValues.put(child.getId(),child.getValue());
             }
@@ -771,12 +802,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
     }
 
     private void collapseList(EvaluationItem parentItem){
+        itemsToAnimateOut = new ArrayList<>();
         expandedItems.remove(parentItem);
         List<EvaluationItem> children = parentItem.getEvaluationItemList();
         if(children!=null) {
             evaluationItemsList.removeAll(children);
             for (EvaluationItem child : children) {
                 oldValues.remove(child.getId());
+                itemsToAnimateOut.add(child);
                 collapseList(child);
             }
         }
@@ -788,6 +821,9 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                String id = item.getId();
                depthMap.put(id,depth);
                calculateDepth(item.getEvaluationItemList(),depth+1);
+               if(items.indexOf(item)==items.size()-1){
+                   depthMapLeaf.add(id);
+               }
             }
         }
     }

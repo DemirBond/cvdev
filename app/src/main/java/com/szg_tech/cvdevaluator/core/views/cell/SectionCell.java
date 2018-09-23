@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class SectionCell extends LinearLayout implements CellItem {
+public class SectionCell extends CellWithIndent implements CellItem {
     private CustomTextView textView;
     private ImageView chevronImage;
     private ImageView lockImage;
@@ -48,7 +48,8 @@ public class SectionCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         stateIconLayout = findViewById(R.id.state_icon_layout);
         textView = findViewById(R.id.section_name);
         chevronImage = findViewById(R.id.chevron_fwd);

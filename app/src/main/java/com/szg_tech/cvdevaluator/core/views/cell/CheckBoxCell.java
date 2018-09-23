@@ -7,11 +7,12 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class CheckBoxCell extends LinearLayout implements CellItem {
+public class CheckBoxCell extends CellWithIndent implements CellItem {
     View rootView;
     CheckBox checkBox;
     CustomTextView textView;
@@ -42,6 +43,7 @@ public class CheckBoxCell extends LinearLayout implements CellItem {
     }
 
     public void initView() {
+        super.initView();
         rootView = findViewById(R.id.root_view);
         checkBox = findViewById(R.id.checkbox);
         textView = findViewById(R.id.name);

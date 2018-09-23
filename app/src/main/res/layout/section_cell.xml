@@ -21,6 +21,7 @@
         android:paddingStart="@dimen/cell_padding_left"
         android:paddingTop="@dimen/icon_cell_padding_top">
 
+        <include layout="@layout/level_mark"/>
         <RelativeLayout
             android:id="@+id/state_icon_layout"
             android:layout_width="@dimen/icon_width"

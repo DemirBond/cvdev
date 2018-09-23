@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class DatePickerCell extends LinearLayout implements CellItem {
+public class DatePickerCell extends CellWithIndent implements CellItem {
     CustomTextView textView;
     DatePicker datePicker;
 
@@ -40,7 +40,8 @@ public class DatePickerCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         datePicker = findViewById(R.id.date_picker);
         textView = findViewById(R.id.name);
         setUpView();

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class BoldTextCell extends LinearLayout implements CellItem {
+public class BoldTextCell extends CellWithIndent implements CellItem {
     private CustomTextView textView;
     private View rootView;
 
@@ -40,7 +40,8 @@ public class BoldTextCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         rootView = findViewById(R.id.root_view);
         textView = findViewById(R.id.text);
         setUpView();

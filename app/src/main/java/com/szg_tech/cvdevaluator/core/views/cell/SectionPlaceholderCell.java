@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class SectionPlaceholderCell extends LinearLayout implements CellItem {
+public class SectionPlaceholderCell extends CellWithIndent implements CellItem {
     private CustomTextView textView;
     private CustomTextView placeHolderView;
 
@@ -37,7 +37,8 @@ public class SectionPlaceholderCell extends LinearLayout implements CellItem {
         initView();
     }
 
-    private void initView() {
+    public void initView() {
+        super.initView();
         textView = findViewById(R.id.name);
         placeHolderView = findViewById(R.id.placeholder);
         setUpView();

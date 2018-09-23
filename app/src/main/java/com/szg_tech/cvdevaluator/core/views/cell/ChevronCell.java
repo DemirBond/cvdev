@@ -8,10 +8,9 @@ import android.widget.LinearLayout;
 
 import com.szg_tech.cvdevaluator.R;
 
-public abstract class ChevronCell extends LinearLayout {
+public abstract class ChevronCell extends CellWithIndent {
 
     ImageView chevron;
-
 
     public ImageView getChevron() {
         return chevron;
@@ -35,6 +34,7 @@ public abstract class ChevronCell extends LinearLayout {
     }
 
     public void initView() {
+        super.initView();
         chevron = findViewById(R.id.chevron_fwd);
     }
 

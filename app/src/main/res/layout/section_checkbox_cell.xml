@@ -18,6 +18,7 @@
         android:paddingEnd="@dimen/cell_padding_right"
         android:paddingStart="@dimen/cell_padding_left">
 
+        <include layout="@layout/level_mark"/>
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="@dimen/clickable_icon_width"
