@@ -9,6 +9,7 @@
     <color name="section_bg_highlight">#eae4fc</color>
     <color name="lighter_purple">#9765f8</color>
     <color name="unselected_tab_text_color">#c4a7fb</color>
+    <color name="bold_text_background">#d1b8ff</color>
     <color name="salmon">#ff7878</color>
     <color name="dark_cream">#feec9e</color>
     <color name="hospital_green">#9ce2a5</color>

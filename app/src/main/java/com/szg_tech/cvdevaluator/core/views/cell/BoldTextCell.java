@@ -63,7 +63,7 @@ public class BoldTextCell extends LinearLayout implements CellItem {
 
     public void setBackgroundHighlighted(boolean isBackgroundHighlighted) {
         if (isBackgroundHighlighted) {
-            rootView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.section_bg_highlight));
+            rootView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bold_text_background));
         } else {
             rootView.setBackgroundColor(Color.WHITE);
         }
