@@ -84,7 +84,10 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
                 .enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        progressDialog.dismiss();
+                        if(!activity.isDestroyed()){
+                            progressDialog.dismiss();
+                        }
+
                         if(response.isSuccessful()) {
                             if(response.body().isSucceed()) {
                                 RestClientProvider.init(response.body().getAccessToken());
