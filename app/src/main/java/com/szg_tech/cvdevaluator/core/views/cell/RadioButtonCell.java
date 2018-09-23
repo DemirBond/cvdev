@@ -12,11 +12,11 @@ import android.widget.RadioButton;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
 
-public class RadioButtonCell extends LinearLayout implements CellItem {
+public class RadioButtonCell extends ChevronCell implements CellItem {
     View rootView;
     RadioButton radioButton;
     CustomTextView textView;
-    ImageView nextArrow;
+
 
     public RadioButtonCell(Context context) {
         super(context);
@@ -44,10 +44,10 @@ public class RadioButtonCell extends LinearLayout implements CellItem {
     }
 
     public void initView() {
+        super.initView();
         rootView = findViewById(R.id.root_view);
         radioButton = findViewById(R.id.radio);
         textView = findViewById(R.id.name);
-        nextArrow = findViewById(R.id.chevron_fwd);
     }
 
     @Override
@@ -68,9 +68,7 @@ public class RadioButtonCell extends LinearLayout implements CellItem {
 
     }
 
-    public void showNextArrow() {
-        nextArrow.setVisibility(VISIBLE);
-    }
+
 
     public void setBackgroundHighlighted(boolean isBackgroundHighlighted) {
         if (isBackgroundHighlighted) {
