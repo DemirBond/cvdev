@@ -21,6 +21,7 @@ import com.szg_tech.cvdevaluator.core.views.CustomEditText;
 import com.szg_tech.cvdevaluator.core.views.cell.BoldTextCell;
 import com.szg_tech.cvdevaluator.core.views.cell.CellItem;
 import com.szg_tech.cvdevaluator.core.views.cell.CheckBoxCell;
+import com.szg_tech.cvdevaluator.core.views.cell.ChevronCell;
 import com.szg_tech.cvdevaluator.core.views.cell.DatePickerCell;
 import com.szg_tech.cvdevaluator.core.views.cell.EmptyCell;
 import com.szg_tech.cvdevaluator.core.views.cell.MinutesSecondsCell;
@@ -56,12 +57,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerViewAdapter.ViewHolder> {
     private Activity activity;
     private List<EvaluationItem> evaluationItemsList;
     private HashMap<String, RadioViewManager> radioViewManagerHashMap = new HashMap<>();
+    private HashMap<String, Map<RadioButtonGroupEvaluationItem, RadioButtonCell>> radioGroupMap = new HashMap<>();
     private ArrayList<SectionEvaluationItem> nextSectionEvaluationItems;
     private SectionDependsOnManager sectionDependsOnManager = new SectionDependsOnManager();
     private String parentTitle;
@@ -376,22 +379,41 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 RadioButtonGroupEvaluationItem radioButtonItem = (RadioButtonGroupEvaluationItem) evaluationItem;
                 RadioButtonCell radioButtonCell = (RadioButtonCell) holder.view;
 
-                RadioViewManager radioViewManager = radioViewManagerHashMap.get(radioButtonItem.getGroupName());
-                if (radioViewManager == null) {
-                    radioViewManager = new RadioViewManager();
-                    radioViewManagerHashMap.put(radioButtonItem.getGroupName(), radioViewManager);
-                }
-                radioViewManager.addToMap(radioButtonCell, radioButtonItem);
-
                 radioButtonCell.setBackgroundHighlighted(radioButtonItem.isBackgroundHighlighted());
                 radioButtonCell.setChecked(radioButtonItem.isChecked());
-                if (evaluationItem.getEvaluationItemList() != null) {
-                    radioButtonCell.showNextArrow();
-                    radioButtonCell.setOnClickListener(v -> {
-                        if (radioButtonItem.isChecked()) {
-                            expandList(evaluationItem, position);
+
+                String groupName = radioButtonItem.getGroupName();
+
+                Map<RadioButtonGroupEvaluationItem, RadioButtonCell> radioButtons = radioGroupMap.get(groupName);
+                if(radioButtons==null){
+                    radioButtons = new HashMap<>();
+                    radioGroupMap.put(groupName,radioButtons);
+                }
+                radioButtons.put(radioButtonItem, radioButtonCell);
+
+                Map<RadioButtonGroupEvaluationItem, RadioButtonCell> finalRadioButtons = radioButtons;
+                radioButtonCell.setOnClickListener(v -> {
+                    radioButtonItem.setChecked(true);
+                    radioButtonCell.setChecked(true);
+                    for(Map.Entry<RadioButtonGroupEvaluationItem, RadioButtonCell> entry : finalRadioButtons.entrySet()){
+                        RadioButtonCell currentCell = entry.getValue();
+                        if(radioButtonCell!=currentCell){
+                            currentCell.getRadioButton().setChecked(false);
+                            currentCell.getRadioButton().invalidate();
+                            entry.getKey().setChecked(false);
                         }
+                    }
+                });
+
+
+                if (evaluationItem.getEvaluationItemList() != null) {
+                    radioButtonCell.showChevron(true);
+                    setupChevron(radioButtonCell,evaluationItem);
+                    radioButtonCell.setOnClickListener(v -> {
+                        expandList(evaluationItem, position);
                     });
+                } else {
+                    radioButtonCell.showChevron(false);
                 }
             } else if (evaluationItem instanceof BooleanEvaluationItem) {
                 CheckBoxCell checkBoxCell = (CheckBoxCell) holder.view;
@@ -669,11 +691,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 onBind = true;
                 ((SectionCheckboxCell) holder.view).setChecked(((SectionCheckboxEvaluationItem) evaluationItem).isChecked());
                 onBind = false;
-                float rotationAngle = 0.0f;
-                if(expandedItems.contains(evaluationItem)){
-                    rotationAngle = 90.0f;
-                }
-                ((SectionCheckboxCell) holder.view).getChevron().setRotation(rotationAngle);
+                setupChevron(holder.view,evaluationItem);
                 ((SectionCheckboxCell) holder.view).setOnClickListener(v -> {
                     if (isScreenValid()) {
                         if (activity instanceof AppCompatActivity  /*&& ((SectionCheckboxCell) holder.view).isChecked() */) {
@@ -700,6 +718,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 });
             }
         }
+    }
+
+    private void setupChevron(CellItem cellItem, EvaluationItem item){
+        float rotationAngle = 0.0f;
+        if(expandedItems.contains(item)){
+            rotationAngle = 90.0f;
+        }
+        ((ChevronCell)cellItem).getChevron().setRotation(rotationAngle);
     }
 
     private void expandList(EvaluationItem evaluationItem, int position) {

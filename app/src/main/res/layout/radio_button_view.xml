@@ -23,6 +23,8 @@
             android:layout_width="@dimen/clickable_icon_width"
             android:layout_height="@dimen/clickable_icon_height"
             android:button="@drawable/custom_radio"
+            android:clickable="false"
+            android:focusable="false"
             android:padding="@dimen/clickable_icon_padding" />
 
         <com.szg_tech.cvdevaluator.core.views.CustomTextView
