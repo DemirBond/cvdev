@@ -26,7 +26,6 @@ import com.szg_tech.cvdevaluator.core.views.cell.DatePickerCell;
 import com.szg_tech.cvdevaluator.core.views.cell.EmptyCell;
 import com.szg_tech.cvdevaluator.core.views.cell.MinutesSecondsCell;
 import com.szg_tech.cvdevaluator.core.views.cell.RadioButtonCell;
-import com.szg_tech.cvdevaluator.core.views.cell.RadioViewManager;
 import com.szg_tech.cvdevaluator.core.views.cell.SectionCell;
 import com.szg_tech.cvdevaluator.core.views.cell.SectionCheckboxCell;
 import com.szg_tech.cvdevaluator.core.views.cell.SectionDependsOnManager;
@@ -63,7 +62,6 @@ import java.util.Objects;
 public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerViewAdapter.ViewHolder> {
     private Activity activity;
     private List<EvaluationItem> evaluationItemsList;
-    private HashMap<String, RadioViewManager> radioViewManagerHashMap = new HashMap<>();
     private HashMap<String, Map<RadioButtonGroupEvaluationItem, RadioButtonCell>> radioGroupMap = new HashMap<>();
     private ArrayList<SectionEvaluationItem> nextSectionEvaluationItems;
     private SectionDependsOnManager sectionDependsOnManager = new SectionDependsOnManager();
