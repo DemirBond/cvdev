@@ -29,7 +29,11 @@ class Symptoms extends SectionEvaluationItem {
     private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
         return new ArrayList<EvaluationItem>() {{
                 add(new SectionCheckboxEvaluationItem(DYSPNEA, context.getString(R.string.dyspnea), new ArrayList<EvaluationItem>() {{
-                        add(new BoldEvaluationItem(PLEASE_SELECT_ONE, context.getString(R.string.please_select_one)));
+                        add(new BoldEvaluationItem(PLEASE_SELECT_ONE, context.getString(R.string.please_select_one))  {{
+                                setBackgroundHighlighted(true);
+                            }
+                        });
+                        add(new EmptyCellEvaluationItem());
                         add(new RadioButtonGroupEvaluationItem(NEW_HF, "Unknown, suspected HF", PLEASE_SELECT_ONE, false) {{
                                 setBackgroundHighlighted(true);
                             }
@@ -42,15 +46,40 @@ class Symptoms extends SectionEvaluationItem {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new EmptyCellEvaluationItem());
-                        add(new BooleanEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory "));
-                        add(new BooleanEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room "));
-                        add(new SectionCheckboxEvaluationItem(IN_HOSPITAL, "Decompensated / Hospitalized", new ArrayList<EvaluationItem>() {{
-                                add(new BooleanEvaluationItem(DAY1, " Day 1"));
-                                add(new BooleanEvaluationItem(DAY2, " Day 2"));
-                                add(new BooleanEvaluationItem(DAY3, " Day 3"));
-                            }
-                        }));
+
+                        String dyspneaGroupNameSecond = "dyspnea2";
+                    add(new EmptyCellEvaluationItem());
+                    add(new RadioButtonGroupEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory ", dyspneaGroupNameSecond, false) {{
+                        setBackgroundHighlighted(true);
+                    }
+                    });
+                    add(new RadioButtonGroupEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room ", dyspneaGroupNameSecond, false) {{
+                        setBackgroundHighlighted(true);
+                    }
+                    });
+                    add(new RadioButtonGroupEvaluationItem(IN_HOSPITAL, "Decompensated / Hospitalized", dyspneaGroupNameSecond, false,
+                            new ArrayList<EvaluationItem>() {{
+                                add(new RadioButtonGroupEvaluationItem(DAY1, " Day 1", IN_HOSPITAL, false) {
+                                    {
+                                        setBackgroundHighlighted(true);
+                                    }
+                                });
+                                add(new RadioButtonGroupEvaluationItem(DAY2, " Day 2", IN_HOSPITAL, false) {
+                                    {
+                                        setBackgroundHighlighted(true);
+                                    }
+                                });
+                                add(new RadioButtonGroupEvaluationItem(DAY3, " Day 3", IN_HOSPITAL, false) {
+                                    {
+                                        setBackgroundHighlighted(true);
+                                    }
+                                });
+                            }}
+                    ) {
+                        {
+                            setBackgroundHighlighted(true);
+                        }
+                    });
                         add(new EmptyCellEvaluationItem());
                         add(new SectionCheckboxEvaluationItem(DYSPNEA_ON_EXERTION, "Dyspnea on exertion", new ArrayList<EvaluationItem>() {{
                                 add(new BooleanEvaluationItem(STRENUOUS_EXERTION, context.getString(R.string.strenuous_exertion)));
