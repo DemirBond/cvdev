@@ -48,6 +48,7 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionPlaceh
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TextEvaluationItem;
+import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
@@ -176,7 +177,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         return new ListRecyclerViewAdapter.ViewHolder(stringEditTextCell);
     }
 
-    private void markParentAsChecked(EvaluationItem child){
+    private void markParentAsChecked(EvaluationItem child, boolean isChecked){
         EvaluationItem parent = null;
         for(EvaluationItem item : expandedItems){
             List children = item.getEvaluationItemList();
@@ -185,11 +186,46 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 break;
             }
         }
-        if( parent!=null && parent instanceof SectionCheckboxEvaluationItem){
-            SectionCheckboxEvaluationItem parentItem = (SectionCheckboxEvaluationItem) parent;
-            parentItem.setChecked(true);
+        if( parent!=null){
+            if(parent instanceof SectionCheckboxEvaluationItem){
+                ((SectionCheckboxEvaluationItem) parent).setChecked(isChecked);
+            } else if (parent instanceof RadioButtonGroupEvaluationItem){
+                ((RadioButtonGroupEvaluationItem) parent).setChecked(isChecked);
+                Map<RadioButtonGroupEvaluationItem, RadioButtonCell> radioButtons = radioGroupMap.get(((RadioButtonGroupEvaluationItem) parent).getGroupName());
+                if(radioButtons!=null){
+                    for(RadioButtonGroupEvaluationItem radioButtonItem : radioButtons.keySet()){
+                        if(parent != radioButtonItem){
+                            radioButtonItem.setChecked(false);
+                        }
+                    }
+                }
+            }
             notifyDataSetChanged();
         }
+    }
+
+    private void deselectRadioButtons(Map<RadioButtonGroupEvaluationItem, RadioButtonCell> radioButtons, RadioButtonCell radioButtonCell){
+        for(Map.Entry<RadioButtonGroupEvaluationItem, RadioButtonCell> entry : radioButtons.entrySet()){
+            RadioButtonGroupEvaluationItem item = entry.getKey();
+            RadioButtonCell currentCell = entry.getValue();
+            if(radioButtonCell!=currentCell){
+                currentCell.getRadioButton().setChecked(false);
+                currentCell.getRadioButton().invalidate();
+                item.setChecked(false);
+                List<EvaluationItem> children = item.getEvaluationItemList();
+                if(children!=null){
+                    for(EvaluationItem child : children){
+                        if(child instanceof SectionCheckboxEvaluationItem){
+                            ((SectionCheckboxEvaluationItem) child).setChecked(false);
+                        }
+                        else if (child instanceof RadioButtonGroupEvaluationItem){
+                            ((RadioButtonGroupEvaluationItem) child).setChecked(false);
+                        }
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -393,14 +429,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 radioButtonCell.setOnClickListener(v -> {
                     radioButtonItem.setChecked(true);
                     radioButtonCell.setChecked(true);
-                    for(Map.Entry<RadioButtonGroupEvaluationItem, RadioButtonCell> entry : finalRadioButtons.entrySet()){
-                        RadioButtonCell currentCell = entry.getValue();
-                        if(radioButtonCell!=currentCell){
-                            currentCell.getRadioButton().setChecked(false);
-                            currentCell.getRadioButton().invalidate();
-                            entry.getKey().setChecked(false);
-                        }
-                    }
+                    deselectRadioButtons(finalRadioButtons,radioButtonCell);
+                    markParentAsChecked(evaluationItem,true);
                 });
 
 
@@ -420,7 +450,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 checkBoxCell.getCheckBox().setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if(!onBind) {
                         booleanEvaluationItem.setChecked(isChecked);
-                        markParentAsChecked(booleanEvaluationItem);
+                        markParentAsChecked(booleanEvaluationItem, isChecked);
                     }
                 });
                 onBind = true;
@@ -460,7 +490,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                                 ((NumericalEvaluationItem) evaluationItem).setNumber(Double.parseDouble(s.toString()));
                                 stringEditTextCell.setCorrect(true);
                                 if(!onBind) {
-                                    markParentAsChecked(evaluationItem);
+                                    markParentAsChecked(evaluationItem, true);
                                 }
                                 return;
                             }
@@ -527,7 +557,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                                     && value <= ((NumericalDependantEvaluationItem) evaluationItem).getTo()) {
                                 ((NumericalDependantEvaluationItem) evaluationItem).setNumber(Double.parseDouble(s.toString()));
                                 stringEditTextCell.setCorrect(true);
-                                markParentAsChecked(evaluationItem);
+                                markParentAsChecked(evaluationItem, true);
                                 return;
                             }
                         } else if (!evaluationItem.isMandatory()) {
@@ -613,7 +643,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                             ((StringEvaluationItem) evaluationItem).setText(null);
                             if (!evaluationItem.isMandatory()) {
                                 stringEditTextCell.setCorrect(true);
-                                markParentAsChecked(evaluationItem);
+                                markParentAsChecked(evaluationItem, true);
                             } else {
                                 stringEditTextCell.setCorrect(false);
                             }
