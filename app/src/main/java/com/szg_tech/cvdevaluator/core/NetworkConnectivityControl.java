@@ -41,9 +41,11 @@ public class NetworkConnectivityControl extends AsyncTask<Void, Void, Boolean>{
                 urlc.setConnectTimeout(3000);
                 urlc.setReadTimeout(4000);
                 urlc.connect();
-                return (urlc.getResponseCode() == 200);
+                boolean result = urlc.getResponseCode() == 200;
+                urlc.disconnect();
+                return result;
             } catch (IOException e) {
-                return (false);
+                return false;
             }
         } else
             return false;
