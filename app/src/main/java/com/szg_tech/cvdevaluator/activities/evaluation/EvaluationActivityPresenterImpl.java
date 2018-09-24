@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.google.gson.Gson;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
@@ -50,9 +49,6 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
             if (evaluation == null) {
                 evaluation = new Evaluation(activity);
             }
-
-            Gson gson = new Gson();
-            String jsonEvaluation = gson.toJson(evaluation);
 
             valueHashMap = EvaluationDAO.getInstance().loadValues();
             System.out.println(valueHashMap);

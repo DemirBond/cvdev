@@ -21,7 +21,7 @@ import com.szg_tech.cvdevaluator.core.views.modal.ProgressModalManager;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.BoldEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TextEvaluationItem;
-import com.szg_tech.cvdevaluator.rest.api.RestClientProvider;
+import com.szg_tech.cvdevaluator.rest.api.RestClient;
 import com.szg_tech.cvdevaluator.rest.requests.EvaluationRequest;
 import com.szg_tech.cvdevaluator.rest.responses.EvaluationGroup;
 import com.szg_tech.cvdevaluator.rest.responses.EvaluationResponse;
@@ -79,7 +79,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
         EvaluationRequest request = new EvaluationRequest(evaluationValueMap, false);
         System.out.println(request.toMap());
 
-        RestClientProvider.get().getApi().computeEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
+        RestClient.getInstance(activity).getApi().computeEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
             @Override
             public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) {
                 if(response.isSuccessful()) {
@@ -124,7 +124,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
                 HashMap<String, Object> evaluationValueMap = EvaluationDAO.getInstance().loadValues();
                 evaluationValueMap.put(ConfigurationParams.EVALUATION_ID, -1);
                 EvaluationRequest request = new EvaluationRequest(evaluationValueMap, true);
-                RestClientProvider.get().getApi().saveEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
+                RestClient.getInstance(activity).getApi().saveEvaluation(request.toMap()).enqueue(new Callback<EvaluationResponse>() {
                     @Override
                     public void onResponse(Call<EvaluationResponse> call, Response<EvaluationResponse> response) { }
 

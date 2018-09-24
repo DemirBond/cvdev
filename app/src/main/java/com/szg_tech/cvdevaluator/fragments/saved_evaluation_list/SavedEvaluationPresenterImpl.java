@@ -3,7 +3,6 @@ package com.szg_tech.cvdevaluator.fragments.saved_evaluation_list;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,9 +20,8 @@ import android.widget.TextView;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.activities.evaluation.EvaluationActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
-import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.core.views.modal.ProgressModalManager;
-import com.szg_tech.cvdevaluator.rest.api.RestClientProvider;
+import com.szg_tech.cvdevaluator.rest.api.RestClient;
 import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationItem;
 import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationResponse;
 import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationSummaryResponse;
@@ -62,21 +60,18 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
     }
 
     private void pullAndShowSavedEvaluations() {
-
         ConnectivityManager conMgr =  (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        NetworkInfo netInfo = null;
+        if (conMgr != null) {
+            netInfo = conMgr.getActiveNetworkInfo();
+        }
         if (netInfo == null){   // fetch evaluations from local storage
-            System.out.println("Not connected");
-
-        }else{  // retrive saved evaluations
-            System.out.println("Connected");
-
+            showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
+        } else {  // retrieve saved evaluations
             ProgressDialog progressDialog = ProgressModalManager.createAndShowRetrieveSavedEvaluationProgressDialog(getActivity());
-
-            RestClientProvider.get().getApi().retrieveSavedEvaluations().enqueue(new Callback<SavedEvaluationSummaryResponse>() {
+            RestClient.getInstance(getActivity()).getApi().retrieveSavedEvaluations().enqueue(new Callback<SavedEvaluationSummaryResponse>() {
                 @Override
                 public void onResponse(Call<SavedEvaluationSummaryResponse> call, Response<SavedEvaluationSummaryResponse> response) {
-
                     progressDialog.dismiss();
                     if(response.isSuccessful()) {
                         SavedEvaluationSummaryResponse savedEvaluationSummaryResponse = response.body();
@@ -168,12 +163,9 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
 
             @Override
             public void onClick(View v) {
-
                 if(activity != null) {
-
                     ProgressDialog progressDialog = ProgressModalManager.createAndShowRetrieveEvaluationProgressDialog(activity);
-
-                    RestClientProvider.get().getApi().retrieveEvaluationByID(savedEvaluationItem.getId()).enqueue(new Callback<SavedEvaluationResponse>() {
+                    RestClient.getInstance(activity).getApi().retrieveEvaluationByID(savedEvaluationItem.getId()).enqueue(new Callback<SavedEvaluationResponse>() {
                         @Override
                         public void onResponse(Call<SavedEvaluationResponse> call, Response<SavedEvaluationResponse> response) {
                             progressDialog.dismiss();
@@ -187,7 +179,6 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
                                 showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.compute_evaluation_progress_message));
                             }
                         }
-
                         @Override
                         public void onFailure(Call<SavedEvaluationResponse> call, Throwable t) {
                             progressDialog.dismiss();

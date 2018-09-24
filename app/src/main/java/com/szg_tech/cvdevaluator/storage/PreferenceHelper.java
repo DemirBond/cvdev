@@ -63,4 +63,9 @@ public class PreferenceHelper {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getBoolean(Credentials.TOS_ACCEPTED, false);
     }
+
+    public static String getLastToken(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return sharedPreferences.getString(Credentials.TOKEN, "");
+    }
 }
