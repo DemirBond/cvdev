@@ -20,7 +20,6 @@ public class SavedEvaluationFragment extends ConfigurableFragment implements Sav
     private SavedEvaluationPresenter presenter = createPresenter();
     View noDataTextView;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.saved_evaluations, container, false);
@@ -47,7 +46,8 @@ public class SavedEvaluationFragment extends ConfigurableFragment implements Sav
 
     @Override
     public SavedEvaluationPresenter createPresenter() {
-        return new SavedEvaluationPresenterImpl(this);
+       presenter = new SavedEvaluationPresenterImpl(this);
+       return presenter;
     }
 
     @Override

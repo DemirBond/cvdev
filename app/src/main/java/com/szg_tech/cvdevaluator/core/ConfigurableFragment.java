@@ -16,7 +16,9 @@ public class ConfigurableFragment extends Fragment implements MVPView {
         if (activity instanceof MVPView) {
             ((MVPView) activity).startActivity(activityClass);
         } else {
-            activity.startActivity(new Intent(activity, activityClass));
+            if (activity != null) {
+                activity.startActivity(new Intent(activity, activityClass));
+            }
         }
     }
 }

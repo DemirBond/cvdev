@@ -55,17 +55,6 @@ class MainActivityPresenterImpl extends AbstractPresenter<MainActivityView> impl
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().startActivity(intent);
                 getActivity().finish();
-
-//                boolean isAuthorized = item.getTitle().toString().equals(getActivity().getResources().getString(R.string.sign_in_up));
-//                if (isAuthorized) {
-//                    item.setTitle(getActivity().getResources().getString(R.string.sign_out));
-//                } else {
-//                    item.setTitle(getActivity().getResources().getString(R.string.sign_in_up));
-//                }
-//                OnAuthorizationChangedListener onAuthorizationChangedListener = getView().getOnAuthorizationChangedListener();
-//                if (onAuthorizationChangedListener != null) {
-//                    onAuthorizationChangedListener.onAuthorizationChanged(isAuthorized);
-//                }
                 return true;
         }
         FragmentManager supportFragmentManager = getSupportFragmentManager();

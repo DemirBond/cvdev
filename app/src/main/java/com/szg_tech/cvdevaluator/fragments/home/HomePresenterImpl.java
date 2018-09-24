@@ -1,8 +1,11 @@
 package com.szg_tech.cvdevaluator.fragments.home;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +19,16 @@ import android.widget.TextView;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.activities.evaluation.EvaluationActivity;
-import com.szg_tech.cvdevaluator.activities.main.MainActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
+import com.szg_tech.cvdevaluator.core.views.modal.ProgressModalManager;
 import com.szg_tech.cvdevaluator.fragments.saved_evaluation_list.SavedEvaluationFragment;
+import com.szg_tech.cvdevaluator.rest.requests.GetSavedEvaluationsCall;
+import com.szg_tech.cvdevaluator.rest.responses.SavedEvaluationItem;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
-class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePresenter {
+import java.util.List;
+
+class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePresenter, GetSavedEvaluationsCall.OnSavedEvaluationsResult {
 
     HomePresenterImpl(HomeView view) {
         super(view);
@@ -52,6 +59,49 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
         }
     }
 
+    public void onResultSuccessful(List<SavedEvaluationItem> itemList){
+        progressDialog.dismiss();
+        SavedEvaluationFragment fragment = new SavedEvaluationFragment();
+        fragment.createPresenter().setData(itemList);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        fragmentTransaction.replace(R.id.container,fragment);
+        fragmentTransaction.addToBackStack(getSupportFragmentManager().getClass().getSimpleName());
+        fragmentTransaction.commit();
+    }
+
+    public void onError(String error){
+        progressDialog.dismiss();
+        showSnackbarBottomButtonError(getActivity(),error);
+    }
+
+    public void onNoInternet(){
+        progressDialog.dismiss();
+        showSnackbarBottomButtonError(getActivity(),getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
+    }
+
+    private void showSnackbarBottomButtonError(Activity activity, String message) {
+        if (activity != null) {
+            Snackbar snackbar = Snackbar.make(getView().getRecyclerView(), message, Snackbar.LENGTH_LONG);
+            snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.snackbar_red));
+            snackbar.show();
+        }
+    }
+
+    ProgressDialog progressDialog;
+
+    private void openSavedEvaluationsFragment(){
+        progressDialog = ProgressModalManager.createAndShowRetrieveSavedEvaluationProgressDialog(getActivity());
+        new GetSavedEvaluationsCall().getEvaluations(this, getActivity());
+    }
+
+
+
+    private void openNewEvaluationActivity(){
+        EvaluationDAO.getInstance().clearEvaluation();
+        getView().startActivity(EvaluationActivity.class);
+    }
+
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
         private LayoutInflater layoutInflater;
 
@@ -71,32 +121,13 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
                 holder.image.setImageResource(R.drawable.clipboard);
                 holder.title.setText(R.string.new_evaluation_title);
                 holder.description.setText(R.string.new_evaluation_description);
-                holder.view.setOnClickListener(v -> {
-                    EvaluationDAO.getInstance().clearEvaluation();
-                    getView().startActivity(EvaluationActivity.class);
-                });
+                holder.view.setOnClickListener(v -> openNewEvaluationActivity());
             } else if (position == 1) {
                 holder.image.setImageResource(R.drawable.locked);
                 holder.title.setText(R.string.saved_evaluation_title);
                 holder.description.setText(R.string.saved_evaluation_desription);
                 holder.image.setImageResource(R.drawable.folder);
-                holder.view.setOnClickListener(v -> {
-                    getSupportFragmentManager().beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                            .replace(R.id.container, new SavedEvaluationFragment())
-                            .addToBackStack(getSupportFragmentManager().getClass().getSimpleName())
-                            .commit();
-                });
-//                Activity activity = getActivity();
-//                if (activity instanceof MainActivity) {
-//                    ((MainActivity) activity).setOnAuthorizationChangedListener(isAuthorized -> {
-//                        if (isAuthorized) {
-//                            holder.image.setImageResource(R.drawable.folder);
-//                        } else {
-//                            holder.image.setImageResource(R.drawable.locked);
-//                        }
-//                    });
-//                }
+                holder.view.setOnClickListener(v -> openSavedEvaluationsFragment());
             }
         }
 
