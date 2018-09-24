@@ -16,20 +16,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.szg_tech.cvdevaluator.R;
+import com.szg_tech.cvdevaluator.rest.requests.LoginCall;
 import com.szg_tech.cvdevaluator.activities.authentication.AuthenticationActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.views.modal.ProgressModalManager;
 import com.szg_tech.cvdevaluator.fragments.register.RegisterFragment;
-import com.szg_tech.cvdevaluator.rest.api.RestClientProvider;
-import com.szg_tech.cvdevaluator.rest.authentication.AuthenticationClient;
-import com.szg_tech.cvdevaluator.rest.requests.LoginRequest;
-import com.szg_tech.cvdevaluator.rest.responses.LoginResponse;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 import com.szg_tech.cvdevaluator.storage.entities.Credentials;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by ahmetkucuk on 3/25/17.
@@ -80,38 +74,23 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
         Activity activity = getActivity();
 
         final ProgressDialog progressDialog = ProgressModalManager.createAndShowLoginProgressDialog(activity);
-        new AuthenticationClient().getAuthenticationService().login(new LoginRequest(email, password).getPlainBody())
-                .enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        if(!activity.isDestroyed()){
-                            progressDialog.dismiss();
-                        }
 
-                        if(response.isSuccessful()) {
-                            if(response.body().isSucceed()) {
-                                RestClientProvider.init(response.body().getAccessToken());
-                                long expireDate = System.currentTimeMillis() + (response.body().getExpiresIn() * 1000);
-                                String tokenType = response.body().getAccessTokenWithType();
-                                Credentials newCredentials =
-                                        new Credentials(email, password, tokenType, expireDate);
-                                PreferenceHelper.putCredentials(activity, newCredentials);
-                                ((AuthenticationActivity)activity).onLoginSucceed();
-                            }
-                        } else {
-                            showSnackbarBottomButtonLoginError(activity);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-
-                        //TODO There is a serious problem, handle with this
-                        progressDialog.dismiss();
-                        showSnackbarBottomButtonLoginError(activity);
-                        t.printStackTrace();
-                    }
-                });
+        new LoginCall().tryLogin(email,password,getActivity(), new LoginCall.OnLogin() {
+            @Override
+            public void onSuccess() {
+                if (!activity.isDestroyed()) {
+                    progressDialog.dismiss();
+                    ((AuthenticationActivity) activity).onLoginSucceed();
+                }
+            }
+            @Override
+            public void onFailed() {
+                if (!activity.isDestroyed()) {
+                    progressDialog.dismiss();
+                }
+                showSnackbarBottomButtonLoginError(activity);
+            }
+        });
     }
 
     private void showSnackbarBottomButtonLoginError(Activity activity) {

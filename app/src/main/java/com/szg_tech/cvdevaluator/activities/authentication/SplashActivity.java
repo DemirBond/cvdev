@@ -2,6 +2,7 @@ package com.szg_tech.cvdevaluator.activities.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
@@ -9,6 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.szg_tech.cvdevaluator.R;
+import com.szg_tech.cvdevaluator.rest.requests.LoginCall;
+import com.szg_tech.cvdevaluator.activities.main.MainActivity;
 
 /**
  * Created by superlight on 7/22/2017 AD.
@@ -26,24 +29,36 @@ public class SplashActivity extends AppCompatActivity{
         }
 
         startAnimation();
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3500);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    startActivity(new Intent(getApplicationContext(), AuthenticationActivity.class));
-                    finish();
+
+        long loginCallTime = System.currentTimeMillis();
+        new LoginCall().tryLogin(this, new LoginCall.OnLogin() {
+            @Override
+            public void onSuccess() {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onFailed() {
+                long delay = System.currentTimeMillis() -loginCallTime;
+                if(delay>100){
+                    new Handler().postDelayed(() -> {
+                        goToAuthActivity();
+                    }, delay);
+                } else {
+                    goToAuthActivity();
                 }
             }
-        };
-        timerThread.start();
+        });
+    }
+
+    private void goToAuthActivity(){
+        startActivity(new Intent(getApplicationContext(), AuthenticationActivity.class));
+        finish();
     }
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
         finish();
     }

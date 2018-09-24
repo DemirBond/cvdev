@@ -16,18 +16,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.szg_tech.cvdevaluator.R;
-import com.szg_tech.cvdevaluator.activities.authentication.AuthenticationActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.views.modal.ProgressModalManager;
-import com.szg_tech.cvdevaluator.rest.api.RestClientProvider;
 import com.szg_tech.cvdevaluator.rest.authentication.AuthenticationClient;
 import com.szg_tech.cvdevaluator.rest.authentication.AuthenticationClientProvider;
 import com.szg_tech.cvdevaluator.rest.requests.RegisterRequest;
-import com.szg_tech.cvdevaluator.rest.responses.RegisterResponse;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
-import com.szg_tech.cvdevaluator.storage.entities.Credentials;
-
-import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;

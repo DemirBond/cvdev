@@ -9,14 +9,6 @@ import android.view.MenuItem;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.fragments.home.HomeFragment;
-import com.szg_tech.cvdevaluator.rest.api.RestClientProvider;
-import com.szg_tech.cvdevaluator.rest.authentication.AuthenticationClient;
-import com.szg_tech.cvdevaluator.rest.requests.LoginRequest;
-import com.szg_tech.cvdevaluator.rest.responses.LoginResponse;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView {
     private MainActivityPresenter presenter = createPresenter();
