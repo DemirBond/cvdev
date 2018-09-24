@@ -26,4 +26,5 @@
     <color name="red_button_pressed">#fc7c7d</color>
     <color name="blue_button_active">#8c5bf7</color>
     <color name="blue_button_pressed">#aa85f6</color>
+    <color name="transparent">#00000000</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.saved_evaluation_list;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -142,7 +143,7 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
             @Override
             public void onClick(View v) {
                 if(activity != null) {
-                    ProgressDialog progressDialog = ProgressModalManager.createAndShowRetrieveEvaluationProgressDialog(activity);
+                    DialogFragment progressDialog = ProgressModalManager.createAndShowRetrieveEvaluationProgressDialog(activity);
                     RestClient.getInstance(activity).getApi().retrieveEvaluationByID(savedEvaluationItem.getId()).enqueue(new Callback<SavedEvaluationResponse>() {
                         @Override
                         public void onResponse(Call<SavedEvaluationResponse> call, Response<SavedEvaluationResponse> response) {

@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.login;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -73,7 +74,7 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
 
         Activity activity = getActivity();
 
-        final ProgressDialog progressDialog = ProgressModalManager.createAndShowLoginProgressDialog(activity);
+        final DialogFragment progressDialog = ProgressModalManager.createAndShowLoginProgressDialog(activity);
 
         new LoginCall().tryLogin(email,password,getActivity(), new LoginCall.OnLogin() {
             @Override

@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.output;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -73,7 +74,7 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
 
     public void computeAndShowEvaluations(Activity activity, RecyclerView recyclerView) {
 
-        ProgressDialog progressDialog = ProgressModalManager.createAndShowComputeEvaluationProgressDialog(getActivity());
+        DialogFragment progressDialog = ProgressModalManager.createAndShowComputeEvaluationProgressDialog(getActivity());
         HashMap<String, Object> evaluationValueMap = EvaluationDAO.getInstance().loadValues();
 
         EvaluationRequest request = new EvaluationRequest(evaluationValueMap, false);

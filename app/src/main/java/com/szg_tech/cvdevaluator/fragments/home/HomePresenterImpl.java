@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.home;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -88,7 +89,7 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
         }
     }
 
-    ProgressDialog progressDialog;
+    DialogFragment progressDialog;
 
     private void openSavedEvaluationsFragment(){
         progressDialog = ProgressModalManager.createAndShowRetrieveSavedEvaluationProgressDialog(getActivity());

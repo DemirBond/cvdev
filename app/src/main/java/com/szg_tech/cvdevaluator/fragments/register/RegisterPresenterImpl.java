@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.register;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -69,7 +70,7 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
         Activity activity = getActivity();
         AuthenticationClient authenticationClient = AuthenticationClientProvider.get();
 
-        final ProgressDialog progressDialog = ProgressModalManager.createAndShowRegisterProgressDialog(activity);
+        final DialogFragment progressDialog = ProgressModalManager.createAndShowRegisterProgressDialog(activity);
         authenticationClient.getAuthenticationService().register(new RegisterRequest(name, email, password, confirmPassword).getPlainBody())
                 .enqueue(new Callback<Void>() {
                     @Override

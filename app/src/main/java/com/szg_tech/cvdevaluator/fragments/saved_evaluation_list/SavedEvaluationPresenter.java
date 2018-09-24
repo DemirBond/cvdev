@@ -15,4 +15,6 @@ public interface SavedEvaluationPresenter extends Presenter {
     void onResume();
 
     void setData(List<SavedEvaluationItem> itemList);
+
+    void setError(String error);
 }
