@@ -52,14 +52,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
             if (evaluation == null) {
                 evaluation = new Evaluation(getActivity().getApplicationContext());
             }
-
-            // test if serializable is implemented properly
-            try {
-                new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(evaluation);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+            
             valueHashMap = EvaluationDAO.getInstance().loadValues();
             System.out.println(valueHashMap);
             if (!valueHashMap.isEmpty()) {
