@@ -12,28 +12,29 @@ import java.util.ArrayList;
 public class Evaluation extends SectionEvaluationItem {
 
     public Evaluation(Context context) {
-        super(ConfigurationParams.EVALUATION, null);
-        name = context.getString(R.string.evaluation);
+        super(context, ConfigurationParams.EVALUATION, null);
+        name = getString(R.string.evaluation);
         this.evaluationItemList = createEvaluationItemElementsList(context);
         sectionElementState = SectionEvaluationItem.SectionElementState.OPENED;
     }
 
     private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
-        return new ArrayList<EvaluationItem>() {
-            {
-                add(new Bio(context));
-                add(new Symptoms(context));
-                add(new ReviewOfSystems(context));
-                add(new PhysicalExam(context));
-                add(new CurrentCVProfile(context));
-                add(new Pulmonary(context));
-                add(new Renal(context));
-                add(new MajorCVRisk(context));
-                add(new NonCardiacSurgicalRisk(context));
-                add(new Laboratories(context));
-                add(new Diagnostics(context));
-                add(new Therapies(context));
-            }
-        };
+        ArrayList<EvaluationItem> items = new ArrayList<>();
+        items.add(new Bio(context));
+        items.add(new Symptoms(context));
+        items.add(new ReviewOfSystems(context));
+        items.add(new PhysicalExam(context));
+
+        items.add(new CurrentCVProfile(context));
+        items.add(new Pulmonary(context));
+        items.add(new Renal(context));
+        items.add(new MajorCVRisk(context));
+
+        items.add(new NonCardiacSurgicalRisk(context));
+        items.add(new Laboratories(context));
+        items.add(new Diagnostics(context));
+        items.add(new Therapies(context));
+        return items;
+
     }
 }

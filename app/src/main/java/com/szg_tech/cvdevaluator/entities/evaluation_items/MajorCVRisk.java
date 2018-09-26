@@ -15,19 +15,19 @@ import java.util.ArrayList;
 
 class MajorCVRisk extends SectionEvaluationItem {
     MajorCVRisk(Context context) {
-        super(MAJOR_CV_RISK, null);
-        name = context.getString(R.string.cv_risk);
-        this.evaluationItemList = createEvaluationItemElementsList(context);
+        super(context, MAJOR_CV_RISK, null);
+        name = getString(R.string.cv_risk);
+        this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionEvaluationItem.SectionElementState.LOCKED;
         this.dependsOn = BIO;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {
             {
-                add(new SectionCheckboxEvaluationItem(DIABETES, context.getString(R.string.diabetes), new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(DIABETES, getString(R.string.diabetes), new ArrayList<EvaluationItem>() {
                     {
-                        add(new SectionCheckboxEvaluationItem(TYPE_2_DM, context.getString(R.string.type_2_dm), new ArrayList<EvaluationItem>() {
+                        add(new SectionCheckboxEvaluationItem(TYPE_2_DM, getString(R.string.type_2_dm), new ArrayList<EvaluationItem>() {
                             {
                                 add(new BooleanEvaluationItem(DMNP, "Diabetic Nephropathy"));
                                 add(new BooleanEvaluationItem(DMCKD, "Diabetic CKD"));
@@ -52,7 +52,7 @@ class MajorCVRisk extends SectionEvaluationItem {
                         }));
 
 
-                        add(new SectionCheckboxEvaluationItem(TYPE_1_DM, context.getString(R.string.type_1_dm), new ArrayList<EvaluationItem>() {
+                        add(new SectionCheckboxEvaluationItem(TYPE_1_DM, getString(R.string.type_1_dm), new ArrayList<EvaluationItem>() {
                             {
                                 add(new BooleanEvaluationItem(DMNP, "Diabetic Nephropathy"));
                                 add(new BooleanEvaluationItem(DMCKD, "Diabetic CKD"));
@@ -76,42 +76,42 @@ class MajorCVRisk extends SectionEvaluationItem {
 
                             }
                         }));
-                        add(new BooleanEvaluationItem(GESTATIONAL_DM, context.getString(R.string.gestational_dm)));
-                        add(new BooleanEvaluationItem(RETINOPATHY, context.getString(R.string.retinopathy)));
+                        add(new BooleanEvaluationItem(GESTATIONAL_DM, getString(R.string.gestational_dm)));
+                        add(new BooleanEvaluationItem(RETINOPATHY, getString(R.string.retinopathy)));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(SYSTEMIC_ARTERIAL_HYPERTENSION, context.getString(R.string.systemic_arterial_hypertension), new ArrayList<EvaluationItem>() {
+                add(new SectionCheckboxEvaluationItem(SYSTEMIC_ARTERIAL_HYPERTENSION, getString(R.string.systemic_arterial_hypertension), new ArrayList<EvaluationItem>() {
                     {
-                        add(new NumericalEvaluationItem(AMB_SBP, context.getString(R.string.amb_sbp), context.getString(R.string.value), 80, 190, true));
-                        add(new NumericalEvaluationItem(AMB_DBP, context.getString(R.string.amb_dbp), context.getString(R.string.value), 30, 150, true));
-                        add(new BoldEvaluationItem(CHECK_LVH_ON_EKG, context.getString(R.string.check_lvh_on_ekg)) {
+                        add(new NumericalEvaluationItem(AMB_SBP, getString(R.string.amb_sbp), getString(R.string.value), 80, 190, true));
+                        add(new NumericalEvaluationItem(AMB_DBP, getString(R.string.amb_dbp), getString(R.string.value), 30, 150, true));
+                        add(new BoldEvaluationItem(CHECK_LVH_ON_EKG, getString(R.string.check_lvh_on_ekg)) {
                             {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(SBP_TREATED, context.getString(R.string.sbp_treated)));
-                        add(new BooleanEvaluationItem(AFRICAN_AMERICAN, context.getString(R.string.african_american)));
+                        add(new BooleanEvaluationItem(SBP_TREATED, getString(R.string.sbp_treated)));
+                        add(new BooleanEvaluationItem(AFRICAN_AMERICAN, getString(R.string.african_american)));
                         add(new BoldEvaluationItem(SECONDARY_HYPERTENSION, "Secondary hypertension") {
                             {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(PRIMARY_HYPERALDESTERONISM, context.getString(R.string.primary_hyperaldesteronism)));
-                        add(new BooleanEvaluationItem(RENOVASCULAR_ATHEROSCLEROTIC, context.getString(R.string.renovascular_atherosclerotic)));
-                        add(new BooleanEvaluationItem(PHEOCROMOCYTOMA, context.getString(R.string.pheocromocytoma)));
-                        add(new BooleanEvaluationItem(OSA, context.getString(R.string.osa)));
-                        add(new BoldEvaluationItem(ACUTELY_SYMPTOMATIC, context.getString(R.string.acutely_symptomatic)) {
+                        add(new BooleanEvaluationItem(PRIMARY_HYPERALDESTERONISM, getString(R.string.primary_hyperaldesteronism)));
+                        add(new BooleanEvaluationItem(RENOVASCULAR_ATHEROSCLEROTIC, getString(R.string.renovascular_atherosclerotic)));
+                        add(new BooleanEvaluationItem(PHEOCROMOCYTOMA, getString(R.string.pheocromocytoma)));
+                        add(new BooleanEvaluationItem(OSA, getString(R.string.osa)));
+                        add(new BoldEvaluationItem(ACUTELY_SYMPTOMATIC, getString(R.string.acutely_symptomatic)) {
                             {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(HEADACHED_BLURRED_VISION_OR_AMS, context.getString(R.string.headached_blurred_vision_or_ams)));
-                        add(new BooleanEvaluationItem(EPISTAXIS, context.getString(R.string.epistaxis)));
-                        add(new BooleanEvaluationItem(CHEST_BACK_PAIN_DYSPNEA, context.getString(R.string.chest_back_pain_dyspnea)));
+                        add(new BooleanEvaluationItem(HEADACHED_BLURRED_VISION_OR_AMS, getString(R.string.headached_blurred_vision_or_ams)));
+                        add(new BooleanEvaluationItem(EPISTAXIS, getString(R.string.epistaxis)));
+                        add(new BooleanEvaluationItem(CHEST_BACK_PAIN_DYSPNEA, getString(R.string.chest_back_pain_dyspnea)));
                     }
                 }));
-                add(new BooleanEvaluationItem(TOBACCO_USE, context.getString(R.string.tobacco_use)));
-                add(new BooleanEvaluationItem(FAMILY_HISTORY, context.getString(R.string.family_history)));
+                add(new BooleanEvaluationItem(TOBACCO_USE, getString(R.string.tobacco_use)));
+                add(new BooleanEvaluationItem(FAMILY_HISTORY, getString(R.string.family_history)));
 
             }
         };

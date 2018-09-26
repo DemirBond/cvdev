@@ -17,6 +17,9 @@ import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -47,7 +50,14 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
             EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
             Bundle bundle = new Bundle();
             if (evaluation == null) {
-                evaluation = new Evaluation(activity);
+                evaluation = new Evaluation(getActivity().getApplicationContext());
+            }
+
+            // test if serializable is implemented properly
+            try {
+                new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(evaluation);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
 
             valueHashMap = EvaluationDAO.getInstance().loadValues();
@@ -58,7 +68,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
 
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluation);
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
-                add(new SectionEvaluationItem(ConfigurationParams.COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
+                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION, getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
             }});
             evaluationListFragment.setArguments(bundle);
             if (isAdd) {

@@ -14,14 +14,14 @@ import java.util.ArrayList;
 
 class ReviewOfSystems extends SectionEvaluationItem {
     ReviewOfSystems(Context context) {
-        super(REVIEW_OF_SYSTEMS, null);
+        super(context, REVIEW_OF_SYSTEMS, null);
         name = context.getString(R.string.review_of_systems);
-        this.evaluationItemList = createEvaluationItemElementsList(context);
+        this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionElementState.LOCKED;
         dependsOn = BIO;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {{
             add(new BooleanEvaluationItem(WEIGHT_CHANGE, "Weight gain"));
             add(new BooleanEvaluationItem(THYROTOXICOSIS, "Thyrotoxicosis"));
@@ -34,9 +34,9 @@ class ReviewOfSystems extends SectionEvaluationItem {
             add(new BooleanEvaluationItem(PREVIOUS_DVTE, "Previous pulmonary embolism"));
             add(new BooleanEvaluationItem(PND, "Paroxysmal nocturnal dyspnea"));
             add(new BooleanEvaluationItem(ORTHOPNEA, "Orthopnea"));
-            add(new BooleanEvaluationItem(PALPITATIONS, context.getString(R.string.palpitations)));
-            add(new BooleanEvaluationItem(ACTIVE_PEPTIC_ULCER_DISEASE, context.getString(R.string.active_peptic_ulcer_disease)));
-            add(new BooleanEvaluationItem(LIVER_DISEASE, context.getString(R.string.liver_disease)));
+            add(new BooleanEvaluationItem(PALPITATIONS, getString(R.string.palpitations)));
+            add(new BooleanEvaluationItem(ACTIVE_PEPTIC_ULCER_DISEASE, getString(R.string.active_peptic_ulcer_disease)));
+            add(new BooleanEvaluationItem(LIVER_DISEASE, getString(R.string.liver_disease)));
             add(new BooleanEvaluationItem(BLEED_IN_THE_PAST_3_MONTHS, "Bleeding in the past 3 months"));
             add(new BooleanEvaluationItem(TIA, "Transient ischemic attack"));
             add(new BooleanEvaluationItem(CLAUDICATION, "Claudication"));

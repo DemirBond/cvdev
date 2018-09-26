@@ -19,92 +19,94 @@ import java.util.ArrayList;
 
 class Symptoms extends SectionEvaluationItem {
     Symptoms(Context context) {
-        super(SYMPTOMS, null);
-        name = context.getString(R.string.symptoms);
-        this.evaluationItemList = createEvaluationItemElementsList(context);
+        super(context, SYMPTOMS, null);
+        tempContext = context;
+        name = getString(R.string.symptoms);
+        this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionElementState.LOCKED;
         this.dependsOn = BIO;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
-        return new ArrayList<EvaluationItem>() {{
-                add(new SectionCheckboxEvaluationItem(DYSPNEA, context.getString(R.string.dyspnea), new ArrayList<EvaluationItem>() {{
-                        add(new BoldEvaluationItem(PLEASE_SELECT_ONE, context.getString(R.string.please_select_one))  {{
-                                setBackgroundHighlighted(true);
-                            }
-                        });
-                        add(new EmptyCellEvaluationItem());
-                        add(new RadioButtonGroupEvaluationItem(NEW_HF, "Unknown, suspected HF", PLEASE_SELECT_ONE, false) {{
-                                setBackgroundHighlighted(true);
-                            }
-                        });
-                        add(new RadioButtonGroupEvaluationItem(CHRONIC_HF, context.getString(R.string.chronic_hf), PLEASE_SELECT_ONE, false) {{
-                                setBackgroundHighlighted(true);
-                            }
-                        });
-                        add(new RadioButtonGroupEvaluationItem(LUNG, "Chronic lung disease", PLEASE_SELECT_ONE, false) {{
-                                setBackgroundHighlighted(true);
-                            }
-                        });
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
+        ArrayList<EvaluationItem> items = new ArrayList<>();
 
-                        String dyspneaGroupNameSecond = "dyspnea2";
-                    add(new EmptyCellEvaluationItem());
-                    add(new RadioButtonGroupEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory ", dyspneaGroupNameSecond, false) {{
-                        setBackgroundHighlighted(true);
-                    }
-                    });
-                    add(new RadioButtonGroupEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room ", dyspneaGroupNameSecond, false) {{
-                        setBackgroundHighlighted(true);
-                    }
-                    });
-                    add(new RadioButtonGroupEvaluationItem(IN_HOSPITAL, "Decompensated / Hospitalized", dyspneaGroupNameSecond, false,
-                            new ArrayList<EvaluationItem>() {{
-                                add(new RadioButtonGroupEvaluationItem(DAY1, " Day 1", IN_HOSPITAL, false) {
-                                    {
-                                        setBackgroundHighlighted(true);
-                                    }
-                                });
-                                add(new RadioButtonGroupEvaluationItem(DAY2, " Day 2", IN_HOSPITAL, false) {
-                                    {
-                                        setBackgroundHighlighted(true);
-                                    }
-                                });
-                                add(new RadioButtonGroupEvaluationItem(DAY3, " Day 3", IN_HOSPITAL, false) {
-                                    {
-                                        setBackgroundHighlighted(true);
-                                    }
-                                });
-                            }}
-                    ) {
-                        {
-                            setBackgroundHighlighted(true);
-                        }
-                    });
-                        add(new EmptyCellEvaluationItem());
-                        add(new SectionCheckboxEvaluationItem(DYSPNEA_ON_EXERTION, "Dyspnea on exertion", new ArrayList<EvaluationItem>() {{
-                                add(new BooleanEvaluationItem(STRENUOUS_EXERTION, context.getString(R.string.strenuous_exertion)));
-                                add(new BooleanEvaluationItem(MORE_THAN_DAILY_ROUTINE, context.getString(R.string.more_than_daily_routine)));
-                                add(new BooleanEvaluationItem(DAILY_ROUTINE_MINIMAL_ACTIVITIES, context.getString(R.string.daily_routine_minimal_activities)));
-                                add(new EmptyCellEvaluationItem());
-                                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_1, "NYHA Class 1"));
-                                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_2, "NYHA Class 2"));
-                                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_3, "NYHA Class 3"));
+        items.add(new SectionCheckboxEvaluationItem(DYSPNEA, getString(R.string.dyspnea), new ArrayList<EvaluationItem>() {{
+            add(new BoldEvaluationItem(PLEASE_SELECT_ONE, getString(R.string.please_select_one))  {{
+                setBackgroundHighlighted(true);
+            }
+            });
+            add(new EmptyCellEvaluationItem());
+            add(new RadioButtonGroupEvaluationItem(NEW_HF, "Unknown, suspected HF", PLEASE_SELECT_ONE, false) {{
+                setBackgroundHighlighted(true);
+            }
+            });
+            add(new RadioButtonGroupEvaluationItem(CHRONIC_HF, getString(R.string.chronic_hf), PLEASE_SELECT_ONE, false) {{
+                setBackgroundHighlighted(true);
+            }
+            });
+            add(new RadioButtonGroupEvaluationItem(LUNG, "Chronic lung disease", PLEASE_SELECT_ONE, false) {{
+                setBackgroundHighlighted(true);
+            }
+            });
 
+            String dyspneaGroupNameSecond = "dyspnea2";
+            add(new EmptyCellEvaluationItem());
+            add(new RadioButtonGroupEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory ", dyspneaGroupNameSecond, false) {{
+                setBackgroundHighlighted(true);
+            }
+            });
+            add(new RadioButtonGroupEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room ", dyspneaGroupNameSecond, false) {{
+                setBackgroundHighlighted(true);
+            }
+            });
+            add(new RadioButtonGroupEvaluationItem(IN_HOSPITAL, "Decompensated / Hospitalized", dyspneaGroupNameSecond, false,
+                    new ArrayList<EvaluationItem>() {{
+                        add(new RadioButtonGroupEvaluationItem(DAY1, " Day 1", IN_HOSPITAL, false) {
+                            {
+                                setBackgroundHighlighted(true);
                             }
-                        }));
-                        add(new SectionCheckboxEvaluationItem(DYSPNEA_AT_REST, "Dyspnea at rest", new ArrayList<EvaluationItem>() {{
-                                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_4, "NYHA Class 4"));
+                        });
+                        add(new RadioButtonGroupEvaluationItem(DAY2, " Day 2", IN_HOSPITAL, false) {
+                            {
+                                setBackgroundHighlighted(true);
                             }
-                        }));
-                        add(new BooleanEvaluationItem(WEIGHT_GAIN, "WEIGHT GAIN"));
-                    }
-                }));
-                add(new SectionCheckboxEvaluationItem(CHEST_PAIN, context.getString(R.string.chest_pain), new ArrayList<EvaluationItem>() {{
-                        add(new SectionCheckboxEvaluationItem(EMERGENCY_ROOM_CP, context.getString(R.string.emergency_room), new ArrayList<EvaluationItem>() {{
+                        });
+                        add(new RadioButtonGroupEvaluationItem(DAY3, " Day 3", IN_HOSPITAL, false) {
+                            {
+                                setBackgroundHighlighted(true);
+                            }
+                        });
+                    }}
+            ) {
+                {
+                    setBackgroundHighlighted(true);
+                }
+            });
+            add(new EmptyCellEvaluationItem());
+            add(new SectionCheckboxEvaluationItem(DYSPNEA_ON_EXERTION, "Dyspnea on exertion", new ArrayList<EvaluationItem>() {{
+                add(new BooleanEvaluationItem(STRENUOUS_EXERTION, getString(R.string.strenuous_exertion)));
+                add(new BooleanEvaluationItem(MORE_THAN_DAILY_ROUTINE, getString(R.string.more_than_daily_routine)));
+                add(new BooleanEvaluationItem(DAILY_ROUTINE_MINIMAL_ACTIVITIES, getString(R.string.daily_routine_minimal_activities)));
+                add(new EmptyCellEvaluationItem());
+                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_1, "NYHA Class 1"));
+                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_2, "NYHA Class 2"));
+                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_3, "NYHA Class 3"));
+
+            }
+            }));
+            add(new SectionCheckboxEvaluationItem(DYSPNEA_AT_REST, "Dyspnea at rest", new ArrayList<EvaluationItem>() {{
+                add(new BooleanEvaluationItem(NYHA_CCVS_CLASS_4, "NYHA Class 4"));
+            }
+            }));
+            add(new BooleanEvaluationItem(WEIGHT_GAIN, "WEIGHT GAIN"));
+        }
+        }));
+            items.add(new SectionCheckboxEvaluationItem(CHEST_PAIN, getString(R.string.chest_pain), new ArrayList<EvaluationItem>() {{
+                        add(new SectionCheckboxEvaluationItem(EMERGENCY_ROOM_CP, getString(R.string.emergency_room), new ArrayList<EvaluationItem>() {{
                                 add(new BooleanEvaluationItem(TWO_TYPICAL_OR_PROBABLE_ANGINA, "More than 2 typical or probable angina episodes"));
                                 add(new BooleanEvaluationItem(TYPICAL_OR_PROBABLE_ANGINA_MORE_20_MIN, "Typical or probable angina lasting more than 20min"));
                                 add(new BooleanEvaluationItem(ASA_USE_IN_PAST_1_WEEK, "ASA use in the past 1 week"));
-                                add(new SectionCheckboxEvaluationItem(POSITIVE_TROPONIN, context.getString(R.string.positive_troponin), new ArrayList<EvaluationItem>() {{
+                                add(new SectionCheckboxEvaluationItem(POSITIVE_TROPONIN, getString(R.string.positive_troponin), new ArrayList<EvaluationItem>() {{
                                         add(new BooleanEvaluationItem(TROPONIN_X_MORE_3_ABOVE_NORMAL, "Troponin 3 times above normal"));
                                         add(new BooleanEvaluationItem(TROPONIN_1_3_ABOVE_NORMAL, "Troponin 1 to 3 times above normal"));
                                     }
@@ -120,49 +122,49 @@ class Symptoms extends SectionEvaluationItem {
                             }
                         }));
                         add(new SectionCheckboxEvaluationItem(UNDETERMINED_CP_NEW, "Undetermined chest pain", new ArrayList<EvaluationItem>() {{
-                                add(new SectionCheckboxEvaluationItem(SIDE_HEMITHORAX, context.getString(R.string.side_hemithorax), new ArrayList<EvaluationItem>() {{
-                                        add(new BoldEvaluationItem(QUALITY, context.getString(R.string.quality)) {{
+                                add(new SectionCheckboxEvaluationItem(SIDE_HEMITHORAX, getString(R.string.side_hemithorax), new ArrayList<EvaluationItem>() {{
+                                        add(new BoldEvaluationItem(QUALITY, getString(R.string.quality)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(SHARP, context.getString(R.string.sharp)));
-                                        add(new BooleanEvaluationItem(PRESSURE, context.getString(R.string.pressure)));
-                                        add(new BooleanEvaluationItem(TIGHTNESS, context.getString(R.string.tightness)));
-                                        add(new BooleanEvaluationItem(SORENESS, context.getString(R.string.soreness)));
-                                        add(new BooleanEvaluationItem(HEAVINESS, context.getString(R.string.heaviness)));
-                                        add(new BoldEvaluationItem(AGGRAVATED_BY, context.getString(R.string.aggravated_by)) {{
+                                        add(new BooleanEvaluationItem(SHARP, getString(R.string.sharp)));
+                                        add(new BooleanEvaluationItem(PRESSURE, getString(R.string.pressure)));
+                                        add(new BooleanEvaluationItem(TIGHTNESS, getString(R.string.tightness)));
+                                        add(new BooleanEvaluationItem(SORENESS, getString(R.string.soreness)));
+                                        add(new BooleanEvaluationItem(HEAVINESS, getString(R.string.heaviness)));
+                                        add(new BoldEvaluationItem(AGGRAVATED_BY, getString(R.string.aggravated_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(LYING, context.getString(R.string.lying)));
-                                        add(new BooleanEvaluationItem(BREATHING, context.getString(R.string.breathing)));
-                                        add(new BooleanEvaluationItem(COUGHING, context.getString(R.string.coughing)));
-                                        add(new BooleanEvaluationItem(EXERTION, context.getString(R.string.exertion)));
-                                        add(new BooleanEvaluationItem(PALPATION, context.getString(R.string.palpation)));
-                                        add(new BoldEvaluationItem(RELIEVED_BY, context.getString(R.string.relieved_by)) {{
+                                        add(new BooleanEvaluationItem(LYING, getString(R.string.lying)));
+                                        add(new BooleanEvaluationItem(BREATHING, getString(R.string.breathing)));
+                                        add(new BooleanEvaluationItem(COUGHING, getString(R.string.coughing)));
+                                        add(new BooleanEvaluationItem(EXERTION, getString(R.string.exertion)));
+                                        add(new BooleanEvaluationItem(PALPATION, getString(R.string.palpation)));
+                                        add(new BoldEvaluationItem(RELIEVED_BY, getString(R.string.relieved_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(NTG, context.getString(R.string.ntg)));
-                                        add(new BooleanEvaluationItem(REST, context.getString(R.string.rest)));
-                                        add(new BooleanEvaluationItem(SITTING_UP, context.getString(R.string.sitting_up)));
-                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, context.getString(R.string.lying_on_side)));
-                                        add(new BooleanEvaluationItem(ANALGESICS, context.getString(R.string.analgesics)));
-                                        add(new BoldEvaluationItem(RADIATION, context.getString(R.string.radiation)) {{
+                                        add(new BooleanEvaluationItem(NTG, getString(R.string.ntg)));
+                                        add(new BooleanEvaluationItem(REST, getString(R.string.rest)));
+                                        add(new BooleanEvaluationItem(SITTING_UP, getString(R.string.sitting_up)));
+                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, getString(R.string.lying_on_side)));
+                                        add(new BooleanEvaluationItem(ANALGESICS, getString(R.string.analgesics)));
+                                        add(new BoldEvaluationItem(RADIATION, getString(R.string.radiation)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(JAW, context.getString(R.string.jaw)));
-                                        add(new BooleanEvaluationItem(BACK, context.getString(R.string.back)));
-                                        add(new BooleanEvaluationItem(ARM, context.getString(R.string.arm)));
+                                        add(new BooleanEvaluationItem(JAW, getString(R.string.jaw)));
+                                        add(new BooleanEvaluationItem(BACK, getString(R.string.back)));
+                                        add(new BooleanEvaluationItem(ARM, getString(R.string.arm)));
                                         add(new BoldEvaluationItem(ASSOCIATED_WITH, "Associated with") {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(DYSPNEA_CP, context.getString(R.string.dyspnea)));
-                                        add(new BooleanEvaluationItem(NAUSEA, context.getString(R.string.nausea)));
-                                        add(new BooleanEvaluationItem(DIAPHORESIS, context.getString(R.string.diaphoresis)));
-                                        add(new BooleanEvaluationItem(FAINTNESS, context.getString(R.string.faintness)));
+                                        add(new BooleanEvaluationItem(DYSPNEA_CP, getString(R.string.dyspnea)));
+                                        add(new BooleanEvaluationItem(NAUSEA, getString(R.string.nausea)));
+                                        add(new BooleanEvaluationItem(DIAPHORESIS, getString(R.string.diaphoresis)));
+                                        add(new BooleanEvaluationItem(FAINTNESS, getString(R.string.faintness)));
                                         add(new BooleanEvaluationItem(CPPALPITATIONS, "CPPalpitations"));
                                         add(new BoldEvaluationItem(LASTING, "Lasting") {{
                                                 setBackgroundHighlighted(true);
@@ -174,49 +176,49 @@ class Symptoms extends SectionEvaluationItem {
                                         add(new BooleanEvaluationItem(CPCONSTANT, "Constant"));
                                     }
                                 }));
-                                add(new SectionCheckboxEvaluationItem(INTERCOSTAL_CP, context.getString(R.string.intercostal_cp), new ArrayList<EvaluationItem>() {{
-                                        add(new BoldEvaluationItem(QUALITY, context.getString(R.string.quality)) {{
+                                add(new SectionCheckboxEvaluationItem(INTERCOSTAL_CP, getString(R.string.intercostal_cp), new ArrayList<EvaluationItem>() {{
+                                        add(new BoldEvaluationItem(QUALITY, getString(R.string.quality)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(SHARP, context.getString(R.string.sharp)));
-                                        add(new BooleanEvaluationItem(PRESSURE, context.getString(R.string.pressure)));
-                                        add(new BooleanEvaluationItem(TIGHTNESS, context.getString(R.string.tightness)));
-                                        add(new BooleanEvaluationItem(SORENESS, context.getString(R.string.soreness)));
-                                        add(new BooleanEvaluationItem(HEAVINESS, context.getString(R.string.heaviness)));
-                                        add(new BoldEvaluationItem(AGGRAVATED_BY, context.getString(R.string.aggravated_by)) {{
+                                        add(new BooleanEvaluationItem(SHARP, getString(R.string.sharp)));
+                                        add(new BooleanEvaluationItem(PRESSURE, getString(R.string.pressure)));
+                                        add(new BooleanEvaluationItem(TIGHTNESS, getString(R.string.tightness)));
+                                        add(new BooleanEvaluationItem(SORENESS, getString(R.string.soreness)));
+                                        add(new BooleanEvaluationItem(HEAVINESS, getString(R.string.heaviness)));
+                                        add(new BoldEvaluationItem(AGGRAVATED_BY, getString(R.string.aggravated_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(LYING, context.getString(R.string.lying)));
-                                        add(new BooleanEvaluationItem(BREATHING, context.getString(R.string.breathing)));
-                                        add(new BooleanEvaluationItem(COUGHING, context.getString(R.string.coughing)));
-                                        add(new BooleanEvaluationItem(EXERTION, context.getString(R.string.exertion)));
-                                        add(new BooleanEvaluationItem(PALPATION, context.getString(R.string.palpation)));
-                                        add(new BoldEvaluationItem(RELIEVED_BY, context.getString(R.string.relieved_by)) {{
+                                        add(new BooleanEvaluationItem(LYING, getString(R.string.lying)));
+                                        add(new BooleanEvaluationItem(BREATHING, getString(R.string.breathing)));
+                                        add(new BooleanEvaluationItem(COUGHING, getString(R.string.coughing)));
+                                        add(new BooleanEvaluationItem(EXERTION, getString(R.string.exertion)));
+                                        add(new BooleanEvaluationItem(PALPATION, getString(R.string.palpation)));
+                                        add(new BoldEvaluationItem(RELIEVED_BY, getString(R.string.relieved_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(NTG, context.getString(R.string.ntg)));
-                                        add(new BooleanEvaluationItem(REST, context.getString(R.string.rest)));
-                                        add(new BooleanEvaluationItem(SITTING_UP, context.getString(R.string.sitting_up)));
-                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, context.getString(R.string.lying_on_side)));
-                                        add(new BooleanEvaluationItem(ANALGESICS, context.getString(R.string.analgesics)));
-                                        add(new BoldEvaluationItem(RADIATION, context.getString(R.string.radiation)) {{
+                                        add(new BooleanEvaluationItem(NTG, getString(R.string.ntg)));
+                                        add(new BooleanEvaluationItem(REST, getString(R.string.rest)));
+                                        add(new BooleanEvaluationItem(SITTING_UP, getString(R.string.sitting_up)));
+                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, getString(R.string.lying_on_side)));
+                                        add(new BooleanEvaluationItem(ANALGESICS, getString(R.string.analgesics)));
+                                        add(new BoldEvaluationItem(RADIATION, getString(R.string.radiation)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(JAW, context.getString(R.string.jaw)));
-                                        add(new BooleanEvaluationItem(BACK, context.getString(R.string.back)));
-                                        add(new BooleanEvaluationItem(ARM, context.getString(R.string.arm)));
-                                        add(new BoldEvaluationItem(ASSOCIATED_WITH, context.getString(R.string.associated_with)) {{
+                                        add(new BooleanEvaluationItem(JAW, getString(R.string.jaw)));
+                                        add(new BooleanEvaluationItem(BACK, getString(R.string.back)));
+                                        add(new BooleanEvaluationItem(ARM, getString(R.string.arm)));
+                                        add(new BoldEvaluationItem(ASSOCIATED_WITH, getString(R.string.associated_with)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(DYSPNEA_CP, context.getString(R.string.dyspnea)));
-                                        add(new BooleanEvaluationItem(NAUSEA, context.getString(R.string.nausea)));
-                                        add(new BooleanEvaluationItem(DIAPHORESIS, context.getString(R.string.diaphoresis)));
-                                        add(new BooleanEvaluationItem(FAINTNESS, context.getString(R.string.faintness)));
+                                        add(new BooleanEvaluationItem(DYSPNEA_CP, getString(R.string.dyspnea)));
+                                        add(new BooleanEvaluationItem(NAUSEA, getString(R.string.nausea)));
+                                        add(new BooleanEvaluationItem(DIAPHORESIS, getString(R.string.diaphoresis)));
+                                        add(new BooleanEvaluationItem(FAINTNESS, getString(R.string.faintness)));
                                         add(new BooleanEvaluationItem(CPPALPITATIONS, "CPPalpitations"));
                                         add(new BoldEvaluationItem(LASTING, "Lasting") {{
                                                 setBackgroundHighlighted(true);
@@ -228,50 +230,50 @@ class Symptoms extends SectionEvaluationItem {
                                         add(new BooleanEvaluationItem(CPCONSTANT, "Constant"));
                                     }
                                 }));
-                                add(new SectionCheckboxEvaluationItem(CENTRAL_PRECORDIAL_CP, context.getString(R.string.central_precordial_cp), new ArrayList<EvaluationItem>() {{
-                                        add(new BoldEvaluationItem(QUALITY, context.getString(R.string.quality)) {{
+                                add(new SectionCheckboxEvaluationItem(CENTRAL_PRECORDIAL_CP, getString(R.string.central_precordial_cp), new ArrayList<EvaluationItem>() {{
+                                        add(new BoldEvaluationItem(QUALITY, getString(R.string.quality)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(SHARP, context.getString(R.string.sharp)));
-                                        add(new BooleanEvaluationItem(PRESSURE, context.getString(R.string.pressure)));
-                                        add(new BooleanEvaluationItem(TIGHTNESS, context.getString(R.string.tightness)));
-                                        add(new BooleanEvaluationItem(SORENESS, context.getString(R.string.soreness)));
-                                        add(new BooleanEvaluationItem(HEAVINESS, context.getString(R.string.heaviness)));
-                                        add(new BoldEvaluationItem(AGGRAVATED_BY, context.getString(R.string.aggravated_by)) {{
+                                        add(new BooleanEvaluationItem(SHARP, getString(R.string.sharp)));
+                                        add(new BooleanEvaluationItem(PRESSURE, getString(R.string.pressure)));
+                                        add(new BooleanEvaluationItem(TIGHTNESS, getString(R.string.tightness)));
+                                        add(new BooleanEvaluationItem(SORENESS, getString(R.string.soreness)));
+                                        add(new BooleanEvaluationItem(HEAVINESS, getString(R.string.heaviness)));
+                                        add(new BoldEvaluationItem(AGGRAVATED_BY, getString(R.string.aggravated_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(LYING, context.getString(R.string.lying)));
-                                        add(new BooleanEvaluationItem(BREATHING, context.getString(R.string.breathing)));
-                                        add(new BooleanEvaluationItem(COUGHING, context.getString(R.string.coughing)));
-                                        add(new BooleanEvaluationItem(EXERTION, context.getString(R.string.exertion)));
-                                        add(new BooleanEvaluationItem(PALPATION, context.getString(R.string.palpation)));
-                                        add(new BoldEvaluationItem(RELIEVED_BY, context.getString(R.string.relieved_by)) {{
+                                        add(new BooleanEvaluationItem(LYING, getString(R.string.lying)));
+                                        add(new BooleanEvaluationItem(BREATHING, getString(R.string.breathing)));
+                                        add(new BooleanEvaluationItem(COUGHING, getString(R.string.coughing)));
+                                        add(new BooleanEvaluationItem(EXERTION, getString(R.string.exertion)));
+                                        add(new BooleanEvaluationItem(PALPATION, getString(R.string.palpation)));
+                                        add(new BoldEvaluationItem(RELIEVED_BY, getString(R.string.relieved_by)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(NTG, context.getString(R.string.ntg)));
-                                        add(new BooleanEvaluationItem(REST, context.getString(R.string.rest)));
-                                        add(new BooleanEvaluationItem(SITTING_UP, context.getString(R.string.sitting_up)));
-                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, context.getString(R.string.lying_on_side)));
-                                        add(new BooleanEvaluationItem(ANALGESICS, context.getString(R.string.analgesics)));
+                                        add(new BooleanEvaluationItem(NTG, getString(R.string.ntg)));
+                                        add(new BooleanEvaluationItem(REST, getString(R.string.rest)));
+                                        add(new BooleanEvaluationItem(SITTING_UP, getString(R.string.sitting_up)));
+                                        add(new BooleanEvaluationItem(LYING_ON_SIDE, getString(R.string.lying_on_side)));
+                                        add(new BooleanEvaluationItem(ANALGESICS, getString(R.string.analgesics)));
 
-                                        add(new BoldEvaluationItem(RADIATION, context.getString(R.string.radiation)) {{
+                                        add(new BoldEvaluationItem(RADIATION, getString(R.string.radiation)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(JAW, context.getString(R.string.jaw)));
-                                        add(new BooleanEvaluationItem(BACK, context.getString(R.string.back)));
-                                        add(new BooleanEvaluationItem(ARM, context.getString(R.string.arm)));
-                                        add(new BoldEvaluationItem(ASSOCIATED_WITH, context.getString(R.string.associated_with)) {{
+                                        add(new BooleanEvaluationItem(JAW, getString(R.string.jaw)));
+                                        add(new BooleanEvaluationItem(BACK, getString(R.string.back)));
+                                        add(new BooleanEvaluationItem(ARM, getString(R.string.arm)));
+                                        add(new BoldEvaluationItem(ASSOCIATED_WITH, getString(R.string.associated_with)) {{
                                                 setBackgroundHighlighted(true);
                                             }
                                         });
-                                        add(new BooleanEvaluationItem(DYSPNEA_CP, context.getString(R.string.dyspnea)));
-                                        add(new BooleanEvaluationItem(NAUSEA, context.getString(R.string.nausea)));
-                                        add(new BooleanEvaluationItem(DIAPHORESIS, context.getString(R.string.diaphoresis)));
-                                        add(new BooleanEvaluationItem(FAINTNESS, context.getString(R.string.faintness)));
+                                        add(new BooleanEvaluationItem(DYSPNEA_CP, getString(R.string.dyspnea)));
+                                        add(new BooleanEvaluationItem(NAUSEA, getString(R.string.nausea)));
+                                        add(new BooleanEvaluationItem(DIAPHORESIS, getString(R.string.diaphoresis)));
+                                        add(new BooleanEvaluationItem(FAINTNESS, getString(R.string.faintness)));
                                         add(new BooleanEvaluationItem(CPPALPITATIONS, "CPPalpitations"));
                                         add(new BoldEvaluationItem(LASTING, "Lasting") {{
                                                 setBackgroundHighlighted(true);
@@ -285,53 +287,53 @@ class Symptoms extends SectionEvaluationItem {
                                 }));
                             }
                         }));
-                        add(new BooleanEvaluationItem(UNABLE_TO_EXERCISE, context.getString(R.string.unable_to_exercise)));
+                        add(new BooleanEvaluationItem(UNABLE_TO_EXERCISE, getString(R.string.unable_to_exercise)));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(SYNCOPE_PRESYNCOPE, " Presyncope / Syncope / Seizure", new ArrayList<EvaluationItem>() {{
-                        add(new BoldEvaluationItem(CIRCUMSTANCE, context.getString(R.string.circumstance)) {{
+            items.add(new SectionCheckboxEvaluationItem(SYNCOPE_PRESYNCOPE, " Presyncope / Syncope / Seizure", new ArrayList<EvaluationItem>() {{
+                        add(new BoldEvaluationItem(CIRCUMSTANCE, getString(R.string.circumstance)) {{
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(UPRIGHT_POSITION, context.getString(R.string.upright_position)));
-                        add(new BooleanEvaluationItem(SUDDEN_NOISE, context.getString(R.string.sudden_noise)));
-                        add(new BooleanEvaluationItem(NECK_MOVEMENT_MANIPULATION, context.getString(R.string.neck_movement_manipulation)));
-                        add(new BooleanEvaluationItem(EXERTIONAL, context.getString(R.string.exertional)));
+                        add(new BooleanEvaluationItem(UPRIGHT_POSITION, getString(R.string.upright_position)));
+                        add(new BooleanEvaluationItem(SUDDEN_NOISE, getString(R.string.sudden_noise)));
+                        add(new BooleanEvaluationItem(NECK_MOVEMENT_MANIPULATION, getString(R.string.neck_movement_manipulation)));
+                        add(new BooleanEvaluationItem(EXERTIONAL, getString(R.string.exertional)));
                         add(new BooleanEvaluationItem(SPORADIC, "Sporadic"));
-                        add(new BoldEvaluationItem(PRODROMAL_SYMPTOMS, context.getString(R.string.prodromal_symptoms)) {{
+                        add(new BoldEvaluationItem(PRODROMAL_SYMPTOMS, getString(R.string.prodromal_symptoms)) {{
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(NAUSEA_SYN, context.getString(R.string.nausea)));
-                        add(new BooleanEvaluationItem(DIZZINESS, context.getString(R.string.dizziness)));
-                        add(new BooleanEvaluationItem(SYNPALPITATIONS, context.getString(R.string.palpitations)));
-                        add(new BooleanEvaluationItem(SYNCHEST_PAIN, context.getString(R.string.chest_pain)));
-                        add(new BooleanEvaluationItem(AURA, context.getString(R.string.aura)));
-                        add(new BoldEvaluationItem(SYNCOPE_DURATION_DURING_SYNCOPE, context.getString(R.string.syncope_duration_during_syncope)) {{
+                        add(new BooleanEvaluationItem(NAUSEA_SYN, getString(R.string.nausea)));
+                        add(new BooleanEvaluationItem(DIZZINESS, getString(R.string.dizziness)));
+                        add(new BooleanEvaluationItem(SYNPALPITATIONS, getString(R.string.palpitations)));
+                        add(new BooleanEvaluationItem(SYNCHEST_PAIN, getString(R.string.chest_pain)));
+                        add(new BooleanEvaluationItem(AURA, getString(R.string.aura)));
+                        add(new BoldEvaluationItem(SYNCOPE_DURATION_DURING_SYNCOPE, getString(R.string.syncope_duration_during_syncope)) {{
                                 setBackgroundHighlighted(true);
                             }
                         });
                         add(new NumericalEvaluationItem(MINUTES_SYN_DUR, "Minutes", "Value", 0, 10, true));
                         add(new NumericalEvaluationItem(SECONDS_SYN_DUR, "Seconds", "Value", 0, 300, true));
-                        add(new BooleanEvaluationItem(CYANOSIS, context.getString(R.string.cyanosis)));
-                        add(new BooleanEvaluationItem(PALLOR_DIAPHORESIS, context.getString(R.string.pallor_diaphoresis)));
-                        add(new BooleanEvaluationItem(UNUSUAL_POSTURE, context.getString(R.string.unusual_posture)));
-                        add(new BoldEvaluationItem(POSTICTAL_SYMPTOMS, context.getString(R.string.postictal_symptoms)) {{
+                        add(new BooleanEvaluationItem(CYANOSIS, getString(R.string.cyanosis)));
+                        add(new BooleanEvaluationItem(PALLOR_DIAPHORESIS, getString(R.string.pallor_diaphoresis)));
+                        add(new BooleanEvaluationItem(UNUSUAL_POSTURE, getString(R.string.unusual_posture)));
+                        add(new BoldEvaluationItem(POSTICTAL_SYMPTOMS, getString(R.string.postictal_symptoms)) {{
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(DISORIENTATION, context.getString(R.string.disorientation)));
-                        add(new BooleanEvaluationItem(PARALYSIS, context.getString(R.string.paralysis)));
-                        add(new BooleanEvaluationItem(CHEST_PAIN_POS_CP, context.getString(R.string.chest_pain)));
-                        add(new BooleanEvaluationItem(PROLONGED_FATIGUE, context.getString(R.string.prolonged_fatigue)));
-                        add(new BooleanEvaluationItem(TRAUMATIC_INJURY, context.getString(R.string.traumatic_injury)));
+                        add(new BooleanEvaluationItem(DISORIENTATION, getString(R.string.disorientation)));
+                        add(new BooleanEvaluationItem(PARALYSIS, getString(R.string.paralysis)));
+                        add(new BooleanEvaluationItem(CHEST_PAIN_POS_CP, getString(R.string.chest_pain)));
+                        add(new BooleanEvaluationItem(PROLONGED_FATIGUE, getString(R.string.prolonged_fatigue)));
+                        add(new BooleanEvaluationItem(TRAUMATIC_INJURY, getString(R.string.traumatic_injury)));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(WEAKNESS, "Weakness", new ArrayList<EvaluationItem>() {{
+            items.add(new SectionCheckboxEvaluationItem(WEAKNESS, "Weakness", new ArrayList<EvaluationItem>() {{
                         add(new BooleanEvaluationItem(MALAISE, "Malaise / Fatigue"));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(SYMPALPITATIONS, "Palpitations", new ArrayList<EvaluationItem>() {{
+            items.add(new SectionCheckboxEvaluationItem(SYMPALPITATIONS, "Palpitations", new ArrayList<EvaluationItem>() {{
                         add(new BoldEvaluationItem(PAL_FREQUENCY, "Frequency") {{
                                 setBackgroundHighlighted(true);
                             }
@@ -393,7 +395,7 @@ class Symptoms extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(PAL_POSTEXERTION, "Irregular RR, other than sinus"));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(ABDOMINAL, "Abdominal pain", new ArrayList<EvaluationItem>() {{
+            items.add(new SectionCheckboxEvaluationItem(ABDOMINAL, "Abdominal pain", new ArrayList<EvaluationItem>() {{
                         add(new BoldEvaluationItem(PAIN_QUALITY, "Quality") {{
                                 setBackgroundHighlighted(true);
                             }
@@ -450,7 +452,7 @@ class Symptoms extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(URINARY, "Change in urinary habit"));
                     }
                 }));
-                add(new SectionCheckboxEvaluationItem(SHOCK, "Shock", new ArrayList<EvaluationItem>() {{
+            items.add(new SectionCheckboxEvaluationItem(SHOCK, "Shock", new ArrayList<EvaluationItem>() {{
                         add(new BooleanEvaluationItem(HYPOVOLEMIA, "Hypovolemia"));
                         add(new BooleanEvaluationItem(INFECTIOUS, "Infectious"));
                         add(new BooleanEvaluationItem(SPINALCORD, "Spinal cord"));
@@ -458,7 +460,6 @@ class Symptoms extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(PHARMACOLOGIC, "Pharmacologic"));
                     }
                 }));
-            }
-        };
+        return items;
     }
 }

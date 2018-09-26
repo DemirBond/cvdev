@@ -18,7 +18,7 @@ import java.util.ArrayList;
 class Renal extends SectionEvaluationItem {
 
     Renal(Context context) {
-        super(RENAL, null);
+        super(context, RENAL, null);
         name = "Renal";
         this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionElementState.LOCKED;

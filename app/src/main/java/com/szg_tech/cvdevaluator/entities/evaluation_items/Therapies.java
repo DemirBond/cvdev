@@ -13,18 +13,18 @@ import static com.szg_tech.cvdevaluator.core.ConfigurationParams.*;
 public class Therapies extends SectionEvaluationItem {
 
     Therapies(Context context) {
-        super(CURRENT_THERAPIES, context.getString(R.string.current_therapies));
-        this.evaluationItemList = createEvaluationItemElementsList(context);
+        super(context, CURRENT_THERAPIES, context.getString(R.string.current_therapies));
+        this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionEvaluationItem.SectionElementState.LOCKED;
         dependsOn = BIO;
 
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {
             {
-                add(new POMeds(context));
-                add(new InHospitalTherapies(context));
+                add(new POMeds(tempContext));
+                add(new InHospitalTherapies(tempContext));
             }
         };
     }

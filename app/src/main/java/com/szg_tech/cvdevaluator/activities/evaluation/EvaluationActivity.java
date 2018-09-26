@@ -12,9 +12,6 @@ import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.activities.authentication.AuthenticationActivity;
 import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;
 import com.szg_tech.cvdevaluator.entities.evaluation_items.HeartSpecialistManagement;
-import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
-import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
-import com.szg_tech.cvdevaluator.storage.RealmHelper;
 
 public class EvaluationActivity extends AppCompatActivity implements EvaluationActivityView {
     EvaluationActivityPresenter presenter = createPresenter();

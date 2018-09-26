@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class EvaluationItem implements Serializable {
+
+    private static final long serialVersionUID = -3955786975000540567L;
+
     protected String name;
     protected String id;
     private String hint;
-    protected boolean isMandatory;
+    private boolean isMandatory;
     private boolean isValid = true;
-
     private String type;
 
     protected EvaluationItem(String id, String name, String hint) {

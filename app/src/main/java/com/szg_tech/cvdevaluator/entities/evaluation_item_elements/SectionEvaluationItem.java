@@ -1,5 +1,7 @@
 package com.szg_tech.cvdevaluator.entities.evaluation_item_elements;
 
+import android.content.Context;
+
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 
 import java.util.ArrayList;
@@ -9,27 +11,38 @@ public class SectionEvaluationItem extends EvaluationItem {
     protected ArrayList<EvaluationItem> evaluationItemList;
     protected String dependsOn;
     private boolean shouldShowAlert;
-    private transient OnSectionElementStateChangeListener onSectionElementStateChangeListener;
     private boolean hasStateIcon = true;
     private boolean isBottomButtonReferenceSkipped = false;
 
+    private transient OnSectionElementStateChangeListener onSectionElementStateChangeListener;
+    protected transient Context tempContext;
 
-    public SectionEvaluationItem(String id, String name) {
-        this(id, name, null, SectionElementState.LOCKED);
+    protected String getString(int resourceId){
+        if(tempContext !=null){
+            return tempContext.getString(resourceId);
+        } else {
+            return null;
+        }
     }
 
-    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList) {
-        this(id, name, evaluationItemList, SectionElementState.LOCKED);
+    public SectionEvaluationItem(Context context, String id, String name) {
+        this(context, id, name, null, SectionElementState.LOCKED);
     }
 
-    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState) {
+    public SectionEvaluationItem(Context context, String id, String name, ArrayList<EvaluationItem> evaluationItemList) {
+        this(context, id, name, evaluationItemList, SectionElementState.LOCKED);
+    }
+
+    public SectionEvaluationItem(Context context, String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState) {
         super(id, name, null);
+        tempContext = context;
         this.evaluationItemList = evaluationItemList;
         this.sectionElementState = sectionElementState;
     }
 
-    public SectionEvaluationItem(String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState, String dependsOn) {
+    public SectionEvaluationItem(Context context, String id, String name, ArrayList<EvaluationItem> evaluationItemList, SectionElementState sectionElementState, String dependsOn) {
         super(id, name, null);
+        tempContext = context;
         this.evaluationItemList = evaluationItemList;
         this.sectionElementState = sectionElementState;
         this.dependsOn = dependsOn;

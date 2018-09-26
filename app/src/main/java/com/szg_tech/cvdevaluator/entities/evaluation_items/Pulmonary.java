@@ -20,14 +20,14 @@ import java.util.ArrayList;
 class Pulmonary extends SectionEvaluationItem {
 
     Pulmonary(Context context) {
-        super(PULMONARY, null);
+        super(context, PULMONARY, null);
         name = "Pulmonary";
-        this.evaluationItemList = createEvaluationItemElementsList(context);
+        this.evaluationItemList = createEvaluationItemElementsList();
         sectionElementState = SectionElementState.LOCKED;
         this.dependsOn = BIO;
     }
 
-    private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
+    private ArrayList<EvaluationItem> createEvaluationItemElementsList() {
         return new ArrayList<EvaluationItem>() {
             {
                 add(new NumericalEvaluationItem(FEV1_LT, "FEV1 lt/min", "Value", 0.5, 8, true));

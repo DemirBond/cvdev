@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class About extends SectionEvaluationItem {
     public About(Context context) {
-        super(ABOUT, null);
+        super(context, ABOUT, null);
         name = context.getString(R.string.about);
         this.evaluationItemList = createEvaluationItemElementsList(context);
         sectionElementState = SectionEvaluationItem.SectionElementState.OPENED;
@@ -26,7 +26,7 @@ public class About extends SectionEvaluationItem {
     private ArrayList<EvaluationItem> createEvaluationItemElementsList(Context context) {
         return new ArrayList<EvaluationItem>() {
             {
-                add(new SectionEvaluationItem(PRIVACY_POLICY, context.getString(R.string.privacy_policy), new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(tempContext, PRIVACY_POLICY, context.getString(R.string.privacy_policy), new ArrayList<EvaluationItem>() {
                     {
 
                     }
@@ -36,7 +36,7 @@ public class About extends SectionEvaluationItem {
                         setBottomButtonReferenceSkipped(true);
                     }
                 });
-                add(new SectionEvaluationItem(TERMS_OF_USE, context.getString(R.string.terms_of_use), new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(tempContext, TERMS_OF_USE, context.getString(R.string.terms_of_use), new ArrayList<EvaluationItem>() {
                     {
                         add(new TextEvaluationItem(TERMS_OF_USE_TEXT, context.getString(R.string.terms_of_use_text)));
                     }
@@ -46,7 +46,7 @@ public class About extends SectionEvaluationItem {
                         setBottomButtonReferenceSkipped(true);
                     }
                 });
-                add(new SectionEvaluationItem(HELP_SUPPORT, context.getString(R.string.help_support), new ArrayList<EvaluationItem>() {
+                add(new SectionEvaluationItem(tempContext, HELP_SUPPORT, context.getString(R.string.help_support), new ArrayList<EvaluationItem>() {
                     {
 
                     }
