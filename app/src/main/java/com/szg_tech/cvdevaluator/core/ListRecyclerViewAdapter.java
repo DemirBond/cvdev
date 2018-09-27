@@ -1,6 +1,5 @@
 package com.szg_tech.cvdevaluator.core;
 
-import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -18,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.view.inputmethod.EditorInfo;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 
@@ -55,7 +54,6 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionPlaceh
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TextEvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
@@ -431,7 +429,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                         saveAllValues();
                         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
                         if (fragmentManager != null) {
-                            expandList(evaluationItem, position);
+                            expandOrCollapseList(evaluationItem, position);
                         }
                     }
                 });
@@ -464,7 +462,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                     radioButtonCell.showChevron(true);
                     setupChevron(radioButtonCell,evaluationItem);
                     radioButtonCell.setOnClickListener(v -> {
-                        expandList(evaluationItem, position);
+                        expandOrCollapseList(evaluationItem, position);
                     });
                 } else {
                     radioButtonCell.showChevron(false);
@@ -749,7 +747,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 ((SectionCheckboxCell) holder.view).setOnClickListener(v -> {
                     if (isScreenValid()) {
                         if (activity instanceof AppCompatActivity  /*&& ((SectionCheckboxCell) holder.view).isChecked() */) {
-                           expandList(evaluationItem, position);
+                           expandOrCollapseList(evaluationItem, position);
                         }
                     } else {
                         showSnackbarBottomButtonError(((SectionCheckboxCell) holder.view).getRootView());
@@ -771,6 +769,17 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                     evaluationItem.setValue(cal.getTimeInMillis());
                 });
             }
+//            else if (evaluationItem instanceof EmptyCellEvaluationItem){
+//                int color =ContextCompat.getColor(activity, R.color.lighter_purple);
+//                int depth = ((EmptyCellEvaluationItem) evaluationItem).getDepth();
+//                if(depth!=0){
+//                    color = color - depth*100;
+//                }
+//                ((EmptyCell) holder.view).setBackgroundColor(color);
+//                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ((LinearLayout) holder.view).getLayoutParams();
+//                params.setMarginStart(depth * 20);
+//                ((LinearLayout) holder.view).setLayoutParams(params);
+//            }
         }
     }
 
@@ -782,21 +791,30 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         ((ChevronCell)cellItem).getChevron().setRotation(rotationAngle);
     }
 
-    List<EvaluationItem> itemsToAnimateIn;
-    List<EvaluationItem> itemsToAnimateOut;
+    private List<EvaluationItem> itemsToAnimateIn;
+    private List<EvaluationItem> itemsToAnimateOut;
 
-    private void expandList(EvaluationItem evaluationItem, int position) {
-        if(expandedItems.contains(evaluationItem)){
-            collapseList(evaluationItem);
-        } else {
-            itemsToAnimateIn = new ArrayList<>();
-            expandedItems.add(evaluationItem);
-            ArrayList<EvaluationItem> children = evaluationItem.getEvaluationItemList();
-            evaluationItemsList.addAll(position+1,children);
-            itemsToAnimateIn.addAll(children);
-            for(EvaluationItem child : children){
-                oldValues.put(child.getId(),child.getValue());
+    private void expandOrCollapseList(EvaluationItem evaluationItem, int position) {
+        try {
+            if (expandedItems.contains(evaluationItem)) {
+                collapseList(evaluationItem);
+            } else {
+                int depth = depthMap.get(evaluationItem.getId());
+                itemsToAnimateIn = new ArrayList<>();
+                expandedItems.add(evaluationItem);
+                ArrayList<EvaluationItem> children = evaluationItem.getEvaluationItemList();
+                evaluationItemsList.add(position + 1, new EmptyCellEvaluationItem(depth));
+                // add blank item at beginning of expanded children list
+                evaluationItemsList.addAll(position + 2, children);
+                // add blank item at end of expanded children list
+                evaluationItemsList.add(position + 2 + children.size(), new EmptyCellEvaluationItem(depth));
+                itemsToAnimateIn.addAll(children);
+                for (EvaluationItem child : children) {
+                    oldValues.put(child.getId(), child.getValue());
+                }
             }
+        } catch(IndexOutOfBoundsException ex){
+            Log.e("Adapter","Index wrong!");
         }
         notifyDataSetChanged();
     }
@@ -805,7 +823,13 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         itemsToAnimateOut = new ArrayList<>();
         expandedItems.remove(parentItem);
         List<EvaluationItem> children = parentItem.getEvaluationItemList();
-        if(children!=null) {
+        if(children!=null && children.size()>0) {
+            // get index of first child and remove blank item before it
+            int indexOfFirstChild = evaluationItemsList.indexOf(children.get(0));
+            evaluationItemsList.remove(indexOfFirstChild-1);
+            // get index of last child and remove blank item after it
+            int indexOfLastChild = evaluationItemsList.indexOf(children.get(children.size()-1));
+            evaluationItemsList.remove(indexOfLastChild+1);
             evaluationItemsList.removeAll(children);
             for (EvaluationItem child : children) {
                 oldValues.remove(child.getId());

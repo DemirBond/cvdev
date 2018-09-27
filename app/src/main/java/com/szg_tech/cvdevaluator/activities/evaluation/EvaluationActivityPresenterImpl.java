@@ -52,7 +52,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
             if (evaluation == null) {
                 evaluation = new Evaluation(getActivity().getApplicationContext());
             }
-            
+
             valueHashMap = EvaluationDAO.getInstance().loadValues();
             System.out.println(valueHashMap);
             if (!valueHashMap.isEmpty()) {
