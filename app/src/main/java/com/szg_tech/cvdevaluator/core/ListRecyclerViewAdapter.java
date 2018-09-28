@@ -54,6 +54,7 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionPlaceh
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TextEvaluationItem;
+import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
@@ -86,6 +87,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         depthMap = new HashMap<>();
         depthMapLeaf = new ArrayList<>();
         calculateDepth(evaluationItemsList,0);
+        populateWithSeparators(evaluationItemsList);
+
         oldValues = valuesDump;
     }
 
@@ -455,15 +458,16 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                     radioButtonCell.setChecked(true);
                     deselectRadioButtons(finalRadioButtons,radioButtonCell);
                     markParentAsChecked(evaluationItem,true);
+                    if(evaluationItem.getEvaluationItemList()!=null){
+                        expandOrCollapseList(evaluationItem, position);
+                    }
                 });
 
 
                 if (evaluationItem.getEvaluationItemList() != null) {
                     radioButtonCell.showChevron(true);
                     setupChevron(radioButtonCell,evaluationItem);
-                    radioButtonCell.setOnClickListener(v -> {
-                        expandOrCollapseList(evaluationItem, position);
-                    });
+
                 } else {
                     radioButtonCell.showChevron(false);
                 }
@@ -769,17 +773,6 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                     evaluationItem.setValue(cal.getTimeInMillis());
                 });
             }
-//            else if (evaluationItem instanceof EmptyCellEvaluationItem){
-//                int color =ContextCompat.getColor(activity, R.color.lighter_purple);
-//                int depth = ((EmptyCellEvaluationItem) evaluationItem).getDepth();
-//                if(depth!=0){
-//                    color = color - depth*100;
-//                }
-//                ((EmptyCell) holder.view).setBackgroundColor(color);
-//                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) ((LinearLayout) holder.view).getLayoutParams();
-//                params.setMarginStart(depth * 20);
-//                ((LinearLayout) holder.view).setLayoutParams(params);
-//            }
         }
     }
 
@@ -799,15 +792,10 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             if (expandedItems.contains(evaluationItem)) {
                 collapseList(evaluationItem);
             } else {
-                int depth = depthMap.get(evaluationItem.getId());
                 itemsToAnimateIn = new ArrayList<>();
                 expandedItems.add(evaluationItem);
                 ArrayList<EvaluationItem> children = evaluationItem.getEvaluationItemList();
-                evaluationItemsList.add(position + 1, new EmptyCellEvaluationItem(depth));
-                // add blank item at beginning of expanded children list
-                evaluationItemsList.addAll(position + 2, children);
-                // add blank item at end of expanded children list
-                evaluationItemsList.add(position + 2 + children.size(), new EmptyCellEvaluationItem(depth));
+                evaluationItemsList.addAll(position + 1, children);
                 itemsToAnimateIn.addAll(children);
                 for (EvaluationItem child : children) {
                     oldValues.put(child.getId(), child.getValue());
@@ -824,17 +812,31 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         expandedItems.remove(parentItem);
         List<EvaluationItem> children = parentItem.getEvaluationItemList();
         if(children!=null && children.size()>0) {
-            // get index of first child and remove blank item before it
-            int indexOfFirstChild = evaluationItemsList.indexOf(children.get(0));
-            evaluationItemsList.remove(indexOfFirstChild-1);
-            // get index of last child and remove blank item after it
-            int indexOfLastChild = evaluationItemsList.indexOf(children.get(children.size()-1));
-            evaluationItemsList.remove(indexOfLastChild+1);
             evaluationItemsList.removeAll(children);
             for (EvaluationItem child : children) {
                 oldValues.remove(child.getId());
                 itemsToAnimateOut.add(child);
                 collapseList(child);
+            }
+        }
+    }
+
+    private void populateWithSeparators(List<EvaluationItem> items){
+        if(items!=null && items.size()>0) {
+            EvaluationItem firstItem = items.get(0);
+            int depth = depthMap.get(firstItem.getId());
+            if(depth>1){
+                if(!(firstItem instanceof EmptyCellEvaluationItem)){
+                    items.add(0,new EmptyCellEvaluationItem(depth));
+                }
+                EvaluationItem lastItem = items.get(items.size()-1);
+                if(!(lastItem instanceof EmptyCellEvaluationItem)) {
+                    items.add(new EmptyCellEvaluationItem(depth));
+                }
+            }
+            for(EvaluationItem item : items){
+                List<EvaluationItem> children = item.getEvaluationItemList();
+                populateWithSeparators(children);
             }
         }
     }
@@ -1018,8 +1020,15 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
 
     public void resetFileds() {
         for(EvaluationItem item : evaluationItemsList){
-            Object oldValue = oldValues.get(item.getId());
-            item.setValue(oldValue);
+            if (item instanceof RadioButtonGroupEvaluationItem){
+                ((RadioButtonGroupEvaluationItem) item).setChecked(false);
+            } else if (item instanceof SectionCheckboxEvaluationItem){
+                ((SectionCheckboxEvaluationItem) item).setChecked(false);
+            } else if (item instanceof BooleanEvaluationItem){
+                ((BooleanEvaluationItem) item).setChecked(false);
+            }
+//            Object oldValue = oldValues.get(item.getId());
+//            item.setValue(oldValue);
         }
         notifyDataSetChanged();
     }

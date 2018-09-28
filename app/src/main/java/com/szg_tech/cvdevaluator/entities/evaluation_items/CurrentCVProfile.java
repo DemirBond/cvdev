@@ -158,7 +158,6 @@ class CurrentCVProfile extends SectionEvaluationItem {
                 }, SectionElementState.OPENED));
                 add(new SectionEvaluationItem(tempContext, ATRIAL_FIBRILATION, getString(R.string.atrial_fibrilation), new ArrayList<EvaluationItem>() {
                     {
-
                         add(new EmptyCellEvaluationItem());
                         add(new BooleanEvaluationItem(CHRONIC_AF, getString(R.string.chronic_af)));
                         add(new BooleanEvaluationItem(PERSISTENT_AF, getString(R.string.persistent_af)));
