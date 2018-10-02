@@ -15,9 +15,6 @@ import com.szg_tech.cvdevaluator.core.ConfigurableFragment;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.entities.evaluation_items.About;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
-import com.szg_tech.cvdevaluator.fragments.home.HomeFragment;
-import com.szg_tech.cvdevaluator.rest.authentication.AuthenticationClient;
-import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 
 class MainActivityPresenterImpl extends AbstractPresenter<MainActivityView> implements MainActivityPresenter {

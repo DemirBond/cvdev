@@ -17,15 +17,10 @@ import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivityView> implements EvaluationActivityPresenter {
-    private Evaluation evaluation;
-    private HashMap<String, Object> valueHashMap;
 
     EvaluationActivityPresenterImpl(EvaluationActivityView view) {
         super(view);
@@ -49,17 +44,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
         if (activity != null) {
             EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
             Bundle bundle = new Bundle();
-            if (evaluation == null) {
-                evaluation = new Evaluation(getActivity().getApplicationContext());
-            }
-
-            valueHashMap = EvaluationDAO.getInstance().loadValues();
-            System.out.println(valueHashMap);
-            if (!valueHashMap.isEmpty()) {
-                recursiveFillSection(evaluation);
-            }
-
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluation);
+            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, createHomeScreenData());
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
                 add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION, getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
             }});
@@ -69,8 +54,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
                         .add(R.id.container, evaluationListFragment)
                         .commit();
             } else {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0
-                        && !getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName().equals(EvaluationActivityPresenterImpl.class.getSimpleName())) {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0 && !getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1).getName().equals(EvaluationActivityPresenterImpl.class.getSimpleName())) {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container, evaluationListFragment)
                             .addToBackStack(EvaluationActivityPresenterImpl.class.getSimpleName())
@@ -80,7 +64,16 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
         }
     }
 
-    private void recursiveFillSection(EvaluationItem tempEvaluationItem) {
+    private Evaluation createHomeScreenData(){
+        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
+        HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
+        if (!valueHashMap.isEmpty()) {
+            recursiveFillSection(evaluation, valueHashMap);
+        }
+        return evaluation;
+    }
+
+    private void recursiveFillSection(EvaluationItem tempEvaluationItem, HashMap valueHashMap) {
         ArrayList<EvaluationItem> evaluationItems = tempEvaluationItem.getEvaluationItemList();
         if (evaluationItems != null) {
             for (EvaluationItem evaluationItem : evaluationItems) {
@@ -88,7 +81,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
                 if (value != null) {
                     evaluationItem.setValue(value);
                 }
-                recursiveFillSection(evaluationItem);
+                recursiveFillSection(evaluationItem, valueHashMap);
             }
         }
     }

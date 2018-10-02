@@ -896,7 +896,6 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
 
     private void goToNextScreen(int position, SectionEvaluationItem evaluationItem) {
         saveAllValues();
-
         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
@@ -943,6 +942,32 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         }
     }
 
+    private void startMandatoryFragment(EvaluationItem sectionEvaluationItem){
+        FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
+        if (fragmentManager != null) {
+            EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, sectionEvaluationItem);
+            ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
+            int position = evaluationItemsList.indexOf(sectionEvaluationItem);
+            for (int i = position + 1; i < getItemCount(); i++) {
+                EvaluationItem nextEvaluationItem = evaluationItemsList.get(i);
+                if (nextEvaluationItem instanceof SectionEvaluationItem) {
+                    nextSectionsArrayList.add((SectionEvaluationItem) nextEvaluationItem);
+                }
+            }
+            nextSectionsArrayList.addAll(nextSectionEvaluationItems);
+            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
+            bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
+            evaluationListFragment.setArguments(bundle);
+            fragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .replace(R.id.container, evaluationListFragment)
+                    .addToBackStack(fragmentManager.getClass().getSimpleName() + sectionEvaluationItem.getName())
+                    .commit();
+        }
+    }
+
     private void goToMandatorySection(Activity activity, SectionEvaluationItem sectionEvaluationItem) {
         if (sectionEvaluationItem.getSectionElementState() == SectionEvaluationItem.SectionElementState.LOCKED) {
             String dependsOn = sectionEvaluationItem.getDependsOn();
@@ -958,35 +983,15 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         } else if (activity instanceof AppCompatActivity) {
             AlertModalManager.createAndShowDependsOnSectionAlertDialog(activity, sectionEvaluationItem.getName(), v -> {
                 saveAllValues();
-                FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
-                if (fragmentManager != null) {
-                    EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION, sectionEvaluationItem);
-                    ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
-                    int position = evaluationItemsList.indexOf(sectionEvaluationItem);
-                    for (int i = position + 1; i < getItemCount(); i++) {
-                        EvaluationItem nextEvaluationItem = evaluationItemsList.get(i);
-                        if (nextEvaluationItem instanceof SectionEvaluationItem) {
-                            nextSectionsArrayList.add((SectionEvaluationItem) nextEvaluationItem);
-                        }
-                    }
-                    nextSectionsArrayList.addAll(nextSectionEvaluationItems);
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
-                    bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
-                    evaluationListFragment.setArguments(bundle);
-                    fragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                            .replace(R.id.container, evaluationListFragment)
-                            .addToBackStack(fragmentManager.getClass().getSimpleName() + sectionEvaluationItem.getName())
-                            .commit();
-                    if ((sectionEvaluationItem).getSectionElementState() != SectionEvaluationItem.SectionElementState.FILLED) {
-                        (sectionEvaluationItem).setSectionElementState(SectionEvaluationItem.SectionElementState.VIEWED);
-                    }
+                startMandatoryFragment(sectionEvaluationItem);
+                if ((sectionEvaluationItem).getSectionElementState() != SectionEvaluationItem.SectionElementState.FILLED) {
+                    (sectionEvaluationItem).setSectionElementState(SectionEvaluationItem.SectionElementState.VIEWED);
                 }
             });
         }
     }
+
+
 
     private void setImeOptionsForLastEditText(StringEditTextCell stringEditTextCell, int position) {
         boolean isLastInput = true;
