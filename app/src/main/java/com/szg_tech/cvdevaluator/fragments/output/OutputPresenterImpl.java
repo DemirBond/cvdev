@@ -100,12 +100,16 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
                         showSnackbarBottomButtonGenericError(activity);
                     }
                 }
-                progressDialog.dismiss();
+                if(progressDialog!=null){
+                    progressDialog.dismiss();
+                }
             }
 
             @Override
             public void onFailure(Call<EvaluationResponse> call, Throwable t) {
-                progressDialog.dismiss();
+                if(progressDialog!=null){
+                    progressDialog.dismiss();
+                }
                 t.printStackTrace();
                 showSnackbarBottomButtonGenericError(activity);
             }

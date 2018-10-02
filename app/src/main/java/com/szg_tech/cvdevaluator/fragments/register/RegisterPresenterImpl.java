@@ -75,7 +75,9 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        progressDialog.dismiss();
+                        if(progressDialog!=null){
+                            progressDialog.dismiss();
+                        }
                         if(response.isSuccessful()) {
                             showSnackbarBottomButtonRegisterSucceed(activity);
                             getSupportFragmentManager().popBackStack();
@@ -88,7 +90,9 @@ public class RegisterPresenterImpl extends AbstractPresenter<RegisterView> imple
                     public void onFailure(Call<Void> call, Throwable t) {
 
                         //TODO There is a serious problem, handle with this
-                        progressDialog.dismiss();
+                        if(progressDialog!=null){
+                            progressDialog.dismiss();
+                        }
                         showSnackbarBottomButtonRegisterError(activity);
                         t.printStackTrace();
                     }

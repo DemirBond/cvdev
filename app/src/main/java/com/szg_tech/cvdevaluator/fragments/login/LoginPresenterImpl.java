@@ -80,14 +80,18 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
             @Override
             public void onSuccess() {
                 if (!activity.isDestroyed()) {
-                    progressDialog.dismiss();
+                    if(progressDialog!=null){
+                        progressDialog.dismiss();
+                    }
                     ((AuthenticationActivity) activity).onLoginSucceed();
                 }
             }
             @Override
             public void onFailed() {
                 if (!activity.isDestroyed()) {
-                    progressDialog.dismiss();
+                    if(progressDialog!=null){
+                        progressDialog.dismiss();
+                    }
                 }
                 showSnackbarBottomButtonLoginError(activity);
             }

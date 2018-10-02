@@ -147,7 +147,9 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
                     RestClient.getInstance(activity).getApi().retrieveEvaluationByID(savedEvaluationItem.getId()).enqueue(new Callback<SavedEvaluationResponse>() {
                         @Override
                         public void onResponse(Call<SavedEvaluationResponse> call, Response<SavedEvaluationResponse> response) {
-                            progressDialog.dismiss();
+                            if(progressDialog!=null){
+                                progressDialog.dismiss();
+                            }
                             if(response.isSuccessful()) {
                                 SavedEvaluationResponse savedEvaluationResponse = response.body();
                                 Map<String, Object> evaluationValues = savedEvaluationResponse.parseEvaluationInputs();
@@ -160,7 +162,9 @@ public class SavedEvaluationPresenterImpl extends AbstractPresenter<SavedEvaluat
                         }
                         @Override
                         public void onFailure(Call<SavedEvaluationResponse> call, Throwable t) {
-                            progressDialog.dismiss();
+                            if(progressDialog!=null){
+                                progressDialog.dismiss();
+                            }
                             t.printStackTrace();
                             showSnackbarBottomButtonError(getActivity(), getActivity().getResources().getString(R.string.compute_evaluation_progress_message));
                         }

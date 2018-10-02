@@ -61,7 +61,9 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
     }
 
     public void onResultSuccessful(List<SavedEvaluationItem> itemList){
-        progressDialog.dismiss();
+        if(progressDialog!=null){
+            progressDialog.dismiss();
+        }
         SavedEvaluationFragment fragment = new SavedEvaluationFragment();
         fragment.createPresenter().setData(itemList);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -72,12 +74,16 @@ class HomePresenterImpl extends AbstractPresenter<HomeView> implements HomePrese
     }
 
     public void onError(String error){
-        progressDialog.dismiss();
+        if(progressDialog!=null){
+            progressDialog.dismiss();
+        }
         showSnackbarBottomButtonError(getActivity(),error);
     }
 
     public void onNoInternet(){
-        progressDialog.dismiss();
+        if(progressDialog!=null){
+            progressDialog.dismiss();
+        }
         showSnackbarBottomButtonError(getActivity(),getActivity().getResources().getString(R.string.retrieving_saved_evaluations_error));
     }
 
