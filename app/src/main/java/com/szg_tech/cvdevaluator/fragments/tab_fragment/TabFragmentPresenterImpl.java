@@ -2,6 +2,7 @@ package com.szg_tech.cvdevaluator.fragments.tab_fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -77,6 +78,21 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
             }
             return pageTitle;
         }
+        // TODO @Filip This is a hack in order to evade TransactionTooLargeException
+        @Override
+        public Parcelable saveState()
+        {
+            Bundle bundle = (Bundle) super.saveState();
+            if (bundle != null)
+            {
+                // Never maintain any states from the base class, just null it out
+                bundle.putParcelableArray("states", null);
+            } else
+            {
+                // do nothing
+            }
+            return bundle;
+        }
     }
 
     @Override
@@ -84,8 +100,14 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size())));
-            if (nextSectionEvaluationItemArrayList.size() >= 1 && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1 && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem) {
+            bundle.putSerializable(
+                    ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
+                    new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
+            );
+            if (nextSectionEvaluationItemArrayList.size() >= 1
+                    && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1
+                    && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
+                ) {
                 TabFragment tabFragment = new TabFragment();
                 bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getTabSectionList());
                 tabFragment.setArguments(bundle);

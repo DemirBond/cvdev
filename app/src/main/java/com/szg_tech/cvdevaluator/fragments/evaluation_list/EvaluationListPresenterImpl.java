@@ -74,7 +74,14 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
+
+        actionBarSubtitle = arguments.getString(ConfigurationParams.SUBTITLE);
+        boolean shouldShowAlert = arguments.getBoolean(ConfigurationParams.SHOULD_SHOW_ALERT);
+        // TODO @Filip This data is to big, find way to change that
         evaluationItem = (EvaluationItem) arguments.getSerializable(ConfigurationParams.NEXT_SECTION);
+
+        nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+
         evaluationItems = evaluationItem.getEvaluationItemList();
         valuesDump = createValuesDump();
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, valuesDump);
@@ -83,16 +90,14 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         if (!activity.getResources().getString(R.string.evaluation).equals(actionBarTitle)) {
             listRecyclerViewAdapter.setParentTitle(actionBarTitle);
         }
-        actionBarSubtitle = arguments.getString(ConfigurationParams.SUBTITLE);
-        if (arguments.getBoolean(ConfigurationParams.SHOULD_SHOW_ALERT)) {
+        if (shouldShowAlert) {
             AlertModalManager.createAndShowReferToHeartFailureSpecialistAlertDialog(activity, v -> {
                 popBackStack();
                 if (activity instanceof EvaluationActivity) {
                     HeartSpecialistManagement heartSpecialistManagement = ((EvaluationActivity) activity).getHeartSpecialistManagement();
-                    EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                    Bundle bundle = new Bundle();
-
                     recursiveFillSection(heartSpecialistManagement, EvaluationDAO.getInstance().loadValues());
+
+                    Bundle bundle = new Bundle();
 
                     bundle.putSerializable(ConfigurationParams.NEXT_SECTION, heartSpecialistManagement);
                     bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
@@ -100,6 +105,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
                     }});
                     EvaluationDAO.getInstance().addToHashMap(ConfigurationParams.IS_PAH, true);
 
+                    EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
                     evaluationListFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
@@ -113,7 +119,6 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             });
         }
 
-        nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
         if ((nextSectionEvaluationItemArrayList != null && nextSectionEvaluationItemArrayList.size() >= 1)
                 && !ConfigurationParams.PULMONARY_HYPERTENSION.equals(evaluationItem.getId())) {
             SectionEvaluationItem nextSectionEvaluationItem = nextSectionEvaluationItemArrayList.get(0);
@@ -303,8 +308,15 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager != null) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size())));
-                if (nextSectionEvaluationItemArrayList.size() >= 1 && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1 && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem) {
+                bundle.putSerializable(
+                        ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
+                        new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
+                );
+                if (
+                        nextSectionEvaluationItemArrayList.size() >= 1 &&
+                        nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1 &&
+                        nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
+                ) {
                     TabFragment tabFragment = new TabFragment();
                     bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getTabSectionList());
                     tabFragment.setArguments(bundle);
@@ -331,9 +343,6 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
                             showSnackbarBottomButtonMinimumNotEnteredError(getActivity());
                         }
                     } else {
-//                        if (nextSectionEvaluationItem.getSectionElementState() != SectionEvaluationItem.SectionElementState.FILLED) {
-//                            nextSectionEvaluationItem.setSectionElementState(SectionEvaluationItem.SectionElementState.VIEWED);
-//                        }
                         bundle.putSerializable(ConfigurationParams.NEXT_SECTION, nextSectionEvaluationItem);
                         nextFragment.setArguments(bundle);
                         if (nextSectionEvaluationItem.getSectionElementState() == SectionEvaluationItem.SectionElementState.OPENED) {
