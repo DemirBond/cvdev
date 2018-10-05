@@ -9,8 +9,8 @@ android {
         applicationId "com.szg_tech.cvdevaluator"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 18
-        versionName "1.18 (Eighteenth revision)"
+        versionCode 19
+        versionName "1.19 (Eighteenth revision)"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
