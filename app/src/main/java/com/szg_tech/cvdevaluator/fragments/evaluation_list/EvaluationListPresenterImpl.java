@@ -172,7 +172,11 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
 
             ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null) {
-                actionBar.setTitle(evaluationItem.getName());
+                actionBar.setDisplayShowTitleEnabled(false);
+                TextView titleTextView = new TextView(getActivity());
+                titleTextView.setText(evaluationItem.getName());
+                actionBar.setCustomView(titleTextView);
+                actionBar.setDisplayShowCustomEnabled(true);
                 if (actionBarSubtitle == null) {
                     actionBar.setSubtitle("");
                 } else {

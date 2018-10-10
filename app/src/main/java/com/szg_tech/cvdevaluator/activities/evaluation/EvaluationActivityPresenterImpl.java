@@ -12,10 +12,7 @@ import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
-import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
