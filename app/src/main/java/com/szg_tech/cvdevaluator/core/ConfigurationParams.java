@@ -1210,7 +1210,6 @@ public class ConfigurationParams {
     //
     // Main
     //
-    public static final String NEXT_SECTION = "secnext_section";
     public static final String NEXT_SECTION_ID = "secnext_section_id";
 
     public static final String NEXT_SECTION_HOME_SCREEN = "secnext_section_home";

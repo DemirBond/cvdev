@@ -899,24 +899,20 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
 
-            // TODO This block here removes bottom button reference buttons from list that should be opened
-            ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
+            // This block here removes bottom button reference buttons from list that should be opened
+            ArrayList<String> nextSectionsArrayList = new ArrayList<>();
             for (int i = position + 1; i < getItemCount(); i++) {
                 EvaluationItem nextEvaluationItem = evaluationItemsList.get(i);
                 if (nextEvaluationItem instanceof SectionEvaluationItem) {
                     if (!((SectionEvaluationItem) nextEvaluationItem).isBottomButtonReferenceSkipped()) {
-                        nextSectionsArrayList.add((SectionEvaluationItem) nextEvaluationItem);
+                        nextSectionsArrayList.add(nextEvaluationItem.getId());
                     }
                 }
             }
-            if (nextSectionEvaluationItems != null) {
-                nextSectionsArrayList.addAll(nextSectionEvaluationItems);
+            for(SectionEvaluationItem item : nextSectionEvaluationItems){
+                nextSectionsArrayList.add(item.getId());
             }
-            // TODO Extract bundle data to id
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
-
-
-
+            bundle.putStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
             if (evaluationItem.getEvaluationItemList().size() == 1 && evaluationItem.getEvaluationItemList().get(0) instanceof TabEvaluationItem) {
                 TabFragment tabFragment = new TabFragment();
                 // TODO Extract bundle data to id
@@ -953,17 +949,20 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, sectionEvaluationItem.getId());
-            ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
+            ArrayList<String> nextSectionsArrayList = new ArrayList<>();
             int position = evaluationItemsList.indexOf(sectionEvaluationItem);
+
             for (int i = position + 1; i < getItemCount(); i++) {
                 EvaluationItem nextEvaluationItem = evaluationItemsList.get(i);
                 if (nextEvaluationItem instanceof SectionEvaluationItem) {
-                    nextSectionsArrayList.add((SectionEvaluationItem) nextEvaluationItem);
+                    nextSectionsArrayList.add(nextEvaluationItem.getId());
                 }
             }
-            nextSectionsArrayList.addAll(nextSectionEvaluationItems);
-            // TODO Extract bundle data to id
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
+            for(SectionEvaluationItem item : nextSectionEvaluationItems){
+                nextSectionsArrayList.add(item.getId());
+            }
+
+            bundle.putStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
             bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
             evaluationListFragment.setArguments(bundle);
             fragmentManager.beginTransaction()

@@ -1,6 +1,7 @@
 package com.szg_tech.cvdevaluator.fragments.evaluation_list;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,20 +27,19 @@ import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.activities.evaluation.EvaluationActivity;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
+import com.szg_tech.cvdevaluator.core.EvaluationDataHelper;
 import com.szg_tech.cvdevaluator.core.ListRecyclerViewAdapter;
 import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_items.About;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.output.OutputFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_ABOUT;
@@ -71,53 +71,6 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         }
     }
 
-    // TODO Refactor this to be reusable (extract?)
-    private HashMap<String, Object> createValuesDump() {
-        HashMap<String, Object> valuesDump = new HashMap<>();
-        for (EvaluationItem item : evaluationItems) {
-            valuesDump.put(item.getId(), item.getValue());
-        }
-        return valuesDump;
-    }
-
-    private Evaluation createHomeScreenData(){
-        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
-        HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
-        if (!valueHashMap.isEmpty()) {
-            recursiveFillSection(evaluation, valueHashMap);
-        }
-        return evaluation;
-    }
-
-    private EvaluationItem fetchEvaluationItemById(String id){
-        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
-        EvaluationItem item = recursiveFetch(evaluation, id);
-        if(item!=null){
-            HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
-            if (!valueHashMap.isEmpty()) {
-                recursiveFillSection(item, valueHashMap);
-            }
-        }
-        return item;
-    }
-
-    private EvaluationItem recursiveFetch(EvaluationItem item, String id){
-        ArrayList<EvaluationItem> evaluationItems = item.getEvaluationItemList();
-        if (evaluationItems != null) {
-            for (EvaluationItem evaluationItem : evaluationItems) {
-                if (id.equals(evaluationItem.getId())) {
-                    return evaluationItem;
-                } else {
-                    EvaluationItem nestedResult = recursiveFetch(evaluationItem, id);
-                    if(nestedResult!=null){
-                        return nestedResult;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
 
         actionBarSubtitle = arguments.getString(ConfigurationParams.SUBTITLE);
@@ -126,10 +79,9 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         String sectionId =  arguments.getString(ConfigurationParams.NEXT_SECTION_ID);
         if(NEXT_SECTION_HOME_SCREEN.equals(sectionId)){
             nextSectionEvaluationItemArrayList = new ArrayList<SectionEvaluationItem>() {{
-                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION,
-                        getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
+                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION, getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
             }};
-            evaluationItem = createHomeScreenData();
+            evaluationItem = EvaluationDataHelper.createHomeScreenData(activity);
         } else if(NEXT_SECTION_ABOUT.equals(sectionId)) {
             evaluationItem = new About(activity);
         } else if(NEXT_SECTION_HEART_SPECIALIST.equals(sectionId)) {
@@ -138,15 +90,15 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
                         activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
             }};
             evaluationItem = ((EvaluationActivity) activity).getHeartSpecialistManagement();
-            recursiveFillSection(evaluationItem, EvaluationDAO.getInstance().loadValues());
+            EvaluationDataHelper.recursiveFillSection(evaluationItem, EvaluationDAO.getInstance().loadValues());
         } else if (sectionId!=null){
-            evaluationItem = fetchEvaluationItemById(sectionId);
-            // TODO Extract data from id
-            nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+            evaluationItem = EvaluationDataHelper.fetchEvaluationItemById(sectionId, activity);
+            ArrayList<String> sectionIds = arguments.getStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+            nextSectionEvaluationItemArrayList = EvaluationDataHelper.getNextSectionItems(sectionIds, activity);
         }
 
         evaluationItems = evaluationItem.getEvaluationItemList();
-        valuesDump = createValuesDump();
+        valuesDump = EvaluationDataHelper.createValuesDump(evaluationItems);
         listRecyclerViewAdapter = new ListRecyclerViewAdapter(activity, evaluationItems, valuesDump);
         recyclerView.setAdapter(listRecyclerViewAdapter);
         String actionBarTitle = evaluationItem.getName();
@@ -189,18 +141,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         }
     }
 
-    private void recursiveFillSection(EvaluationItem tempEvaluationItem, Map<String, Object> valueHashMap) {
-        ArrayList<EvaluationItem> evaluationItems = tempEvaluationItem.getEvaluationItemList();
-        if (evaluationItems != null) {
-            for (EvaluationItem evaluationItem : evaluationItems) {
-                Object value = valueHashMap.get(evaluationItem.getId());
-                if (value != null) {
-                    evaluationItem.setValue(value);
-                }
-                recursiveFillSection(evaluationItem, valueHashMap);
-            }
-        }
-    }
+
 
 
     // TODO Filip: Nasty hardcoded strings?!?
@@ -363,11 +304,12 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager != null) {
                 Bundle bundle = new Bundle();
-                // TODO Extract bundle data to id
-                bundle.putSerializable(
-                        ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
-                        new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
-                );
+                ArrayList<SectionEvaluationItem> sublist = new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()));
+                ArrayList<String> nextSectionEvaluationItemArrayListIds = new ArrayList<>();
+                for(SectionEvaluationItem item : sublist){
+                    nextSectionEvaluationItemArrayListIds.add(item.getId());
+                }
+                bundle.putStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionEvaluationItemArrayListIds);
                 if (
                         nextSectionEvaluationItemArrayList.size() >= 1 &&
                         nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1 &&

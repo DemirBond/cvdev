@@ -13,6 +13,7 @@ import android.view.View;
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
+import com.szg_tech.cvdevaluator.core.EvaluationDataHelper;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
@@ -37,7 +38,9 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         if (arguments != null) {
             // TODO Extract data from id
             tabSectionList = (List<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.TAB_SECTION_LIST);
-            nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+
+            ArrayList<String> sectionIds = arguments.getStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+            nextSectionEvaluationItemArrayList = EvaluationDataHelper.getNextSectionItems(sectionIds, getActivity());
 
             if (tabSectionList != null) {
                 TabFragmentPresenterAdapter tabFragmentPresenterAdapter = new TabFragmentPresenterAdapter(getView().getChildFragmentManager());
@@ -102,11 +105,11 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
-            // TODO Extract bundle data to id
-            bundle.putSerializable(
-                    ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
-                    new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
-            );
+            ArrayList<String> nextSectionIds = new ArrayList<>();
+            for(SectionEvaluationItem item : nextSectionEvaluationItemArrayList){
+                nextSectionIds.add(item.getId());
+            }
+            bundle.putStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionIds);
             if (nextSectionEvaluationItemArrayList.size() >= 1
                     && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().size() == 1
                     && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
