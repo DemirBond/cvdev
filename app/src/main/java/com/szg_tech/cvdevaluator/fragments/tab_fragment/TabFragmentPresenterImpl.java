@@ -35,13 +35,15 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         ViewPager viewPager = getView().getViewPager();
         Bundle arguments = getView().getArguments();
         if (arguments != null) {
+            // TODO Extract data from id
             tabSectionList = (List<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.TAB_SECTION_LIST);
+            nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+
             if (tabSectionList != null) {
                 TabFragmentPresenterAdapter tabFragmentPresenterAdapter = new TabFragmentPresenterAdapter(getView().getChildFragmentManager());
                 viewPager.setAdapter(tabFragmentPresenterAdapter);
                 tabLayout.setupWithViewPager(viewPager);
             }
-            nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
             if ((nextSectionEvaluationItemArrayList != null && nextSectionEvaluationItemArrayList.size() >= 1)) {
                 getView().getBottomButton().setText(nextSectionEvaluationItemArrayList.get(0).getName());
             } else {
@@ -59,7 +61,8 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         public Fragment getItem(int position) {
             Fragment fragment = new EvaluationListFragment();
             Bundle args = new Bundle();
-            args.putSerializable(ConfigurationParams.NEXT_SECTION, tabSectionList.get(position));
+            // TODO Extract bundle data to id
+            args.putSerializable(ConfigurationParams.NEXT_SECTION_ID, tabSectionList.get(position).getId());
             fragment.setArguments(args);
             return fragment;
         }
@@ -78,7 +81,6 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
             }
             return pageTitle;
         }
-        // TODO @Filip This is a hack in order to evade TransactionTooLargeException
         @Override
         public Parcelable saveState()
         {
@@ -100,6 +102,7 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
+            // TODO Extract bundle data to id
             bundle.putSerializable(
                     ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
                     new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
@@ -109,6 +112,7 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
                     && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
                 ) {
                 TabFragment tabFragment = new TabFragment();
+                // TODO Extract bundle data to id
                 bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getTabSectionList());
                 tabFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
@@ -129,7 +133,7 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
                             .addToBackStack(OutputFragment.class.getSimpleName())
                             .commit();
                 } else {
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION, nextSectionEvaluationItem);
+                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, nextSectionEvaluationItem.getId());
                     nextFragment.setArguments(bundle);
                     if (nextSectionEvaluationItem.getSectionElementState() == SectionEvaluationItem.SectionElementState.OPENED) {
                         nextSectionEvaluationItem.setSectionElementState(SectionEvaluationItem.SectionElementState.VIEWED);

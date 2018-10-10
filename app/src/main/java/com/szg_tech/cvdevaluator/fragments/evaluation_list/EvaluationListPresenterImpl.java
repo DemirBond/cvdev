@@ -31,7 +31,8 @@ import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.HeartSpecialistManagement;
+import com.szg_tech.cvdevaluator.entities.evaluation_items.About;
+import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.output.OutputFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
@@ -39,6 +40,11 @@ import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_ABOUT;
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_HEART_SPECIALIST;
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_HOME_SCREEN;
 
 class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> implements EvaluationListPresenter {
     private ArrayList<SectionEvaluationItem> nextSectionEvaluationItemArrayList;
@@ -65,22 +71,79 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
         }
     }
 
+    // TODO Refactor this to be reusable (extract?)
     private HashMap<String, Object> createValuesDump() {
-        HashMap<String, Object> valuesDump = new HashMap<String, Object>();
+        HashMap<String, Object> valuesDump = new HashMap<>();
         for (EvaluationItem item : evaluationItems) {
             valuesDump.put(item.getId(), item.getValue());
         }
         return valuesDump;
     }
 
+    private Evaluation createHomeScreenData(){
+        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
+        HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
+        if (!valueHashMap.isEmpty()) {
+            recursiveFillSection(evaluation, valueHashMap);
+        }
+        return evaluation;
+    }
+
+    private EvaluationItem fetchEvaluationItemById(String id){
+        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
+        EvaluationItem item = recursiveFetch(evaluation, id);
+        if(item!=null){
+            HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
+            if (!valueHashMap.isEmpty()) {
+                recursiveFillSection(item, valueHashMap);
+            }
+        }
+        return item;
+    }
+
+    private EvaluationItem recursiveFetch(EvaluationItem item, String id){
+        ArrayList<EvaluationItem> evaluationItems = item.getEvaluationItemList();
+        if (evaluationItems != null) {
+            for (EvaluationItem evaluationItem : evaluationItems) {
+                if (id.equals(evaluationItem.getId())) {
+                    return evaluationItem;
+                } else {
+                    EvaluationItem nestedResult = recursiveFetch(evaluationItem, id);
+                    if(nestedResult!=null){
+                        return nestedResult;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     private void onNewEvaluationList(RecyclerView recyclerView, Activity activity, Bundle arguments) {
 
         actionBarSubtitle = arguments.getString(ConfigurationParams.SUBTITLE);
         boolean shouldShowAlert = arguments.getBoolean(ConfigurationParams.SHOULD_SHOW_ALERT);
-        // TODO @Filip This data is to big, find way to change that
-        evaluationItem = (EvaluationItem) arguments.getSerializable(ConfigurationParams.NEXT_SECTION);
 
-        nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+        String sectionId =  arguments.getString(ConfigurationParams.NEXT_SECTION_ID);
+        if(NEXT_SECTION_HOME_SCREEN.equals(sectionId)){
+            nextSectionEvaluationItemArrayList = new ArrayList<SectionEvaluationItem>() {{
+                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION,
+                        getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
+            }};
+            evaluationItem = createHomeScreenData();
+        } else if(NEXT_SECTION_ABOUT.equals(sectionId)) {
+            evaluationItem = new About(activity);
+        } else if(NEXT_SECTION_HEART_SPECIALIST.equals(sectionId)) {
+            nextSectionEvaluationItemArrayList = new ArrayList<SectionEvaluationItem>() {{
+                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.PAH_COMPUTE_EVALUATION,
+                        activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
+            }};
+            evaluationItem = ((EvaluationActivity) activity).getHeartSpecialistManagement();
+            recursiveFillSection(evaluationItem, EvaluationDAO.getInstance().loadValues());
+        } else if (sectionId!=null){
+            evaluationItem = fetchEvaluationItemById(sectionId);
+            // TODO Extract data from id
+            nextSectionEvaluationItemArrayList = (ArrayList<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
+        }
 
         evaluationItems = evaluationItem.getEvaluationItemList();
         valuesDump = createValuesDump();
@@ -94,23 +157,15 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             AlertModalManager.createAndShowReferToHeartFailureSpecialistAlertDialog(activity, v -> {
                 popBackStack();
                 if (activity instanceof EvaluationActivity) {
-                    HeartSpecialistManagement heartSpecialistManagement = ((EvaluationActivity) activity).getHeartSpecialistManagement();
-                    recursiveFillSection(heartSpecialistManagement, EvaluationDAO.getInstance().loadValues());
-
                     Bundle bundle = new Bundle();
-
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION, heartSpecialistManagement);
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
-                        add(new SectionEvaluationItem(getActivity(), ConfigurationParams.PAH_COMPUTE_EVALUATION, activity.getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
-                    }});
+                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, NEXT_SECTION_HEART_SPECIALIST);
                     EvaluationDAO.getInstance().addToHashMap(ConfigurationParams.IS_PAH, true);
-
                     EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
                     evaluationListFragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                             .replace(R.id.container, evaluationListFragment)
-                            .addToBackStack(getSupportFragmentManager().getClass().getSimpleName() + heartSpecialistManagement.getName())
+                            .addToBackStack(getSupportFragmentManager().getClass().getSimpleName() + ((EvaluationActivity) activity).getHeartSpecialistManagement().getName())
                             .commit();
                 }
             }, v ->  {
@@ -148,15 +203,15 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
     }
 
 
-
+    // TODO Filip: Nasty hardcoded strings?!?
     @Override
     public boolean isAboutScreen() {
-        return evaluationItem.getId() == "secabout";
+        return Objects.equals(evaluationItem.getId(), "secabout");
     }
 
     @Override
     public boolean isEvaluationScreen() {
-        return evaluationItem.getId() == "secevaluation";
+        return Objects.equals(evaluationItem.getId(), "secevaluation");
     }
 
     @Override
@@ -308,6 +363,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
             FragmentManager fragmentManager = getSupportFragmentManager();
             if (fragmentManager != null) {
                 Bundle bundle = new Bundle();
+                // TODO Extract bundle data to id
                 bundle.putSerializable(
                         ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS,
                         new ArrayList<>(nextSectionEvaluationItemArrayList.subList(1, nextSectionEvaluationItemArrayList.size()))
@@ -318,6 +374,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
                         nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
                 ) {
                     TabFragment tabFragment = new TabFragment();
+                    // TODO Extract bundle data to id
                     bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getTabSectionList());
                     tabFragment.setArguments(bundle);
                     fragmentManager.beginTransaction()
@@ -343,7 +400,7 @@ class EvaluationListPresenterImpl extends AbstractPresenter<EvaluationListView> 
                             showSnackbarBottomButtonMinimumNotEnteredError(getActivity());
                         }
                     } else {
-                        bundle.putSerializable(ConfigurationParams.NEXT_SECTION, nextSectionEvaluationItem);
+                        bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, nextSectionEvaluationItem.getId());
                         nextFragment.setArguments(bundle);
                         if (nextSectionEvaluationItem.getSectionElementState() == SectionEvaluationItem.SectionElementState.OPENED) {
                             nextSectionEvaluationItem.setSectionElementState(SectionEvaluationItem.SectionElementState.VIEWED);

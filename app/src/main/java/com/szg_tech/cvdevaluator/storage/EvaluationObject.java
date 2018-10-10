@@ -1,6 +1,5 @@
 package com.szg_tech.cvdevaluator.storage;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,7 +11,6 @@ public class EvaluationObject extends RealmObject {
     private Double doubleValue;
     private Long longValue;
     private String stringValue;
-    private RealmList<EvaluationObject> evaluationObject;
 
     void putValue(Object value) {
         if (value instanceof Boolean) {
@@ -32,9 +30,6 @@ public class EvaluationObject extends RealmObject {
             longValue = null;
             stringValue = null;
         }
-//        else if (value instanceof RealmList) {
-//            evaluationObject = (RealmList<EvaluationObject>) value;
-//        }
     }
 
     void putKey(String key) {
@@ -53,9 +48,6 @@ public class EvaluationObject extends RealmObject {
         } else if (stringValue != null) {
             return stringValue;
         }
-//        else if (evaluationObject != null) {
-//            return evaluationObject;
-//        }
         return null;
     }
 

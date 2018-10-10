@@ -54,7 +54,6 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionPlaceh
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TextEvaluationItem;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.fragments.tab_fragment.TabFragment;
 import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
@@ -899,6 +898,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         FragmentManager fragmentManager = ((AppCompatActivity) activity).getSupportFragmentManager();
         if (fragmentManager != null) {
             Bundle bundle = new Bundle();
+
+            // TODO This block here removes bottom button reference buttons from list that should be opened
             ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
             for (int i = position + 1; i < getItemCount(); i++) {
                 EvaluationItem nextEvaluationItem = evaluationItemsList.get(i);
@@ -911,9 +912,14 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             if (nextSectionEvaluationItems != null) {
                 nextSectionsArrayList.addAll(nextSectionEvaluationItems);
             }
+            // TODO Extract bundle data to id
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
+
+
+
             if (evaluationItem.getEvaluationItemList().size() == 1 && evaluationItem.getEvaluationItemList().get(0) instanceof TabEvaluationItem) {
                 TabFragment tabFragment = new TabFragment();
+                // TODO Extract bundle data to id
                 bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) evaluationItem.getEvaluationItemList().get(0)).getTabSectionList());
                 tabFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
@@ -926,9 +932,8 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 }
             } else {
                 EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
-                bundle.putSerializable(ConfigurationParams.NEXT_SECTION, evaluationItem);
+                bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, evaluationItem.getId());
                 bundle.putBoolean(ConfigurationParams.SHOULD_SHOW_ALERT, evaluationItem.isShouldShowAlert());
-
                 evaluationListFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
@@ -947,7 +952,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
         if (fragmentManager != null) {
             EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, sectionEvaluationItem);
+            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, sectionEvaluationItem.getId());
             ArrayList<SectionEvaluationItem> nextSectionsArrayList = new ArrayList<>();
             int position = evaluationItemsList.indexOf(sectionEvaluationItem);
             for (int i = position + 1; i < getItemCount(); i++) {
@@ -957,6 +962,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
                 }
             }
             nextSectionsArrayList.addAll(nextSectionEvaluationItems);
+            // TODO Extract bundle data to id
             bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
             bundle.putString(ConfigurationParams.SUBTITLE, parentTitle);
             evaluationListFragment.setArguments(bundle);

@@ -1211,9 +1211,16 @@ public class ConfigurationParams {
     // Main
     //
     public static final String NEXT_SECTION = "secnext_section";
+    public static final String NEXT_SECTION_ID = "secnext_section_id";
+
+    public static final String NEXT_SECTION_HOME_SCREEN = "secnext_section_home";
+    public static final String NEXT_SECTION_ABOUT = "secnext_section_about";
+    public static final String NEXT_SECTION_HEART_SPECIALIST = "secnext_section_heart_specialist";
+
     public static final String TAB_SECTION_LIST = "sectab_section_list";
     public static final String ACTION_CHANGE_SIZE = "secaction_change_size";
     public static final String SIZE = "text_size";
+
     public static final String NEXT_SECTION_EVALUATION_ITEMS = "secnext_section_evaluation_items";
 
     public static final String SYNCHEST_PAIN = "chkSynProCP";

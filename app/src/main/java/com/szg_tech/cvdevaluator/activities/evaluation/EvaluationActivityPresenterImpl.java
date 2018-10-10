@@ -20,6 +20,8 @@ import com.szg_tech.cvdevaluator.storage.EvaluationDAO;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_HOME_SCREEN;
+
 class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivityView> implements EvaluationActivityPresenter {
 
     EvaluationActivityPresenterImpl(EvaluationActivityView view) {
@@ -44,10 +46,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
         if (activity != null) {
             EvaluationListFragment evaluationListFragment = new EvaluationListFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION, createHomeScreenData());
-            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, new ArrayList<SectionEvaluationItem>() {{
-                add(new SectionEvaluationItem(getActivity(), ConfigurationParams.COMPUTE_EVALUATION, getActivity().getResources().getString(R.string.compute_evaluation), new ArrayList<>()));
-            }});
+            bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, NEXT_SECTION_HOME_SCREEN);
             evaluationListFragment.setArguments(bundle);
             if (isAdd) {
                 getSupportFragmentManager().beginTransaction()
@@ -64,14 +63,7 @@ class EvaluationActivityPresenterImpl extends AbstractPresenter<EvaluationActivi
         }
     }
 
-    private Evaluation createHomeScreenData(){
-        Evaluation evaluation = new Evaluation(getActivity().getApplicationContext());
-        HashMap<String, Object>  valueHashMap = EvaluationDAO.getInstance().loadValues();
-        if (!valueHashMap.isEmpty()) {
-            recursiveFillSection(evaluation, valueHashMap);
-        }
-        return evaluation;
-    }
+
 
     private void recursiveFillSection(EvaluationItem tempEvaluationItem, HashMap valueHashMap) {
         ArrayList<EvaluationItem> evaluationItems = tempEvaluationItem.getEvaluationItemList();

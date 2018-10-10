@@ -13,9 +13,10 @@ import com.szg_tech.cvdevaluator.activities.authentication.AuthenticationActivit
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurableFragment;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
-import com.szg_tech.cvdevaluator.entities.evaluation_items.About;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
+
+import static com.szg_tech.cvdevaluator.core.ConfigurationParams.NEXT_SECTION_ABOUT;
 
 class MainActivityPresenterImpl extends AbstractPresenter<MainActivityView> implements MainActivityPresenter {
     MainActivityPresenterImpl(MainActivityView view) {
@@ -36,7 +37,7 @@ class MainActivityPresenterImpl extends AbstractPresenter<MainActivityView> impl
                 fragment = new EvaluationListFragment();
                 Bundle bundle = new Bundle();
                 if (activity != null) {
-                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION, new About(activity));
+                    bundle.putSerializable(ConfigurationParams.NEXT_SECTION_ID, NEXT_SECTION_ABOUT);
                     showActionBar(activity, true);
                 }
                 fragment.setArguments(bundle);

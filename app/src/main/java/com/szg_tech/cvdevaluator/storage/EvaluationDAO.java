@@ -36,6 +36,17 @@ public class EvaluationDAO extends AbstractDao<EvaluationObject> {
         return hashMap;
     }
 
+    public synchronized EvaluationObject loadEvaluationObject(String id) {
+        init();
+        EvaluationObject evaluationObject;
+        try {
+            evaluationObject  = helper.realm.where(EvaluationObject.class).equalTo("key", id).findFirst();
+        } finally {
+            close();
+        }
+        return evaluationObject;
+    }
+
     public synchronized void saveValues() {
         init();
         try {
