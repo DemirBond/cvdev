@@ -3,6 +3,7 @@ package com.szg_tech.cvdevaluator.core;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_items.Evaluation;
@@ -75,6 +76,15 @@ public class EvaluationDataHelper {
                 SectionEvaluationItem sectionEvaluationItem = (SectionEvaluationItem) fetchItemFromEvaluation(id, evaluation);
                 if (sectionEvaluationItem != null) {
                     items.add(sectionEvaluationItem);
+                } else if (id.equals(ConfigurationParams.COMPUTE_EVALUATION)) {
+                    // item is null, is it compute button?
+                    SectionEvaluationItem computeItem = new SectionEvaluationItem(
+                            context,
+                            ConfigurationParams.COMPUTE_EVALUATION,
+                            context.getResources().getString(R.string.compute_evaluation),
+                            new ArrayList<>()
+                    );
+                    items.add(computeItem);
                 }
             }
         }
