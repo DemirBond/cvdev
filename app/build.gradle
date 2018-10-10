@@ -10,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 19
-        versionName "1.19 (Eighteenth revision)"
+        versionName "1.20 (Twentieth revision)"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -14,6 +14,7 @@ import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.ConfigurationParams;
 import com.szg_tech.cvdevaluator.core.EvaluationDataHelper;
+import com.szg_tech.cvdevaluator.entities.EvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.SectionEvaluationItem;
 import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.TabEvaluationItem;
 import com.szg_tech.cvdevaluator.fragments.evaluation_list.EvaluationListFragment;
@@ -36,8 +37,12 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
         ViewPager viewPager = getView().getViewPager();
         Bundle arguments = getView().getArguments();
         if (arguments != null) {
-            // TODO Extract data from id
-            tabSectionList = (List<SectionEvaluationItem>) arguments.getSerializable(ConfigurationParams.TAB_SECTION_LIST);
+            // TODO Extract data from
+            String tabSectionId = arguments.getString(ConfigurationParams.TAB_SECTION_LIST);
+
+
+            EvaluationItem item = EvaluationDataHelper.fetchEvaluationItemById(tabSectionId,getActivity());
+            tabSectionList = ((TabEvaluationItem)item).getTabSectionList();
 
             ArrayList<String> sectionIds = arguments.getStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
             nextSectionEvaluationItemArrayList = EvaluationDataHelper.getNextSectionItems(sectionIds, getActivity());
@@ -115,8 +120,7 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
                     && nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0) instanceof TabEvaluationItem
                 ) {
                 TabFragment tabFragment = new TabFragment();
-                // TODO Extract bundle data to id
-                bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getTabSectionList());
+                bundle.putString(ConfigurationParams.TAB_SECTION_LIST, (nextSectionEvaluationItemArrayList.get(0).getEvaluationItemList().get(0)).getId());
                 tabFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)

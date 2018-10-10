@@ -915,8 +915,7 @@ public class ListRecyclerViewAdapter extends RecyclerView.Adapter<ListRecyclerVi
             bundle.putStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS, nextSectionsArrayList);
             if (evaluationItem.getEvaluationItemList().size() == 1 && evaluationItem.getEvaluationItemList().get(0) instanceof TabEvaluationItem) {
                 TabFragment tabFragment = new TabFragment();
-                // TODO Extract bundle data to id
-                bundle.putSerializable(ConfigurationParams.TAB_SECTION_LIST, ((TabEvaluationItem) evaluationItem.getEvaluationItemList().get(0)).getTabSectionList());
+                bundle.putString(ConfigurationParams.TAB_SECTION_LIST, (evaluationItem.getEvaluationItemList().get(0)).getId());
                 tabFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
