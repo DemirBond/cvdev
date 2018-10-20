@@ -73,8 +73,9 @@ public class EvaluationDataHelper {
         if(ids!=null) {
             Evaluation evaluation = new Evaluation(context);
             for (String id : ids) {
-                SectionEvaluationItem sectionEvaluationItem = (SectionEvaluationItem) fetchItemFromEvaluation(id, evaluation);
-                if (sectionEvaluationItem != null) {
+                EvaluationItem item = fetchItemFromEvaluation(id, evaluation);
+                if(item instanceof SectionEvaluationItem){
+                    SectionEvaluationItem sectionEvaluationItem = (SectionEvaluationItem) item;
                     items.add(sectionEvaluationItem);
                 } else if (id.equals(ConfigurationParams.COMPUTE_EVALUATION)) {
                     // item is null, is it compute button?
