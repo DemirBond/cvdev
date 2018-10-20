@@ -101,14 +101,14 @@ class OutputPresenterImpl extends AbstractPresenter<OutputView> implements Outpu
                     }
                 }
                 if(progressDialog!=null){
-                    progressDialog.dismiss();
+                    activity.getFragmentManager().beginTransaction().remove(progressDialog).commitAllowingStateLoss();
                 }
             }
 
             @Override
             public void onFailure(Call<EvaluationResponse> call, Throwable t) {
                 if(progressDialog!=null){
-                    progressDialog.dismiss();
+                    activity.getFragmentManager().beginTransaction().remove(progressDialog).commitAllowingStateLoss();
                 }
                 t.printStackTrace();
                 showSnackbarBottomButtonGenericError(activity);
