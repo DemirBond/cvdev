@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,9 +101,14 @@ public class LoginPresenterImpl extends AbstractPresenter<LoginView> implements 
 
     private void showSnackbarBottomButtonLoginError(Activity activity) {
         if (activity != null) {
-            Snackbar snackbar = Snackbar.make(getView().getRecyclerView(), R.string.snackbar_bottom_button_login_error, Snackbar.LENGTH_LONG);
-            snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.snackbar_red));
-            snackbar.show();
+            try {
+                Snackbar snackbar = Snackbar.make(getView().getRecyclerView(), R.string.snackbar_bottom_button_login_error, Snackbar.LENGTH_LONG);
+                snackbar.getView().setBackgroundColor(ContextCompat.getColor(activity, R.color.snackbar_red));
+                snackbar.show();
+            } catch (IllegalArgumentException ex){
+                Log.d("Login Presenter","No view for snackbar!");
+            }
+
         }
     }
 
