@@ -36,7 +36,7 @@
         android:layout_marginBottom="15dp"
         android:textSize="15sp"
         android:textColor="#000000"
-        android:text="Version 1.20 (Twentieth revision)"
+        android:text="Version 1.21 (Twenty first revision)"
         android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
