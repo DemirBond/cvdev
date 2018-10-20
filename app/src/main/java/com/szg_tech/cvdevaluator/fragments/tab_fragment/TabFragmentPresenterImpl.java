@@ -42,7 +42,9 @@ class TabFragmentPresenterImpl extends AbstractPresenter<TabFragmentView> implem
 
 
             EvaluationItem item = EvaluationDataHelper.fetchEvaluationItemById(tabSectionId,getActivity());
-            tabSectionList = ((TabEvaluationItem)item).getTabSectionList();
+            if(item!=null){
+                tabSectionList = ((TabEvaluationItem)item).getTabSectionList();
+            }
 
             ArrayList<String> sectionIds = arguments.getStringArrayList(ConfigurationParams.NEXT_SECTION_EVALUATION_ITEMS);
             nextSectionEvaluationItemArrayList = EvaluationDataHelper.getNextSectionItems(sectionIds, getActivity());
