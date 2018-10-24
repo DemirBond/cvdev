@@ -2,6 +2,7 @@ package com.szg_tech.cvdevaluator.rest.authentication;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.szg_tech.cvdevaluator.rest.api.RestClient;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AuthenticationClient {
 
-    private static final String BASE_URL = "http://198.71.134.8/api/";
+
     private AuthenticationService authenticationService;
 
     public AuthenticationClient() {
@@ -33,7 +34,7 @@ public class AuthenticationClient {
 
 
         Retrofit restAdapter = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(RestClient.BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
