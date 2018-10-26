@@ -7,10 +7,8 @@ import android.content.IntentFilter;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -24,7 +22,7 @@ import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomEditText extends android.support.v7.widget.AppCompatEditText {
+public class CustomEditText extends androidx.appcompat.widget.AppCompatEditText {
     private static final String ROBOTO_BOLD_FILE_PATH = "fonts/Roboto-Bold.ttf";
     private static final String ROBOTO_MEDIUM_FILE_PATH = "fonts/Roboto-Medium.ttf";
     private String fontPath;

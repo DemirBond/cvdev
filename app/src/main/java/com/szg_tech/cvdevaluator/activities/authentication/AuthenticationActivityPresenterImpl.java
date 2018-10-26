@@ -1,11 +1,9 @@
 package com.szg_tech.cvdevaluator.activities.authentication;
 
 import android.app.Activity;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.view.View;
 
-import com.szg_tech.cvdevaluator.R;
+import androidx.core.content.ContextCompat;
+
 import com.szg_tech.cvdevaluator.core.AbstractPresenter;
 import com.szg_tech.cvdevaluator.core.NetworkConnectivityControl;
 import com.szg_tech.cvdevaluator.core.views.modal.AlertModalManager;

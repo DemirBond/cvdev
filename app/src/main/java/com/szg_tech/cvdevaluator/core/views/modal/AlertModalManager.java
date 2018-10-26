@@ -3,15 +3,13 @@ package com.szg_tech.cvdevaluator.core.views.modal;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.modal.text_size_dialog.TextSizeDialog;
-
-import org.w3c.dom.Text;
 
 public class AlertModalManager {
     private static void createAndShowModalAlertDialog(Context context, int titleTextId, int descriptionTextId,

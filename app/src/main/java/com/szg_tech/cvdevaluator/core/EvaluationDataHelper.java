@@ -1,7 +1,7 @@
 package com.szg_tech.cvdevaluator.core;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.entities.EvaluationItem;

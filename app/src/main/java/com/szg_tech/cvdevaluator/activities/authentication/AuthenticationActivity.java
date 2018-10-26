@@ -3,7 +3,7 @@ package com.szg_tech.cvdevaluator.activities.authentication;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.activities.main.MainActivity;

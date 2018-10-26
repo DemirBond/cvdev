@@ -1,8 +1,8 @@
 package com.szg_tech.cvdevaluator.core;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class AbstractPresenter<T extends MVPView> implements Presenter {
 

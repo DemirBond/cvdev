@@ -2,11 +2,10 @@ package com.szg_tech.cvdevaluator.core.views.cell;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 
 import com.szg_tech.cvdevaluator.R;
 import com.szg_tech.cvdevaluator.core.views.CustomTextView;
