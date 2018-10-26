@@ -7,7 +7,6 @@ import android.arch.lifecycle.OnLifecycleEvent;
 import android.arch.lifecycle.ProcessLifecycleOwner;
 import android.content.Intent;
 
-import com.squareup.leakcanary.LeakCanary;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 
 import io.realm.Realm;

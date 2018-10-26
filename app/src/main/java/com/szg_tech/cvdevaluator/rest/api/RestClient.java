@@ -6,13 +6,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.szg_tech.cvdevaluator.storage.PreferenceHelper;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -46,10 +43,15 @@ public class RestClient
     public void init(String token) {
         Gson gson = new GsonBuilder().create();
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         // Add the interceptor to OkHttpClient
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.interceptors().add(new AuthenticationInterceptor(token));
-        builder.connectTimeout(120, TimeUnit.SECONDS)
+        builder
+                .addInterceptor(logging)
+                .connectTimeout(120, TimeUnit.SECONDS)
                 .writeTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS);
         OkHttpClient client = builder.build();

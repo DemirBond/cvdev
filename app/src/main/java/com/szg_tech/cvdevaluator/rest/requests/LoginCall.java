@@ -18,6 +18,8 @@ public class LoginCall {
         Credentials credentials = PreferenceHelper.getCredentials(context);
         if(!credentials.isEmpty()) {
             tryLogin(credentials.getEmail(), credentials.getPassword(), context, callback);
+        } else {
+            callback.onFailed();
         }
     }
 

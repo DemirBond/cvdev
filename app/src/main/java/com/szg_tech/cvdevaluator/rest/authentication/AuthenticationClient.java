@@ -7,6 +7,7 @@ import com.szg_tech.cvdevaluator.rest.api.RestClient;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -24,10 +25,14 @@ public class AuthenticationClient {
         Gson gson = new GsonBuilder()
                 .create();
 
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         // Add the interceptor to OkHttpClient
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(120, TimeUnit.SECONDS)
+        builder
+                .addInterceptor(logging)
+                .connectTimeout(120, TimeUnit.SECONDS)
                 .writeTimeout(120, TimeUnit.SECONDS)
                 .readTimeout(120, TimeUnit.SECONDS);
         OkHttpClient client = builder.build();
