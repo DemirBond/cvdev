@@ -62,7 +62,14 @@ class POMeds extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(CHLORTHALIDONE_METOLAZONE, getString(R.string.chlorthalidone_metolazone)));
                     }
                 }));
-                add(new BooleanEvaluationItem(CCB_OTHER_VASOLIDATORS, getString(R.string.ccb_other_vasolidators)));
+                add(new BooleanEvaluationItem(CCB_OTHER_VASOLIDATORS, "CCB "));
+                add(new SectionCheckboxEvaluationItem(VASODILATOR, "Other Vasodilators", new ArrayList<EvaluationItem>() {
+                    {
+                        add(new BooleanEvaluationItem(HYDRALAZINE, "Hydralazine"));
+                        add(new BooleanEvaluationItem(NITRATE, "Nitrates"));
+
+                    }
+                }));
                 add(new BooleanEvaluationItem(CURRENT_VKA_THERAPY, getString(R.string.current_vka_therapy)));
                 add(new BooleanEvaluationItem(DIRECT_THROMBIN_INHIBITORS, getString(R.string.direct_thrombin_inhibitors)));
                 add(new BooleanEvaluationItem(FACTOR_XA_INHIBITORS, getString(R.string.factor_xa_inhibitors)));

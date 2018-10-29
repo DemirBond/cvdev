@@ -948,6 +948,9 @@ public class ConfigurationParams {
 
     // Evaluation -> Current Therapies -> PO Meds:
     public static final String CCB_OTHER_VASOLIDATORS = "chkCCB";
+    public static final String VASODILATOR = "chkvasodilator";
+    public static final String HYDRALAZINE = "chkvasodilator";
+    public static final String NITRATE = "chkvasodilator";
     public static final String CURRENT_VKA_THERAPY = "chkVKA";
     public static final String DIRECT_THROMBIN_INHIBITORS = "chkCAC";
     public static final String FACTOR_XA_INHIBITORS = "chkFactorX";
