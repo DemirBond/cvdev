@@ -56,11 +56,16 @@ class Pulmonary extends SectionEvaluationItem {
                 add(new SectionCheckboxEvaluationItem(LUNG_COPD, "COPD", new ArrayList<EvaluationItem>() {
                     {
                         add(new BooleanEvaluationItem(ACUTE_EXACERBATION, "Acute exacerbation"));
-                        add(new BooleanEvaluationItem(COPDEX, " More than 1 COPD exacerbation/year "));
-                        add(new BooleanEvaluationItem(COPDHOS, " One or more hospital admission/year "));
+                        add(new BooleanEvaluationItem(COPDEX, "More than 1 COPD exacerbation/year "));
+                        add(new BooleanEvaluationItem(COPDHOS, "One or more hospital admission/year "));
                     }
                 }));
                 add(new BooleanEvaluationItem(ILD, "Interstitial lung disease"));
+                add(new SectionCheckboxEvaluationItem(OSA, "OSA", new ArrayList<EvaluationItem>() {
+                    {
+                        add(new NumericalEvaluationItem(AHI, "AHI ", "Value", 0, 112, true));
+                    }
+                }));
             }
         };
     }

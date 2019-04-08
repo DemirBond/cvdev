@@ -72,6 +72,8 @@ class PhysicalExam extends SectionEvaluationItem {
                                             {
                                                 add(new BooleanEvaluationItem(EARLY_MID_SYSTOLIC_PEAKING, getString(R.string.early_mid_systolic_peaking)));
                                                 add(new BooleanEvaluationItem(LATE_SYSTOLIC_PEAKING, getString(R.string.late_systolic_peaking)));
+                                                add(new BooleanEvaluationItem(SOFTER_WITH_SQUAT, " Softer with squad"));
+                                                add(new BooleanEvaluationItem(SOFTER_WITH_STANDING, " Softer with standing"));
                                             }
                                         }));
                                         add(new SectionCheckboxEvaluationItem(PLATEAU_SHAPED, getString(R.string.plateau_shaped), new ArrayList<EvaluationItem>() {
@@ -81,7 +83,7 @@ class PhysicalExam extends SectionEvaluationItem {
                                                 add(new BooleanEvaluationItem(MIDSYSTOLIC, getString(R.string.midsystolic)));
                                             }
                                         }));
-                                        add(new BooleanEvaluationItem(SOFTER_WITH_SQUAT, getString(R.string.softer_with_squat)));
+
                                         add(new BooleanEvaluationItem(EJECTION_SOUND, "Ejection sound"));
                                         add(new BooleanEvaluationItem(SYSTOLIC_CLICK, "Systolic click"));
                                     }
@@ -105,12 +107,15 @@ class PhysicalExam extends SectionEvaluationItem {
                 add(new BooleanEvaluationItem(NEW_RALES, getString(R.string.new_rales)));
                 add(new BooleanEvaluationItem(PULMONARY_EDEMA, "Diffuse mixed ralles"));
                 add(new BooleanEvaluationItem(DIMINISHED_BREATH_SOUNDS, getString(R.string.diminished_breath_sounds)));
-                add(new BooleanEvaluationItem(DRY_RALES, "Dry rales"));
+                add(new BooleanEvaluationItem(DRY_RALES, "Dry rales, rhonchi "));
                 add(new BooleanEvaluationItem(PERCUSSION, "Abnormal resonance to percussion"));
                 add(new BooleanEvaluationItem(INCREASED_THORAX_DIAMETER, "Increased thorax AP diameter"));
 
-                add(new BooleanEvaluationItem(ABDOMINAL_TENDERNESS, getString(R.string.abdominal_tenderness)));
+                add(new BooleanEvaluationItem(ABDOMINAL_TENDERNESS, "Abdominal tenderness"));
+                add(new BooleanEvaluationItem(ABDOMINAL_DISTENTION, "Abdominal distention"));
+                add(new BooleanEvaluationItem(ABDOMINAL_BOWEL, "Abnormal bowel sounds"));
                 add(new BooleanEvaluationItem(HJR, "Hepato jugular reflux"));
+                add(new BooleanEvaluationItem(COSTO_VERTEBRAL, "Costovertebral tenderness"));
                 add(new BooleanEvaluationItem(ASCITES, "Ascites"));
                 add(new BooleanEvaluationItem(ANY_CNS_SYMPTOMS, getString(R.string.any_cns_symptoms)));
                 add(new SectionCheckboxEvaluationItem(SYMCYANOSIS, "Cyanosis", new ArrayList<EvaluationItem>() {

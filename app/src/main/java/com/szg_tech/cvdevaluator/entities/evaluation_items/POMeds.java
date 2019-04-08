@@ -60,6 +60,7 @@ class POMeds extends SectionEvaluationItem {
                         add(new BooleanEvaluationItem(HCTZ, getString(R.string.hctz)));
                         add(new BooleanEvaluationItem(INDAPAMIDE, getString(R.string.indapamide)));
                         add(new BooleanEvaluationItem(CHLORTHALIDONE_METOLAZONE, getString(R.string.chlorthalidone_metolazone)));
+                        add(new BooleanEvaluationItem(SPIROLACTONE, "Spirolactone"));
                     }
                 }));
                 add(new BooleanEvaluationItem(CCB_OTHER_VASOLIDATORS, "CCB "));

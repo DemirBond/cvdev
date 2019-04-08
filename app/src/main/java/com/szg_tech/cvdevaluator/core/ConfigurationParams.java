@@ -341,6 +341,7 @@ public class ConfigurationParams {
     public static final String PANSYSTOLIC = "chkPansystolic";
     public static final String MIDSYSTOLIC = "chkMidsystolic";
     public static final String SOFTER_WITH_SQUAT = "chksquat";
+    public static final String SOFTER_WITH_STANDING = "chkstanding";
     public static final String EJECTION_SOUND = "chkejectionsound";
     public static final String SYSTOLIC_CLICK = "chksystolicclick";
     public static final String DIASTOLIC_MURMUR = "chkDiastolicMurmur";
@@ -355,6 +356,9 @@ public class ConfigurationParams {
     public static final String PERCUSSION = "chkpercussion";
     public static final String INCREASED_THORAX_DIAMETER = "chkthorax";
     public static final String ABDOMINAL_TENDERNESS = "chkabdominal";
+    public static final String ABDOMINAL_DISTENTION = "chkdistention";
+    public static final String ABDOMINAL_BOWEL = "chkbowelsounds";
+    public static final String COSTO_VERTEBRAL = "chkcostovertebral";
     public static final String HJR = "chkHJR";
     public static final String ASCITES = "chkascites";
     public static final String ANY_CNS_SYMPTOMS = "chkAMS";
@@ -748,6 +752,8 @@ public class ConfigurationParams {
     public static final String K_MEQ_L = "txtHomo";
     public static final String CREATININE_MG_DL = "txtcreatinine";
     public static final String BUN_MG_DL = "txtBUN";
+    public static final String ALT = "txtALT";
+    public static final String AST = "txtAST";
     public static final String HEMOGLOBIN = "txthemoglobin";
     public static final String FASTING_PLASMA_GLUCOSE = "txtGlucose";
     public static final String GFR_ML_MIN = "txtGFR";
@@ -863,6 +869,8 @@ public class ConfigurationParams {
     public static final String ENLARGED_LA_OR_LVH = "chkEnlargedLA";
     public static final String E_A_LESS_05_AND_DT_MORE_280MS = "chkLVeccenticity";
     public static final String GRADE_MORE_2_DIASTOLIC_DYSFUNCTION = "chkMPI";
+    public static final String GRADE_MORE_1_DIASTOLIC_DYSFUNCTION = "chkMPI1";
+    public static final String GRADE_MORE_12_DIASTOLIC_DYSFUNCTION = "chkMPI2";
     public static final String RESPIRATORY_IVS_SHIFT = "chkIVSshift";
     public static final String MITRAL_E_VARIATION = "chkmitralE";
     public static final String HEPATIC_VEIN_EXP_DIASTOLIC_REVERSAL = "chkhepatic";
@@ -870,9 +878,11 @@ public class ConfigurationParams {
     public static final String ENLARGED_RV = "chkEnlargedRV";
     public static final String MIDSYSTOLIC_NOTCH = "chkmidsystolicn";
     public static final String LV_LATEREAL_ANNULUS_E_E = "txtMP";
+    public static final String LV_LATERAL_ANNULUS_E_E = "txtMPL";
+    public static final String LV_MEDIAL_ANNULUS_E_E = "txtMPM";
     public static final String LVEF_ECHO = "txtEF";
     public static final String TRJ_VELOCITY = "txtTRJ";
-
+    public static final String TAPSE = "txtTAPSE";
     // Evaluation -> Diagnostics -> Chest x-ray:
     public static final String CHEST_X_RAY = "chkchestxray";
     public static final String RIGHT_PLEURAL_EFFUSION = "chkRPLE";
@@ -945,7 +955,7 @@ public class ConfigurationParams {
     public static final String HCTZ = "chkHCTZ";
     public static final String INDAPAMIDE = "chkindapamide";
     public static final String CHLORTHALIDONE_METOLAZONE = "chkchlorthalidone";
-
+    public static final String SPIROLACTONE= "chkaldactone";
     // Evaluation -> Current Therapies -> PO Meds:
     public static final String CCB_OTHER_VASOLIDATORS = "chkCCB";
     public static final String VASODILATOR = "chkvasodilator";

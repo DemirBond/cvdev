@@ -14,7 +14,8 @@ import com.szg_tech.cvdevaluator.entities.evaluation_item_elements.StringEvaluat
 
 import java.util.ArrayList;
 
-class Bio extends SectionEvaluationItem {
+class
+Bio extends SectionEvaluationItem {
 
     Bio(Context context) {
         super(context, BIO, null);

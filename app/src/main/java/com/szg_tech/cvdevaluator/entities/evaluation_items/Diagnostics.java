@@ -133,20 +133,37 @@ class Diagnostics extends SectionEvaluationItem {
                 }));
                 add(new SectionCheckboxEvaluationItem(ECHOCARDIOGRAPHY, getString(R.string.echocardiography), new ArrayList<EvaluationItem>() {
                     {
-                        add(new BooleanEvaluationItem(PERICARDIAL_EFFUSION, getString(R.string.pericardial_effusion)));
+
+                        add(new NumericalEvaluationItem(LVEF_ECHO, " LVEF" ,"value", 10, 80, true));
                         add(new BooleanEvaluationItem(RWMA, getString(R.string.rwma)));
-                        add(new BooleanEvaluationItem(ENLARGED_LA_OR_LVH, getString(R.string.enlarged_la_or_lvh)));
-                        add(new BooleanEvaluationItem(E_A_LESS_05_AND_DT_MORE_280MS, getString(R.string.e_a_less_05_and_dt_more_280ms)));
-                        add(new BooleanEvaluationItem(GRADE_MORE_2_DIASTOLIC_DYSFUNCTION, getString(R.string.grade_more_2_diastolic_dysfunction)));
-                        add(new BooleanEvaluationItem(RESPIRATORY_IVS_SHIFT, getString(R.string.respiratory_ivs_shift)));
-                        add(new BooleanEvaluationItem(MITRAL_E_VARIATION, getString(R.string.mitral_e_variation)));
-                        add(new BooleanEvaluationItem(HEPATIC_VEIN_EXP_DIASTOLIC_REVERSAL, getString(R.string.hepatic_vein_exp_diastolic_reversal)));
+                        add(new NumericalEvaluationItem(LV_LATEREAL_ANNULUS_E_E, "E/Average E'","value", 1, 30, true));
+                        add(new NumericalEvaluationItem(LV_LATERAL_ANNULUS_E_E, " LV lateral annulus E'" ,"value", 1, 80, true));
+                        add(new NumericalEvaluationItem(LV_MEDIAL_ANNULUS_E_E, " LV medial annulus E'" ,"value", 1, 80, true));
+                        add(new BooleanEvaluationItem(ENLARGED_LA_OR_LVH, "Enlarged LA"));
+                        add(new BooleanEvaluationItem(E_A_LESS_05_AND_DT_MORE_280MS, "E more than 50cm/s "));
+                        add(new BooleanEvaluationItem(GRADE_MORE_2_DIASTOLIC_DYSFUNCTION, "E/A more than 2"));
+                        add(new BooleanEvaluationItem(GRADE_MORE_1_DIASTOLIC_DYSFUNCTION, "E/A less than 0.8"));
+                        add(new BooleanEvaluationItem(GRADE_MORE_12_DIASTOLIC_DYSFUNCTION, "E/A 0.8 to 2"));
+
+                        add(new NumericalEvaluationItem(TRJ_VELOCITY, "TRJ Velocity m/sec","value", 1, 6, false));
+                        add(new NumericalEvaluationItem(TAPSE, "TAPSE","value", 1, 6, false));
                         add(new BooleanEvaluationItem(ENLARGED_RA, getString(R.string.enlarged_ra)));
                         add(new BooleanEvaluationItem(ENLARGED_RV, getString(R.string.enlarged_rv)));
-                        add(new BooleanEvaluationItem(MIDSYSTOLIC_NOTCH, getString(R.string.midsystolic_notch)));
-                        add(new NumericalEvaluationItem(LV_LATEREAL_ANNULUS_E_E, getString(R.string.lv_latereal_annulus_e_e), getString(R.string.value), 1, 30, true));
-                        add(new NumericalEvaluationItem(LVEF_ECHO, getString(R.string.lvef), getString(R.string.value), 10, 80, true));
-                        add(new NumericalEvaluationItem(TRJ_VELOCITY, getString(R.string.trj_velocity), getString(R.string.value), 1, 6, false));
+                        add(new SectionCheckboxEvaluationItem(CHECK_IF_RVOT_PW_DONE, "RVOT DOPPLER ", new ArrayList<EvaluationItem>() {
+                            {
+                                add(new BooleanEvaluationItem(SHORT_PAAT, "Short PAAT"));
+                                add(new BooleanEvaluationItem(MIDSYSTOLIC_NOTCH, "Midsystolic notch"));
+                            }
+                        }));
+
+
+
+
+
+                        add(new BooleanEvaluationItem(PERICARDIAL_EFFUSION, "Pericardial Effusion"));
+                        add(new BooleanEvaluationItem(RESPIRATORY_IVS_SHIFT, "Respratory IVS Shift"));
+                        add(new BooleanEvaluationItem(MITRAL_E_VARIATION, "Mitral E Variation"));
+                        add(new BooleanEvaluationItem(HEPATIC_VEIN_EXP_DIASTOLIC_REVERSAL, "Hepatic Vein Exp Diastolic Reversal"));
                     }
                 }));
                 add(new SectionCheckboxEvaluationItem(CHEST_X_RAY, "Chest x-ray", new ArrayList<EvaluationItem>() {

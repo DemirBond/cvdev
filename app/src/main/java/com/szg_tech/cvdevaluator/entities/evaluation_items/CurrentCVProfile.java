@@ -211,7 +211,7 @@ class CurrentCVProfile extends SectionEvaluationItem {
                     {
                         add(new SectionEvaluationItem( tempContext, THROMBOEMBOLIC_PREVENTION_VKA_THERAPY, "Thromboembolism / VKA ", new ArrayList<EvaluationItem>() {
                             {
-                                add(new NumericalEvaluationItem(INR, getString(R.string.inr), getString(R.string.value), 0.5, 100, false));
+
                                 add(new SectionCheckboxEvaluationItem(PATIENT_BLEED_RISK, "Patient related bleeding risk", new ArrayList<EvaluationItem>() {
                                     {
                                         add(new BooleanEvaluationItem(ACTIVE_GASTRODUODENAL_ULCER, getString(R.string.active_gastroduodenal_ulcer)));
@@ -370,7 +370,7 @@ class CurrentCVProfile extends SectionEvaluationItem {
                         add(new SectionEvaluationItem(tempContext, PERIPHERIC_VASCULAR_DISEASE, getString(R.string.peripheric_vascular_disease), new ArrayList<EvaluationItem>() {
                             {
                                 add(new BooleanEvaluationItem(ABI_LESS_09, getString(R.string.abi_less_09)));
-                                add(new BooleanEvaluationItem(CLAUDICATION, getString(R.string.claudication)));
+
                                 add(new BooleanEvaluationItem(CRITICAL_LIMB_ISCHEMIA, getString(R.string.critical_limb_ischemia)));
                                 add(new BooleanEvaluationItem(ENDOVASCULAR_REVASCULARIZATION, getString(R.string.endovascular_revascularization)));
                                 add(new BooleanEvaluationItem(PERIPHERAL_ARTERY_BYPASS_GRAFT, getString(R.string.peripheral_artery_bypass_graft)));

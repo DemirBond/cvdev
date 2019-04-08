@@ -38,6 +38,9 @@ class Laboratories extends SectionEvaluationItem {
                 add(new NumericalEvaluationItem(BUN_MG_DL, getString(R.string.bun_mg_dl), getString(R.string.value), 6, 200, true));
                 add(new NumericalEvaluationItem(FASTING_PLASMA_GLUCOSE, "Glucose mg/dl", getString(R.string.value), 35, 1000, true));
                 add(new NumericalEvaluationItem(HEMOGLOBIN , "Hemoglobin mg/dl", "Value", 3, 25, true));
+                add(new NumericalEvaluationItem(ALT , "ALT", "Value", 3, 250000, true));
+                add(new NumericalEvaluationItem(AST , "AST", "Value", 3, 250000, true));
+                add(new NumericalEvaluationItem(INR, "INR", "value", 0.5, 100, false));
                 add(new NumericalEvaluationItem(GFR_ML_MIN, "GFR", "Value", 5, 120, true) {
 
                 });

@@ -51,11 +51,11 @@ class Symptoms extends SectionEvaluationItem {
 
             String dyspneaGroupNameSecond = "dyspnea2";
             add(new EmptyCellEvaluationItem());
-            add(new RadioButtonGroupEvaluationItem(OUTPATIENT, " Slowly progressive / Ambulatory ", dyspneaGroupNameSecond, false) {{
+            add(new RadioButtonGroupEvaluationItem(OUTPATIENT, " Slowly progressive  ", dyspneaGroupNameSecond, false) {{
                 setBackgroundHighlighted(true);
             }
             });
-            add(new RadioButtonGroupEvaluationItem(EMERGENCY_ROOM, "Worsening / Emergency room ", dyspneaGroupNameSecond, false) {{
+            add(new RadioButtonGroupEvaluationItem(EMERGENCY_ROOM, "Rapidly progressive  ", dyspneaGroupNameSecond, false) {{
                 setBackgroundHighlighted(true);
             }
             });
@@ -66,16 +66,7 @@ class Symptoms extends SectionEvaluationItem {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new RadioButtonGroupEvaluationItem(DAY2, " Day 2", IN_HOSPITAL, false) {
-                            {
-                                setBackgroundHighlighted(true);
-                            }
-                        });
-                        add(new RadioButtonGroupEvaluationItem(DAY3, " Day 3", IN_HOSPITAL, false) {
-                            {
-                                setBackgroundHighlighted(true);
-                            }
-                        });
+
                     }}
             ) {
                 {
@@ -389,10 +380,10 @@ class Symptoms extends SectionEvaluationItem {
                                 setBackgroundHighlighted(true);
                             }
                         });
-                        add(new BooleanEvaluationItem(PAL_SUDDEN, "Normal sinus rhtym"));
-                        add(new BooleanEvaluationItem(PAL_POSITION, "Regular RR, other than sinus "));
-                        add(new BooleanEvaluationItem(PAL_EXERTION, "Irregular RR, other than sinus"));
-                        add(new BooleanEvaluationItem(PAL_POSTEXERTION, "Irregular RR, other than sinus"));
+                        add(new BooleanEvaluationItem(PAL_SUDDEN, "Sudden onset"));
+                        add(new BooleanEvaluationItem(PAL_POSITION, "Position change "));
+                        add(new BooleanEvaluationItem(PAL_EXERTION, "Exertional"));
+                        add(new BooleanEvaluationItem(PAL_POSTEXERTION, "Post exertion"));
                     }
                 }));
             items.add(new SectionCheckboxEvaluationItem(ABDOMINAL, "Abdominal pain", new ArrayList<EvaluationItem>() {{
